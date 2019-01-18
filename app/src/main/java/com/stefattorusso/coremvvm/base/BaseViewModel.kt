@@ -1,12 +1,18 @@
 package com.stefattorusso.coremvvm.base
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.stefattorusso.coremvvm.di.annotation.ViewModelKey
-import com.stefattorusso.coremvvm.ui.main.MainViewModel
-import dagger.Binds
-import dagger.multibindings.IntoMap
+import com.stefattorusso.coremvvm.data.models.ErrorData
+import io.reactivex.disposables.CompositeDisposable
 
 open class BaseViewModel : ViewModel() {
 
+    val loader: MutableLiveData<Boolean> = MutableLiveData()
+    val error: MutableLiveData<ErrorData?> = MutableLiveData()
+    var compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
 }
