@@ -1,6 +1,6 @@
 package com.stefattorusso.coremvvm
 
-import com.stefattorusso.coremvvm.di.DaggerAppComponent
+import com.stefattorusso.coremvvm.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 

@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.data.models
+package com.stefattorusso.commons
 
 class ErrorData (message: String = "", errorCode: String = "", throwable: Throwable? = null){
     var message: String = message

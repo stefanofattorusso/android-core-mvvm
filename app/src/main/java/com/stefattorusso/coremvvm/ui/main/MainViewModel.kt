@@ -3,11 +3,12 @@ package com.stefattorusso.coremvvm.ui.main
 import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.BaseViewModel
 import com.stefattorusso.coremvvm.base.network.ApiSingleObserver
-import com.stefattorusso.coremvvm.data.models.ErrorData
+import com.stefattorusso.commons.ErrorData
 import com.stefattorusso.coremvvm.data.models.RepoDTO
 import com.stefattorusso.coremvvm.data.models.RepoSearchResponse
 import com.stefattorusso.coremvvm.data.repositories.DataRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
@@ -21,15 +22,14 @@ class MainViewModel @Inject constructor(private val dataRepository: DataReposito
     }
 
     fun searchRepos(query: String) {
-
         displayLoader(true)
 
         dataRepository.searchRepositories(query)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : ApiSingleObserver<RepoSearchResponse>(compositeDisposable) {
                 override fun onError(e: ErrorData) {
-                    displayLoader(false)
-                    error.value = e
+
                 }
 
                 override fun onSuccess(data: RepoSearchResponse) {

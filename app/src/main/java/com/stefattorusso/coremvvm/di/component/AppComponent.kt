@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.di
+package com.stefattorusso.coremvvm.di.component
 
 import com.stefattorusso.coremvvm.MVVMApplication
 import com.stefattorusso.coremvvm.di.annotation.ApplicationScope

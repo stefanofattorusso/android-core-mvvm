@@ -1,6 +1,6 @@
 package com.stefattorusso.coremvvm.base.network
 
-import com.stefattorusso.coremvvm.data.models.ErrorData
+import com.stefattorusso.commons.ErrorData
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

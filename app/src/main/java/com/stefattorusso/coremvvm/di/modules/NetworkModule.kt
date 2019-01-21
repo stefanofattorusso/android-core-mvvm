@@ -1,9 +1,10 @@
 package com.stefattorusso.coremvvm.di.modules
 
 import android.util.Log
-import com.stefattorusso.coremvvm.di.annotation.ApplicationScope
+import com.stefattorusso.coremvvm.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,19 +14,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 @Module
-class NetworkModule{
+@Suppress("unused")
+object NetworkModule {
 
     @Provides
-    @ApplicationScope
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+    @Reusable
+    @JvmStatic
+    internal fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Log.i("MVVM", it) })
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
     }
 
     @Provides
-    @ApplicationScope
-    fun provideOkhttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    @Reusable
+    @JvmStatic
+    internal fun provideOkhttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
@@ -34,10 +38,11 @@ class NetworkModule{
     }
 
     @Provides
-    @ApplicationScope
-    fun provideRetrofit(okhttpClient: OkHttpClient): Retrofit {
+    @Reusable
+    @JvmStatic
+    internal fun provideRetrofit(okhttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.github.com")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .client(okhttpClient)
