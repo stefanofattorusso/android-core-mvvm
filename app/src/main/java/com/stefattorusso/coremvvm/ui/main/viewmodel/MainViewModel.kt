@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.ui.main
+package com.stefattorusso.coremvvm.ui.main.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.BaseViewModel

@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.ui.main
+package com.stefattorusso.coremvvm.ui.main.view
 
 import dagger.Module
 

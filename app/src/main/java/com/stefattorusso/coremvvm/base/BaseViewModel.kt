@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.stefattorusso.commons.ErrorData
 import io.reactivex.disposables.CompositeDisposable
 
-open class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     val loader: MutableLiveData<Boolean> = MutableLiveData()
     val error: MutableLiveData<ErrorData?> = MutableLiveData()

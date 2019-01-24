@@ -1,7 +1,7 @@
 package com.stefattorusso.coremvvm.di.modules
 
 import com.stefattorusso.coremvvm.data.services.ApiService
-import com.stefattorusso.coremvvm.di.annotation.ApplicationScope
+import com.stefattorusso.coremvvm.di.scope.ApplicationScope
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

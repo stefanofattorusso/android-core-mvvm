@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.di.annotation
+package com.stefattorusso.coremvvm.di.scope
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

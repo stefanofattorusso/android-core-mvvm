@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.ui.main
+package com.stefattorusso.coremvvm.ui.main.view
 
 import android.os.Bundle
 import android.util.Log
@@ -6,24 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_main.*
-import javax.inject.Inject
+import com.stefattorusso.coremvvm.databinding.FragmentMainBinding
+import com.stefattorusso.coremvvm.ui.main.viewmodel.MainViewModel
 
-class MainFragment : BaseFragment() {
+class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var mainViewModel: MainViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-    }
+    override val mViewModelClass: Class<MainViewModel>
+        get() = MainViewModel::class.java
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -32,16 +23,16 @@ class MainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeLoader(mainViewModel, loaderView)
-
         observeSearchResults()
 
         //init a query
-        mainViewModel.searchRepos("android")
+        mViewDataBinding?.isLoading = true
+        mViewModel.searchRepos("android")
     }
 
     private fun observeSearchResults() {
-        mainViewModel.repoList.observe(this, Observer {
+        mViewModel.repoList.observe(this, Observer {
+            mViewDataBinding?.isLoading = false
             Log.i("MVVM", "repo count received  ${it?.size}")
         })
     }

@@ -1,13 +1,26 @@
 package com.stefattorusso.coremvvm
 
-import com.stefattorusso.coremvvm.di.component.DaggerAppComponent
+import android.app.Activity
+import android.app.Application
+import com.stefattorusso.coremvvm.di.AppInjector
 import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
-class MVVMApplication : DaggerApplication() {
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().create(this)
+class MVVMApplication : Application(), HasActivityInjector {
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+
+    override fun onCreate() {
+        super.onCreate()
+        AppInjector.init(this)
+    }
+
+    override fun activityInjector(): AndroidInjector<Activity> {
+        return dispatchingAndroidInjector
     }
 
 }

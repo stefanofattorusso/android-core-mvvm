@@ -1,8 +1,8 @@
 package com.stefattorusso.coremvvm.di.modules
 
-import com.stefattorusso.coremvvm.di.annotation.ActivityScope
-import com.stefattorusso.coremvvm.ui.main.MainActivity
-import com.stefattorusso.coremvvm.ui.main.MainActivityModule
+import com.stefattorusso.coremvvm.di.scope.ActivityScope
+import com.stefattorusso.coremvvm.ui.main.view.MainActivity
+import com.stefattorusso.coremvvm.ui.main.view.MainActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

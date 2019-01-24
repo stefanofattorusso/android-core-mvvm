@@ -1,13 +1,32 @@
 package com.stefattorusso.coremvvm.base
 
+import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
-import dagger.android.support.DaggerFragment
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
+import javax.inject.Inject
 
-abstract class BaseFragment : DaggerFragment(){
-    fun observeLoader(viewModel: BaseViewModel, loaderView: View) {
-        viewModel.loader.observe(this, Observer {
-            loaderView.visibility = if(it != null && it) View.VISIBLE else View.GONE
-        })
+abstract class BaseFragment<VM : BaseViewModel, VDB : ViewDataBinding> : Fragment(), HasSupportFragmentInjector,
+    Injectable {
+
+    @Inject
+    lateinit var mChildFragmentInjector: DispatchingAndroidInjector<Fragment>
+    @Inject
+    lateinit var mViewModelFactory: ViewModelFactory
+
+    protected abstract val mViewModelClass: Class<VM>
+    protected val mViewModel: VM by lazy { ViewModelProvider(this, mViewModelFactory).get(mViewModelClass) }
+    protected var mViewDataBinding: VDB? = null
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mViewDataBinding = DataBindingUtil.bind(view)
     }
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = mChildFragmentInjector
 }

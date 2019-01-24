@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.di.annotation
+package com.stefattorusso.coremvvm.di.scope
 
 import javax.inject.Scope
 

@@ -2,7 +2,7 @@ package com.stefattorusso.coremvvm.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.stefattorusso.coremvvm.di.annotation.ApplicationScope
+import com.stefattorusso.coremvvm.di.scope.ApplicationScope
 import javax.inject.Inject
 import javax.inject.Provider
 
