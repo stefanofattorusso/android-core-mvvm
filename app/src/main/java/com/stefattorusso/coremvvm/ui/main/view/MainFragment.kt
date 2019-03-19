@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.databinding.FragmentMainBinding
+import kotlinx.android.synthetic.main.fragment_main.*
 import timber.log.Timber
 
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
@@ -23,6 +25,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         observeSearchResults()
+        setUpViews()
 
         mViewDataBinding?.isLoading = true
         mViewModel.loadData()
@@ -33,5 +36,12 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
             mViewDataBinding?.isLoading = false
             Timber.i("repo count received  ${it?.size}")
         })
+    }
+
+    private fun setUpViews(){
+        recycler_view.run {
+            layoutManager = GridLayoutManager(context, 2)
+
+        }
     }
 }

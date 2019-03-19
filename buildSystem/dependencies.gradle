@@ -56,11 +56,11 @@ ext {
 
     //Modules
     def modules = [
-            app    : ':app',
-            domain : ':domain',
-            data   : ':data',
-            commons: ':commons'
-//            components: ':components',
+            app       : ':app',
+            domain    : ':domain',
+            data      : ':data',
+            commons   : ':commons',
+            components: ':components',
 //            resources : ':resources'
     ]
 
@@ -91,7 +91,7 @@ ext {
             [configuration: "implementation", dependency: otherLibs.glide],
             [configuration: "kapt", dependency: otherLibs.glideCompiler],
 
-//            [configuration: "implementation", dependency: project(modules.components)],
+            [configuration: "implementation", dependency: project(modules.components)],
             [configuration: "implementation", dependency: project(modules.commons)],
             [configuration: "implementation", dependency: project(modules.domain)],
             [configuration: "implementation", dependency: project(modules.data)]
@@ -124,7 +124,21 @@ ext {
             [configuration: "api", dependency: project(modules.commons)]
     ]
 
+    componentsDependencies = [
+            [configuration: "implementation", dependency: androidXLibs.core],
+            [configuration: "implementation", dependency: androidXLibs.cardview],
+            [configuration: "implementation", dependency: androidXLibs.appcompat],
+            [configuration: "implementation", dependency: androidXLibs.recyclerview],
+            [configuration: "implementation", dependency: androidXLibs.material],
+            [configuration: "implementation", dependency: androidXLibs.constraintlayout],
+            [configuration: "implementation", dependency: otherLibs.kotlin],
+            [configuration: "kapt", dependency: androidXLibs.databinding],
+
+            [configuration: "api", dependency: project(modules.commons)]
+    ]
+
     commonsDependencies = [
+            [configuration: "implementation", dependency: androidXLibs.recyclerview],
             [configuration: "implementation", dependency: otherLibs.timber],
             [configuration: "implementation", dependency: otherLibs.coroutines],
             [configuration: "implementation", dependency: otherLibs.kotlin]
