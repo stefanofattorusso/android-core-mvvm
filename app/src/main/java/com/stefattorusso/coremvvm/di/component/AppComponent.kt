@@ -1,33 +1,23 @@
 package com.stefattorusso.coremvvm.di.component
 
-import android.app.Application
-import com.stefattorusso.coremvvm.MVVMApplication
-import com.stefattorusso.coremvvm.di.modules.*
-import com.stefattorusso.coremvvm.di.scope.ApplicationScope
-import dagger.BindsInstance
+import com.stefattorusso.coremvvm.base.BaseApplication
+import com.stefattorusso.coremvvm.base.BaseApplicationModule
+import com.stefattorusso.coremvvm.di.modules.ActivityBuilderModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import javax.inject.Singleton
 
-@ApplicationScope
+@Singleton
 @Component(
     modules = arrayOf(
         AndroidSupportInjectionModule::class,
-        ApplicationModule::class,
-        ActivityBuilderModule::class,
-        NetworkServiceModule::class,
-        ViewModelModule::class
+        BaseApplicationModule::class,
+        ActivityBuilderModule::class
     )
 )
-interface AppComponent : AndroidInjector<MVVMApplication> {
+interface AppComponent : AndroidInjector<BaseApplication> {
 
     @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
-
-        fun build(): AppComponent
-    }
-
-    override fun inject(application: MVVMApplication)
+    abstract class Builder : AndroidInjector.Builder<BaseApplication>()
 }

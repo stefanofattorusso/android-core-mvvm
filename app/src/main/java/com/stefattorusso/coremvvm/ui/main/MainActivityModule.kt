@@ -1,6 +1,8 @@
-package com.stefattorusso.coremvvm.ui.main.view
+package com.stefattorusso.coremvvm.ui.main
 
 import com.stefattorusso.coremvvm.di.scope.FragmentScope
+import com.stefattorusso.coremvvm.ui.main.view.MainFragment
+import com.stefattorusso.coremvvm.ui.main.view.MainFragmentModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

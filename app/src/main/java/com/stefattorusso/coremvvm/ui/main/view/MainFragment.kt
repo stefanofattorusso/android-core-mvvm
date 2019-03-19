@@ -1,7 +1,6 @@
 package com.stefattorusso.coremvvm.ui.main.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.lifecycle.Observer
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.databinding.FragmentMainBinding
-import com.stefattorusso.coremvvm.ui.main.viewmodel.MainViewModel
+import timber.log.Timber
 
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
@@ -25,15 +24,14 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
         observeSearchResults()
 
-        //init a query
         mViewDataBinding?.isLoading = true
-        mViewModel.searchRepos("android")
+        mViewModel.loadData()
     }
 
     private fun observeSearchResults() {
-        mViewModel.repoList.observe(this, Observer {
+        mViewModel.imageList.observe(this, Observer {
             mViewDataBinding?.isLoading = false
-            Log.i("MVVM", "repo count received  ${it?.size}")
+            Timber.i("repo count received  ${it?.size}")
         })
     }
 }

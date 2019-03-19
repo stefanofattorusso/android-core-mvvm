@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.stefattorusso.coremvvm.MVVMApplication
+import com.stefattorusso.coremvvm.base.BaseApplication
 import com.stefattorusso.coremvvm.base.Injectable
 import com.stefattorusso.coremvvm.di.component.DaggerAppComponent
 import dagger.android.AndroidInjection
@@ -16,10 +16,9 @@ import dagger.android.support.HasSupportFragmentInjector
 object AppInjector {
 
     @JvmStatic
-    fun init(application: MVVMApplication) {
+    fun init(application: BaseApplication) {
         DaggerAppComponent.builder()
-            .application(application)
-            .build()
+            .create(application)
             .inject(application)
 
         application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {

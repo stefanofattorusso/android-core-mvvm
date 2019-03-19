@@ -1,8 +1,9 @@
-package com.stefattorusso.coremvvm.ui.main.view
+package com.stefattorusso.coremvvm.ui.main
 
 import android.os.Bundle
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseActivity
+import com.stefattorusso.coremvvm.ui.main.view.MainFragment
 
 class MainActivity : BaseActivity() {
 
