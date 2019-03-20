@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.databinding.FragmentMainBinding
+import com.stefattorusso.coremvvm.ui.main.adapter.MainAdapter
 import kotlinx.android.synthetic.main.fragment_main.*
-import timber.log.Timber
 
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
+
+    private lateinit var mAdapter: MainAdapter
 
     override val mViewModelClass: Class<MainViewModel>
         get() = MainViewModel::class.java
@@ -32,16 +34,17 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
     }
 
     private fun observeSearchResults() {
-        mViewModel.imageList.observe(this, Observer {
+        mViewModel.imageModelList.observe(this, Observer {
             mViewDataBinding?.isLoading = false
-            Timber.i("repo count received  ${it?.size}")
+            mAdapter.setItems(it.first, it.second)
         })
     }
 
-    private fun setUpViews(){
+    private fun setUpViews() {
+        mAdapter = MainAdapter()
         recycler_view.run {
             layoutManager = GridLayoutManager(context, 2)
-
+            adapter = mAdapter
         }
     }
 }

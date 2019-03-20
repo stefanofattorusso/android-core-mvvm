@@ -34,6 +34,7 @@ ext {
     def lifecycleLibs = [
             extensions     : [group: 'android.arch.lifecycle', name: 'extensions', version: lifecycleVersion],
             reactiveStreams: [group: 'androidx.lifecycle', name: 'lifecycle-reactivestreams-ktx', version: lifecycleVersion],
+            viewModelKtx   : [group: 'androidx.lifecycle', name: 'lifecycle-viewmodel-ktx', version: lifecycleVersion],
             compiler       : [group: 'androidx.lifecycle', name: 'lifecycle-compiler', version: lifecycleVersion]
     ]
 
@@ -75,6 +76,7 @@ ext {
             [configuration: "kapt", dependency: androidXLibs.databinding],
             [configuration: "implementation", dependency: lifecycleLibs.extensions],
             [configuration: "implementation", dependency: lifecycleLibs.reactiveStreams],
+            [configuration: "implementation", dependency: lifecycleLibs.viewModelKtx],
             [configuration: "kapt", dependency: lifecycleLibs.compiler],
             [configuration: "implementation", dependency: otherLibs.dagger],
             [configuration: "kapt", dependency: otherLibs.daggerCompiler],
@@ -141,6 +143,7 @@ ext {
             [configuration: "implementation", dependency: androidXLibs.recyclerview],
             [configuration: "implementation", dependency: otherLibs.timber],
             [configuration: "implementation", dependency: otherLibs.coroutines],
+            [configuration: "implementation", dependency: otherLibs.glide],
             [configuration: "implementation", dependency: otherLibs.kotlin]
     ]
 }

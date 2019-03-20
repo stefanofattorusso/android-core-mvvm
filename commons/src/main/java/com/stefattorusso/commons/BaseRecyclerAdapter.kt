@@ -1,6 +1,7 @@
 package com.stefattorusso.commons
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
@@ -22,9 +23,9 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
 
     fun getItemPosition(data: T) = mData.indexOf(data)
 
-    fun setItems(data: List<T>) {
+    open fun setItems(data: List<T>, diffResult: DiffUtil.DiffResult) {
         mData = data.toMutableList()
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun addItem(data: T) {

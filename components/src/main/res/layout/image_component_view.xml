@@ -4,13 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="0dp"
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintDimensionRatio="1:1"/>
+        app:layout_constraintDimensionRatio="h,1:1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

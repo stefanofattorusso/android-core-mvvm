@@ -2,6 +2,8 @@ package com.stefattorusso.components
 
 import android.content.Context
 import android.util.AttributeSet
+import com.stefattorusso.commons.loadUrl
+import kotlinx.android.synthetic.main.image_component_view.view.*
 
 class ImageComponentView : BaseComponentView {
 
@@ -30,5 +32,9 @@ class ImageComponentView : BaseComponentView {
 
     override fun loadData() {
 
+    }
+
+    fun setImage(url: String){
+        image_view.loadUrl(url)
     }
 }

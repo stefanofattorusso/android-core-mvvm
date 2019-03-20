@@ -3,6 +3,7 @@ package com.stefattorusso.coremvvm.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stefattorusso.commons.ErrorData
+import com.stefattorusso.commons.ErrorHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -18,7 +19,7 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = mJob + Dispatchers.Main
 
-//    private lateinit var mExceptionHandler: ErrorHandler
+    private lateinit var mExceptionHandler: ErrorHandler
 
 /*
     open fun onCreated(){
