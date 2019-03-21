@@ -14,7 +14,6 @@ import javax.inject.Singleton
     includes = arrayOf(
         CacheModule::class,
         NetworkModule::class,
-        BaseActivityModule::class,
         RepositoryModule::class,
         UseCaseModule::class
     )

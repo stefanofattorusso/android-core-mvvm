@@ -12,21 +12,21 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-abstract class BaseFragment<VM : BaseViewModel, VDB : ViewDataBinding> : Fragment(), HasSupportFragmentInjector,
-    Injectable {
+abstract class BaseFragment<VM : BaseViewModel, VDB : ViewDataBinding> : Fragment(), HasSupportFragmentInjector {
 
     @Inject
     lateinit var mChildFragmentInjector: DispatchingAndroidInjector<Fragment>
     @Inject
     lateinit var mViewModelFactory: ViewModelFactory
 
+    lateinit var mViewModel: VM
     protected abstract val mViewModelClass: Class<VM>
-    protected val mViewModel: VM by lazy { ViewModelProvider(this, mViewModelFactory).get(mViewModelClass) }
     protected var mViewDataBinding: VDB? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding = DataBindingUtil.bind(view)
+        mViewModel = ViewModelProvider(this, mViewModelFactory).get(mViewModelClass).also { it.onCreated() }
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = mChildFragmentInjector

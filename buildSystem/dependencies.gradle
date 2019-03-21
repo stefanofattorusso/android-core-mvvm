@@ -62,7 +62,7 @@ ext {
             data      : ':data',
             commons   : ':commons',
             components: ':components',
-//            resources : ':resources'
+            resources : ':resources'
     ]
 
     appDependencies = [
@@ -145,5 +145,8 @@ ext {
             [configuration: "implementation", dependency: otherLibs.coroutines],
             [configuration: "implementation", dependency: otherLibs.glide],
             [configuration: "implementation", dependency: otherLibs.kotlin]
+    ]
+
+    resourcesDependencies = [
     ]
 }

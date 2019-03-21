@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.stefattorusso.coremvvm.base.BaseApplication
-import com.stefattorusso.coremvvm.base.Injectable
 import com.stefattorusso.coremvvm.di.component.DaggerAppComponent
 import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
@@ -22,6 +21,10 @@ object AppInjector {
             .inject(application)
 
         application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
+            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+                handleActivity(activity)
+            }
+
             override fun onActivityPaused(activity: Activity?) {
 
             }
@@ -45,11 +48,6 @@ object AppInjector {
             override fun onActivityStopped(activity: Activity?) {
 
             }
-
-            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-                handleActivity(activity)
-            }
-
         })
     }
 
@@ -63,7 +61,7 @@ object AppInjector {
             activity.supportFragmentManager.registerFragmentLifecycleCallbacks(object :
                 FragmentManager.FragmentLifecycleCallbacks() {
                 override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-                    if (f is Injectable) {
+                    if (f is HasSupportFragmentInjector) {
                         AndroidSupportInjection.inject(f)
                     }
                 }

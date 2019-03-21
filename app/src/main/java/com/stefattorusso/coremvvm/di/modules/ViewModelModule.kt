@@ -15,10 +15,11 @@ abstract class ViewModelModule {
 
     @Binds
     @ActivityScope
-    abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+    abstract fun viewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @IntoMap
+    @ActivityScope
     @ViewModelKey(MainViewModel::class)
-    abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+    abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
 }

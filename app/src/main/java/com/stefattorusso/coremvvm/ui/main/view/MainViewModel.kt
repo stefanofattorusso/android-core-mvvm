@@ -34,7 +34,7 @@ class MainViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun displayLoader(show: Boolean) {
-        loader.value = show
+
     }
 
     private suspend fun calculateDiff(items: List<ImageModel>): Pair<List<ImageModel>, DiffUtil.DiffResult> {
