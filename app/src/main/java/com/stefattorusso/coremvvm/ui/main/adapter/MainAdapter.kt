@@ -13,6 +13,10 @@ class MainAdapter : BaseRecyclerAdapter<ImageModel, MainAdapter.MainViewHolder>(
         setHasStableIds(true)
     }
 
+    override fun getItemId(position: Int): Long {
+        return mData[position].id.toLong()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return MainViewHolder(ImageComponentView(parent.context))
     }
@@ -24,7 +28,7 @@ class MainAdapter : BaseRecyclerAdapter<ImageModel, MainAdapter.MainViewHolder>(
     inner class MainViewHolder(private val mItemView: ImageComponentView) : RecyclerView.ViewHolder(mItemView) {
 
         fun bindData(data: ImageModel) {
-            mItemView.setImage(mItemView.context.getString(R.string.api_domain) + "/200/?image=" + data.id)
+            mItemView.setImage(mItemView.context.getString(R.string.api_domain) + "200/300/?image=" + data.id)
         }
     }
 }

@@ -43,6 +43,8 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
     private fun setUpViews() {
         mAdapter = MainAdapter()
         recycler_view.run {
+            setHasFixedSize(true)
+//            addItemDecoration(SpacesItemDecoration(R.dimen.grid_spacing, 2, true, 0))
             layoutManager = GridLayoutManager(context, 2)
             adapter = mAdapter
         }

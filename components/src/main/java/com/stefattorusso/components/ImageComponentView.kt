@@ -35,6 +35,6 @@ class ImageComponentView : BaseComponentView {
     }
 
     fun setImage(url: String){
-        image_view.loadUrl(url)
+        image_view.loadUrl(url, 200, 200)
     }
 }
