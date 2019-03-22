@@ -5,6 +5,12 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelper
+import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelperCallback
+import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelperImpl
+import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
+import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
+import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperImpl
 import com.stefattorusso.coremvvm.di.modules.ViewModelModule
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
 import com.stefattorusso.coremvvm.utils.ErrorHandler
@@ -50,5 +56,17 @@ abstract class BaseActivityModule {
         @Provides
         @ActivityScope
         internal fun errorHandler(activity: Activity): ErrorHandler = ErrorHandler(activity, CoroutineExceptionHandler)
+
+        @JvmStatic
+        @Provides
+        @ActivityScope
+        internal fun injectFragmentHelper(activity: Activity): InjectFragmentHelper =
+            InjectFragmentHelperImpl(activity as AppCompatActivity, activity as InjectFragmentHelperCallback<*>)
+
+        @JvmStatic
+        @Provides
+        @ActivityScope
+        internal fun autoInflateHelper(activity: Activity): AutoInflateHelper =
+            AutoInflateHelperImpl(activity as AppCompatActivity, activity as AutoInflateHelperCallback)
     }
 }

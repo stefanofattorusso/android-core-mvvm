@@ -23,7 +23,7 @@ ext {
     def androidXLibs = [
             core            : [group: 'androidx.core', name: 'core-ktx', version: androidxAlphaVersion],
             cardview        : [group: 'androidx.cardview', name: 'cardview', version: androidxVersion],
-            appcompat       : [group: 'androidx.appcompat', name: 'appcompat', version: androidxVersion],
+            appcompat       : [group: 'androidx.appcompat', name: 'appcompat', version: androidxAlphaVersion],
             multidex        : [group: 'androidx.multidex', name: 'multidex', version: androidxMultidexVersion],
             recyclerview    : [group: 'androidx.recyclerview', name: 'recyclerview', version: androidxVersion],
             material        : [group: 'com.google.android.material', name: 'material', version: androidxMaterialVersion],
@@ -32,7 +32,7 @@ ext {
     ]
 
     def lifecycleLibs = [
-            extensions     : [group: 'android.arch.lifecycle', name: 'extensions', version: lifecycleVersion],
+            extensions     : [group: 'androidx.lifecycle', name: 'lifecycle-extensions', version: lifecycleVersion],
             reactiveStreams: [group: 'androidx.lifecycle', name: 'lifecycle-reactivestreams-ktx', version: lifecycleVersion],
             viewModelKtx   : [group: 'androidx.lifecycle', name: 'lifecycle-viewmodel-ktx', version: lifecycleVersion],
             compiler       : [group: 'androidx.lifecycle', name: 'lifecycle-compiler', version: lifecycleVersion]
@@ -144,6 +144,9 @@ ext {
             [configuration: "implementation", dependency: otherLibs.timber],
             [configuration: "implementation", dependency: otherLibs.coroutines],
             [configuration: "implementation", dependency: otherLibs.glide],
+            [configuration: "implementation", dependency: otherLibs.dagger],
+            [configuration: "kapt", dependency: otherLibs.daggerCompiler],
+            [configuration: "kapt", dependency: otherLibs.daggerAndroidProcessor],
             [configuration: "implementation", dependency: otherLibs.kotlin]
     ]
 

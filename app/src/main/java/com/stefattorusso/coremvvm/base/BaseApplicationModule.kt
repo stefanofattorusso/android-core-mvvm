@@ -2,10 +2,7 @@ package com.stefattorusso.coremvvm.base
 
 import android.app.Application
 import android.content.Context
-import com.stefattorusso.coremvvm.di.modules.CacheModule
-import com.stefattorusso.coremvvm.di.modules.NetworkModule
-import com.stefattorusso.coremvvm.di.modules.RepositoryModule
-import com.stefattorusso.coremvvm.di.modules.UseCaseModule
+import com.stefattorusso.coremvvm.di.modules.*
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
@@ -15,7 +12,8 @@ import javax.inject.Singleton
         CacheModule::class,
         NetworkModule::class,
         RepositoryModule::class,
-        UseCaseModule::class
+        UseCaseModule::class,
+        LifecycleHelpersModule::class
     )
 )
 abstract class BaseApplicationModule {

@@ -1,4 +1,4 @@
-package com.stefattorusso.commons.helpers.injectfragment
+package com.stefattorusso.commons.lifecyclehelpers.injectfragment
 
 import android.os.Bundle
 import android.view.View

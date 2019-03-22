@@ -8,11 +8,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
-import com.stefattorusso.coremvvm.databinding.FragmentMainBinding
+import com.stefattorusso.coremvvm.databinding.MainFragmentBinding
 import com.stefattorusso.coremvvm.ui.main.adapter.MainAdapter
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.main_fragment.*
 
-class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
+class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
 
     private lateinit var mAdapter: MainAdapter
 
@@ -20,7 +20,7 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
         get() = MainViewModel::class.java
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
