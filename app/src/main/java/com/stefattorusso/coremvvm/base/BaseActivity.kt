@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelper
 import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelperCallback
+import com.stefattorusso.coremvvm.helpers.NavigationHelper
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -17,6 +18,8 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector, A
     lateinit var mFragmentInjector: DispatchingAndroidInjector<Fragment>
     @Inject
     lateinit var mAutoInflateHelper: AutoInflateHelper
+    @Inject
+    lateinit var mNavigationHelper: NavigationHelper
 
     private var mContentView: View? = null
 

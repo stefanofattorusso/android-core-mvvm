@@ -1,22 +1,20 @@
-package com.stefattorusso.coremvvm.ui.main
+package com.stefattorusso.coremvvm.ui.detail
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
 import com.stefattorusso.coremvvm.base.BaseActivity
-import com.stefattorusso.coremvvm.ui.main.view.MainFragment
-import com.stefattorusso.domain.Image
+import com.stefattorusso.coremvvm.ui.detail.view.DetailFragment
 import kotlinx.android.synthetic.main.main_activity.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), InjectFragmentHelperCallback<MainFragment>, MainFragment.FragmentCallback {
+class DetailActivity : BaseActivity(), InjectFragmentHelperCallback<DetailFragment>, DetailFragment.FragmentCallback {
 
     @Inject
     lateinit var mInjectFragmentHelperImpl: InjectFragmentHelper
 
-    private var mMainFragment: MainFragment? = null
+    private var mMainFragment: DetailFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +25,9 @@ class MainActivity : BaseActivity(), InjectFragmentHelperCallback<MainFragment>,
 
     override fun onLoadFragmentContainer(savedInstanceState: Bundle?): View = content
 
-    override fun onCreateFragment(): MainFragment = MainFragment.newInstance(intent.extras)
+    override fun onCreateFragment(): DetailFragment = DetailFragment.newInstance(intent.extras)
 
-    override fun onFragmentLoaded(fragment: MainFragment) {
+    override fun onFragmentLoaded(fragment: DetailFragment) {
         mMainFragment = fragment
-    }
-
-    // Fragment Callbacks
-
-    override fun onShowDetail(view: ImageView, image: Image) {
-        mNavigationHelper.launchDetailWithTransactionAnimation(view, image)
     }
 }

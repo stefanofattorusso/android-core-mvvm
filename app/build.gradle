@@ -32,8 +32,8 @@ android {
             properties.load(project.rootProject.file('local.properties').newDataInputStream())
             if (!properties.isEmpty()) {
                 for (String key : properties.keySet()) {
-                    String parsedKey = key.replaceAll("\\.","_").toUpperCase()
-                    String parsedValue = "\""+properties.getProperty(key).replaceAll("\\\\","/")+"\""
+                    String parsedKey = key.replaceAll("\\.", "_").toUpperCase()
+                    String parsedValue = "\"" + properties.getProperty(key).replaceAll("\\\\", "/") + "\""
                     buildConfigField "String", parsedKey, parsedValue
                 }
             }
@@ -69,6 +69,16 @@ android {
         prod {
             dimension "default"
             resValue "string", "app_name", rootProject.ext.androidAppName
+        }
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layouts/main',
+                    'src/main/res/layouts/detail',
+                    'src/main/res'
+            ]
         }
     }
 
@@ -110,7 +120,7 @@ android {
 
 dependencies {
     implementation fileTree(include: '*.jar', dir: 'libs')
-    rootProject.appDependencies.each{
+    rootProject.appDependencies.each {
         add(it.configuration, it.dependency, it.options)
     }
 }

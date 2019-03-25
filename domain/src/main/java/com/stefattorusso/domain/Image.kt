@@ -1,5 +1,9 @@
 package com.stefattorusso.domain
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Image(
     val id: Int,
     val width: Int,
@@ -9,4 +13,4 @@ data class Image(
     val postUrl: String,
     val filename: String,
     val authorUrl: String
-)
+) : Parcelable

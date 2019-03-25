@@ -32,6 +32,16 @@ abstract class MainActivityModule {
     @ActivityScope
     internal abstract fun activity(activity: MainActivity): Activity
 
+    /**
+     * The main activity listens to the events in the [MainFragment].
+     *
+     * @param activity the activity
+     * @return the main fragment mCallback
+     */
+    @Binds
+    @ActivityScope
+    internal abstract fun fragmentCallback(activity: MainActivity): MainFragment.FragmentCallback
+
     // =============================================================================================
 
     /**

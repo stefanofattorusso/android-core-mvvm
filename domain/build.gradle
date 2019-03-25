@@ -14,6 +14,9 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {

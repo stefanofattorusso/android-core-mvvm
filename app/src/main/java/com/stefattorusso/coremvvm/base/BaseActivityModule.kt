@@ -13,6 +13,7 @@ import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentH
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperImpl
 import com.stefattorusso.coremvvm.di.modules.ViewModelModule
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
+import com.stefattorusso.coremvvm.helpers.NavigationHelper
 import com.stefattorusso.coremvvm.utils.ErrorHandler
 import dagger.Binds
 import dagger.Module
@@ -68,5 +69,10 @@ abstract class BaseActivityModule {
         @ActivityScope
         internal fun autoInflateHelper(activity: Activity): AutoInflateHelper =
             AutoInflateHelperImpl(activity as AppCompatActivity, activity as AutoInflateHelperCallback)
+
+        @JvmStatic
+        @Provides
+        @ActivityScope
+        internal fun navigationHelper(activity: Activity): NavigationHelper = NavigationHelper(activity)
     }
 }

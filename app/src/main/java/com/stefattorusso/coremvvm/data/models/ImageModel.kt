@@ -8,5 +8,6 @@ data class ImageModel(
     val author: String,
     val postUrl: String,
     val filename: String,
-    val authorUrl: String
+    val authorUrl: String,
+    val imageUrl: String
 )
