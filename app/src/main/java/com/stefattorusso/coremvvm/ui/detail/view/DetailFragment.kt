@@ -3,6 +3,8 @@ package com.stefattorusso.coremvvm.ui.detail.view
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.transition.TransitionInflater
+import com.stefattorusso.commons.lifecyclehelpers.SwipeImageTouchListener
 import com.stefattorusso.commons.loadUrl
 import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.databinding.DetailFragmentBinding
@@ -17,10 +19,19 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
         }
     }
 
-    interface FragmentCallback : BaseFragment.BaseFragmentCallback
+    interface FragmentCallback : BaseFragment.BaseFragmentCallback{
+        fun onAnimationEnd()
+    }
 
     override val mViewModelClass: Class<DetailViewModel>
         get() = DetailViewModel::class.java
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        postponeEnterTransition()
+        sharedElementEnterTransition = TransitionInflater.from(context)
+            .inflateTransition(android.R.transition.move)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,7 +42,6 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
     private fun observeData() {
         mViewModel.selectedItemModel.observe(this, Observer {
             mViewDataBinding?.isLoading = false
-            postponeEnterTransition()
             image_view.loadUrl(it.imageUrl) {
                 startPostponedEnterTransition()
             }
@@ -44,5 +54,8 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
         if (image != null) {
             mViewModel.setImageItem(image)
         }
+        image_view.setOnTouchListener(SwipeImageTouchListener(parent_view){
+            mCallback.onAnimationEnd()
+        })
     }
 }

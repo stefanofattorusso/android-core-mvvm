@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelper
 import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelperCallback
 import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelperImpl
+import com.stefattorusso.commons.lifecyclehelpers.fullscreen.FullScreenActivityLifecycle
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperImpl
@@ -74,5 +75,11 @@ abstract class BaseActivityModule {
         @Provides
         @ActivityScope
         internal fun navigationHelper(activity: Activity): NavigationHelper = NavigationHelper(activity)
+
+        @JvmStatic
+        @Provides
+        @ActivityScope
+        internal fun fullScreenActivityLifecycle(activity: Activity): FullScreenActivityLifecycle =
+            FullScreenActivityLifecycle(activity as AppCompatActivity)
     }
 }

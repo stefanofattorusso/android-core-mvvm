@@ -2,6 +2,7 @@ package com.stefattorusso.coremvvm.ui.detail
 
 import android.os.Bundle
 import android.view.View
+import com.stefattorusso.commons.lifecyclehelpers.fullscreen.FullScreenActivityLifecycle
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
 import com.stefattorusso.coremvvm.base.BaseActivity
@@ -13,6 +14,8 @@ class DetailActivity : BaseActivity(), InjectFragmentHelperCallback<DetailFragme
 
     @Inject
     lateinit var mInjectFragmentHelperImpl: InjectFragmentHelper
+    @Inject
+    lateinit var mFullScreenActivityLifecycle: FullScreenActivityLifecycle
 
     private var mMainFragment: DetailFragment? = null
 
@@ -29,5 +32,9 @@ class DetailActivity : BaseActivity(), InjectFragmentHelperCallback<DetailFragme
 
     override fun onFragmentLoaded(fragment: DetailFragment) {
         mMainFragment = fragment
+    }
+
+    override fun onAnimationEnd() {
+        finishAfterTransition()
     }
 }
