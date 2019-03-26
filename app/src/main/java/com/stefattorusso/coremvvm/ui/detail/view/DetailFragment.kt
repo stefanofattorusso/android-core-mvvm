@@ -42,6 +42,7 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
     private fun observeData() {
         mViewModel.selectedItemModel.observe(this, Observer {
             mViewDataBinding?.isLoading = false
+            mViewDataBinding?.imageModel = it
             image_view.loadUrl(it.imageUrl) {
                 startPostponedEnterTransition()
             }
@@ -54,7 +55,7 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
         if (image != null) {
             mViewModel.setImageItem(image)
         }
-        image_view.setOnTouchListener(SwipeImageTouchListener(parent_view){
+        image_container.setOnTouchListener(SwipeImageTouchListener(parent_view){
             mCallback.onAnimationEnd()
         })
     }
