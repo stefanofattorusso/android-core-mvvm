@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="menuModel"
+            type="com.stefattorusso.coremvvm.data.models.MenuModel"/>
+    </data>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_view"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:transitionName="image"
+            android:text="@{menuModel.name}"
+            android:textColor="@android:color/white"/>
+
+    </FrameLayout>
+</layout>

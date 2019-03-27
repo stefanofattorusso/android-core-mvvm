@@ -28,6 +28,11 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
         diffResult.dispatchUpdatesTo(this)
     }
 
+    open fun setItems(data: List<T>) {
+        mData = data.toMutableList()
+        notifyDataSetChanged()
+    }
+
     fun addItem(data: T) {
         mData.add(data)
         notifyItemInserted(getItemPosition(data))

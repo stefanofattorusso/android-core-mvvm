@@ -13,7 +13,7 @@ class NavigationHelper(
 ) {
 
     fun launchMain() {
-        launchAndFinish(Intent(activity, MainActivity::class.java))
+        launch(Intent(activity, MainActivity::class.java))
     }
 
     fun launchDetailWithTransactionAnimation(view: ImageView, image: Image) {

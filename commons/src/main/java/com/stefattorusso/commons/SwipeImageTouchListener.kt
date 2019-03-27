@@ -1,4 +1,4 @@
-package com.stefattorusso.commons.lifecyclehelpers
+package com.stefattorusso.commons
 
 import android.view.MotionEvent
 import android.view.View

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.transition.TransitionInflater
-import com.stefattorusso.commons.lifecyclehelpers.SwipeImageTouchListener
+import com.stefattorusso.commons.SwipeImageTouchListener
 import com.stefattorusso.commons.loadUrl
 import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.databinding.DetailFragmentBinding
@@ -55,7 +55,7 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
         if (image != null) {
             mViewModel.setImageItem(image)
         }
-        image_container.setOnTouchListener(SwipeImageTouchListener(parent_view){
+        image_container.setOnTouchListener(SwipeImageTouchListener(parent_view) {
             mCallback.onAnimationEnd()
         })
     }

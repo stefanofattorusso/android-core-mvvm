@@ -15,7 +15,7 @@
         android:name=".MVVMApplication"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -25,6 +25,8 @@
         <activity
             android:name=".ui.detail.DetailActivity"
             android:theme="@style/AppThemeNoActionBar"/>
+        <activity
+            android:name=".ui.main.MainActivity"/>
     </application>
 
 </manifest>

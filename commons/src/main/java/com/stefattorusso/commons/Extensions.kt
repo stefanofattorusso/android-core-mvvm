@@ -1,7 +1,10 @@
 package com.stefattorusso.commons
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.drawable.Drawable
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -12,6 +15,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+
+// Images
 
 fun ImageView.loadUrl(url: String) {
     Glide.with(context)
@@ -73,3 +78,9 @@ fun <TFragment : Fragment> Activity.loadFragment(
 
 fun <TFragment : Fragment> Activity.getFragment(fragmentManager: FragmentManager, containerId: Int): TFragment? =
     fragmentManager.findFragmentById(containerId) as TFragment
+
+fun Context.isNetworkAvailable(): Boolean {
+    val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+    return activeNetwork?.isConnectedOrConnecting == true
+}

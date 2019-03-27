@@ -1,6 +1,7 @@
 package com.stefattorusso.coremvvm.base
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -26,6 +27,16 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector, A
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAutoInflateHelper.setSavedInstanceState(savedInstanceState)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = mFragmentInjector

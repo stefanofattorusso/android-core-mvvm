@@ -21,6 +21,10 @@ class MainActivity : BaseActivity(), InjectFragmentHelperCallback<MainFragment>,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mInjectFragmentHelperImpl.setSavedInstanceState(savedInstanceState)
+        supportActionBar?.run {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
     }
 
     // Fragment Helper
