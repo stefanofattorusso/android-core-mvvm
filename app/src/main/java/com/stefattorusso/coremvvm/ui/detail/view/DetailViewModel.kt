@@ -2,7 +2,6 @@ package com.stefattorusso.coremvvm.ui.detail.view
 
 import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
-import com.stefattorusso.coremvvm.data.mapper.transform
 import com.stefattorusso.coremvvm.data.models.ImageModel
 import com.stefattorusso.domain.Image
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,7 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
         launchAction {
             var imageModel: ImageModel? = null
             withContext(Dispatchers.IO) {
-                imageModel = image.transform()
+                imageModel = mModelMappers.transform(image)
             }
             selectedItemModel.value = imageModel
         }

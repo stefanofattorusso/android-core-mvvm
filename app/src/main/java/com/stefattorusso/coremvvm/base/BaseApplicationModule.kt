@@ -2,9 +2,11 @@ package com.stefattorusso.coremvvm.base
 
 import android.app.Application
 import android.content.Context
+import com.stefattorusso.coremvvm.data.mapper.ModelMappers
 import com.stefattorusso.coremvvm.di.modules.*
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import javax.inject.Singleton
 
 @Module(
@@ -33,4 +35,14 @@ abstract class BaseApplicationModule {
     @Binds
     @Singleton
     internal abstract fun context(application: Application): Context
+
+    @Module
+    companion object {
+
+        @JvmStatic
+        @Provides
+        @Singleton
+        internal fun modelMappers(context: Context): ModelMappers = ModelMappers(context)
+    }
+
 }

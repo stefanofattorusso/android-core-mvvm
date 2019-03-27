@@ -1,6 +1,7 @@
 package com.stefattorusso.coremvvm.base.mvvm
 
 import androidx.lifecycle.ViewModel
+import com.stefattorusso.coremvvm.data.mapper.ModelMappers
 import com.stefattorusso.coremvvm.utils.ErrorHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,8 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
 
     @Inject
     lateinit var mExceptionHandler: ErrorHandler
+    @Inject
+    lateinit var mModelMappers: ModelMappers
 
     private val mJob: Job by lazy { Job() }
 

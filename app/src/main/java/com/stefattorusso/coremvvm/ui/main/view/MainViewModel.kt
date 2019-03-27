@@ -4,7 +4,6 @@ import android.widget.ImageView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
-import com.stefattorusso.coremvvm.data.mapper.transform
 import com.stefattorusso.coremvvm.data.models.ImageModel
 import com.stefattorusso.coremvvm.ui.main.adapter.MainAdapter
 import com.stefattorusso.coremvvm.ui.main.adapter.MainDiffCallback
@@ -30,11 +29,11 @@ class MainViewModel @Inject constructor() : BaseViewModel(), MainAdapter.Adapter
     fun loadData() {
         launchAction {
             imageList = withContext(Dispatchers.IO) {
-                getImageListUseCase.execute()
+                getImageListUseCase.execute().shuffled()
             }
 
             imageModelList.value = withContext(Dispatchers.IO) {
-                calculateDiff(imageList.map { it.transform() })
+                calculateDiff(imageList.map { mModelMappers.transform(it) })
             }
         }
     }
