@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.ui.main.view
+package com.stefattorusso.coremvvm.ui.grid.view
 
 import androidx.fragment.app.Fragment
 import com.stefattorusso.coremvvm.base.BaseFragmentModule
@@ -11,7 +11,7 @@ import dagger.Module
         BaseFragmentModule::class
     )
 )
-abstract class MainFragmentModule {
+abstract class GridFragmentModule {
     /**
      * As per the contract specified in [BaseFragmentModule]; "This must be included in all
      * fragment modules, which must provide a concrete implementation of [Fragment].
@@ -21,5 +21,5 @@ abstract class MainFragmentModule {
      */
     @Binds
     @FragmentScope
-    internal abstract fun fragment(fragment: MainFragment): Fragment
+    internal abstract fun fragment(fragment: GridFragment): Fragment
 }

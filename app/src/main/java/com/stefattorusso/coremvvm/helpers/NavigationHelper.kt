@@ -5,7 +5,7 @@ import android.content.Intent
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import com.stefattorusso.coremvvm.ui.detail.DetailActivity
-import com.stefattorusso.coremvvm.ui.main.MainActivity
+import com.stefattorusso.coremvvm.ui.grid.GridActivity
 import com.stefattorusso.domain.Image
 
 class NavigationHelper(
@@ -13,7 +13,7 @@ class NavigationHelper(
 ) {
 
     fun launchMain() {
-        launch(Intent(activity, MainActivity::class.java))
+        launch(Intent(activity, GridActivity::class.java))
     }
 
     fun launchDetailWithTransactionAnimation(view: ImageView, image: Image) {

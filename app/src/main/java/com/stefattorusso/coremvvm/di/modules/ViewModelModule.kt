@@ -6,8 +6,8 @@ import com.stefattorusso.coremvvm.base.mvvm.ViewModelFactory
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
 import com.stefattorusso.coremvvm.di.scope.ViewModelKey
 import com.stefattorusso.coremvvm.ui.detail.view.DetailViewModel
+import com.stefattorusso.coremvvm.ui.grid.view.GridViewModel
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel
-import com.stefattorusso.coremvvm.ui.main.view.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -28,8 +28,8 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ActivityScope
-    @ViewModelKey(MainViewModel::class)
-    abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
+    @ViewModelKey(GridViewModel::class)
+    abstract fun mainViewModel(viewModel: GridViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.ui.main.view
+package com.stefattorusso.coremvvm.ui.grid.view
 
 import android.os.Bundle
 import android.view.View
@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
-import com.stefattorusso.coremvvm.databinding.MainFragmentBinding
-import com.stefattorusso.coremvvm.ui.main.adapter.MainAdapter
-import com.stefattorusso.coremvvm.ui.main.adapter.SpacesItemDecoration
+import com.stefattorusso.coremvvm.databinding.GridFragmentBinding
+import com.stefattorusso.coremvvm.ui.grid.adapter.GridAdapter
+import com.stefattorusso.coremvvm.ui.grid.adapter.SpacesItemDecoration
 import com.stefattorusso.domain.Image
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.grid_fragment.*
 
 
-class MainFragment : BaseFragment<MainFragment.FragmentCallback, MainViewModel, MainFragmentBinding>() {
+class GridFragment : BaseFragment<GridFragment.FragmentCallback, GridViewModel, GridFragmentBinding>() {
 
     companion object {
-        fun newInstance(bundle: Bundle?) = MainFragment().apply {
+        fun newInstance(bundle: Bundle?) = GridFragment().apply {
             arguments = bundle ?: Bundle()
         }
     }
@@ -27,32 +27,20 @@ class MainFragment : BaseFragment<MainFragment.FragmentCallback, MainViewModel, 
         fun onShowDetail(view: ImageView, image: Image)
     }
 
-    private lateinit var mAdapter: MainAdapter
+    private lateinit var mAdapter: GridAdapter
 
-    override val mViewModelClass: Class<MainViewModel>
-        get() = MainViewModel::class.java
+    override val mViewModelClass: Class<GridViewModel>
+        get() = GridViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeData()
         setUpViews()
-
-        mViewDataBinding?.isLoading = true
-        mViewModel.loadData()
-    }
-
-    private fun observeData() {
-        mViewModel.imageModelList.observe(this, Observer {
-            mViewDataBinding?.isLoading = false
-            mAdapter.setItems(it.first, it.second)
-        })
-        mViewModel.selectedItem.observe(this, Observer {
-            mCallback.onShowDetail(it.first, it.second)
-        })
+        observeData()
     }
 
     private fun setUpViews() {
-        mAdapter = MainAdapter(mViewModel as MainAdapter.AdapterCallback)
+        mViewDataBinding?.viewModel = mViewModel
+        mAdapter = GridAdapter(mViewModel as GridAdapter.AdapterCallback)
         recycler_view.run {
             setHasFixedSize(true)
             addItemDecoration(
@@ -67,5 +55,11 @@ class MainFragment : BaseFragment<MainFragment.FragmentCallback, MainViewModel, 
             layoutManager = GridLayoutManager(context, 2)
             adapter = mAdapter
         }
+    }
+
+    private fun observeData() {
+        mViewModel.selectedItem.observe(this, Observer {
+            mCallback.onShowDetail(it.first, it.second)
+        })
     }
 }

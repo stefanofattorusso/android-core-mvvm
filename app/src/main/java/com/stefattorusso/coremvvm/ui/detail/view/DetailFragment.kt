@@ -5,7 +5,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.transition.TransitionInflater
 import com.stefattorusso.commons.SwipeImageTouchListener
-import com.stefattorusso.commons.loadUrl
 import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.databinding.DetailFragmentBinding
 import com.stefattorusso.domain.Image
@@ -19,7 +18,7 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
         }
     }
 
-    interface FragmentCallback : BaseFragment.BaseFragmentCallback{
+    interface FragmentCallback : BaseFragment.BaseFragmentCallback {
         fun onAnimationEnd()
     }
 
@@ -39,24 +38,18 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
         observeData()
     }
 
-    private fun observeData() {
-        mViewModel.selectedItemModel.observe(this, Observer {
-            mViewDataBinding?.isLoading = false
-            mViewDataBinding?.imageModel = it
-            image_view.loadUrl(it.imageUrl) {
-                startPostponedEnterTransition()
-            }
+    private fun setupViews() {
+        mViewDataBinding?.viewModel = mViewModel
+        val image = arguments?.get(Image::class.java.simpleName) as? Image
+        image?.let { mViewModel.setImageItem(it) }
+        image_container.setOnTouchListener(SwipeImageTouchListener(parent_view) {
+            mCallback.onAnimationEnd()
         })
     }
 
-    private fun setupViews() {
-        mViewDataBinding?.isLoading = true
-        val image = arguments?.get(Image::class.java.simpleName) as? Image
-        if (image != null) {
-            mViewModel.setImageItem(image)
-        }
-        image_container.setOnTouchListener(SwipeImageTouchListener(parent_view) {
-            mCallback.onAnimationEnd()
+    private fun observeData() {
+        mViewModel.imageLoaded.observe(this, Observer {
+            if (it) startPostponedEnterTransition()
         })
     }
 }

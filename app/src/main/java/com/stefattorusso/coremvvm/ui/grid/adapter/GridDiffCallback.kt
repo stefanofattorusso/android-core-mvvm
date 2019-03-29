@@ -1,9 +1,9 @@
-package com.stefattorusso.coremvvm.ui.main.adapter
+package com.stefattorusso.coremvvm.ui.grid.adapter
 
 import com.stefattorusso.commons.BaseDiffCallback
 import com.stefattorusso.coremvvm.data.models.ImageModel
 
-class MainDiffCallback(oldItems: List<ImageModel>, newItems: List<ImageModel>) :
+class GridDiffCallback(oldItems: List<ImageModel>, newItems: List<ImageModel>) :
     BaseDiffCallback<ImageModel>(oldItems, newItems) {
 
     override fun areItemsTheSame(oldItem: ImageModel, newItem: ImageModel): Boolean {

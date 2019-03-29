@@ -5,7 +5,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>(),
+    BaseRecyclerAdapterCallback<T> {
 
     protected var mData = mutableListOf<T>()
 
@@ -23,13 +24,22 @@ abstract class BaseRecyclerAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerVi
 
     fun getItemPosition(data: T) = mData.indexOf(data)
 
-    open fun setItems(data: List<T>, diffResult: DiffUtil.DiffResult) {
-        mData = data.toMutableList()
-        diffResult.dispatchUpdatesTo(this)
+    override fun setItems(data: Pair<List<T>, DiffUtil.DiffResult>?) {
+        if (data == null) {
+            mData.clear()
+            notifyDataSetChanged()
+        } else {
+            mData = data.first.toMutableList()
+            data.second.dispatchUpdatesTo(this)
+        }
     }
 
-    open fun setItems(data: List<T>) {
-        mData = data.toMutableList()
+    override fun setItems(items: List<T>?) {
+        if (items == null) {
+            mData.clear()
+        } else {
+            mData = items.toMutableList()
+        }
         notifyDataSetChanged()
     }
 

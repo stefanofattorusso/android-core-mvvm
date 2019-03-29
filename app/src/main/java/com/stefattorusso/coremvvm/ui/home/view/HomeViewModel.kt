@@ -4,25 +4,29 @@ import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
 import com.stefattorusso.coremvvm.data.models.MenuModel
 import com.stefattorusso.coremvvm.ui.home.adapter.HomeAdapter
-import java.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor() : BaseViewModel(), HomeAdapter.AdapterCallback {
 
-    init {
-        init()
-    }
-
     var modelList: MutableLiveData<List<MenuModel>> = MutableLiveData()
     var selectedItem: MutableLiveData<MenuModel> = MutableLiveData()
+    var loading: MutableLiveData<Boolean> = MutableLiveData()
 
     override fun onItemClicked(position: Int) {
-        selectedItem.value = sampleItemList[position]
+        selectedItem.value = (modelList.value as List<MenuModel>)[position]
     }
 
-    fun loadData() {
+    override fun onCreated() {
+        loadData()
+    }
+
+    private fun loadData() {
         launchAction {
-            modelList.value = sampleItemList
+            loading.value = true
+            modelList.value = withContext(Dispatchers.Default) { init() }
+            loading.value = false
         }
     }
 
@@ -31,14 +35,10 @@ class HomeViewModel @Inject constructor() : BaseViewModel(), HomeAdapter.Adapter
         // HOME ITEMS
         internal const val LIST = "LIST"
 
-        private const val NUM_ITEMS = 1
-
-        private val sampleItemList = ArrayList<MenuModel>(NUM_ITEMS)
-
-        private fun init() {
-            if (sampleItemList.isEmpty()) {
-                sampleItemList.add(MenuModel(0, LIST, "A sample list view"))
-            }
+        private fun init(): List<MenuModel> {
+            val sampleItemList = mutableListOf<MenuModel>()
+            sampleItemList.add(MenuModel(0, LIST, "A sample list view"))
+            return sampleItemList
         }
     }
 }

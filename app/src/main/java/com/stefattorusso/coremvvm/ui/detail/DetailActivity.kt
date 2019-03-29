@@ -7,7 +7,7 @@ import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentH
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
 import com.stefattorusso.coremvvm.base.BaseActivity
 import com.stefattorusso.coremvvm.ui.detail.view.DetailFragment
-import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.grid_activity.*
 import javax.inject.Inject
 
 class DetailActivity : BaseActivity(), InjectFragmentHelperCallback<DetailFragment>, DetailFragment.FragmentCallback {

@@ -47,6 +47,7 @@ abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mViewDataBinding = DataBindingUtil.bind(view)
+        mViewDataBinding?.lifecycleOwner = this
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(mViewModelClass).also { it.onCreated() }
     }
 

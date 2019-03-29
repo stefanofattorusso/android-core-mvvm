@@ -3,10 +3,10 @@ package com.stefattorusso.coremvvm.di.modules
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
 import com.stefattorusso.coremvvm.ui.detail.DetailActivity
 import com.stefattorusso.coremvvm.ui.detail.DetailActivityModule
+import com.stefattorusso.coremvvm.ui.grid.GridActivity
+import com.stefattorusso.coremvvm.ui.grid.GridActivityModule
 import com.stefattorusso.coremvvm.ui.home.HomeActivity
 import com.stefattorusso.coremvvm.ui.home.HomeActivityModule
-import com.stefattorusso.coremvvm.ui.main.MainActivity
-import com.stefattorusso.coremvvm.ui.main.MainActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -18,8 +18,8 @@ abstract class ActivityBuilderModule {
     abstract fun homeActivity(): HomeActivity
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = arrayOf(MainActivityModule::class))
-    abstract fun mainActivity(): MainActivity
+    @ContributesAndroidInjector(modules = arrayOf(GridActivityModule::class))
+    abstract fun mainActivity(): GridActivity
 
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf(DetailActivityModule::class))

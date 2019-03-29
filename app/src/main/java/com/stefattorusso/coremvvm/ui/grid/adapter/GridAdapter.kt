@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.ui.main.adapter
+package com.stefattorusso.coremvvm.ui.grid.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +10,9 @@ import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.data.models.ImageModel
 import com.stefattorusso.coremvvm.databinding.RowImageViewBinding
 
-class MainAdapter(
+class GridAdapter(
     private val callback: AdapterCallback
-) : BaseRecyclerAdapter<ImageModel, MainAdapter.MainViewHolder>() {
+) : BaseRecyclerAdapter<ImageModel, GridAdapter.MainViewHolder>() {
 
     interface AdapterCallback {
         fun onItemClicked(view: ImageView, position: Int)

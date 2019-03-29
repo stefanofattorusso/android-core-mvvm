@@ -10,14 +10,20 @@ import javax.inject.Inject
 
 class DetailViewModel @Inject constructor() : BaseViewModel() {
     var selectedItemModel: MutableLiveData<ImageModel> = MutableLiveData()
+    var loading: MutableLiveData<Boolean> = MutableLiveData()
+    var imageLoaded: MutableLiveData<Boolean> = MutableLiveData()
 
     fun setImageItem(image: Image) {
         launchAction {
-            var imageModel: ImageModel? = null
-            withContext(Dispatchers.IO) {
-                imageModel = mModelMappers.transform(image)
+            loading.value = true
+            selectedItemModel.value = withContext(Dispatchers.IO) {
+                mModelMappers.transform(image)
             }
-            selectedItemModel.value = imageModel
+            loading.value = false
         }
+    }
+
+    fun startPostponedTransition(){
+        imageLoaded.value = true
     }
 }

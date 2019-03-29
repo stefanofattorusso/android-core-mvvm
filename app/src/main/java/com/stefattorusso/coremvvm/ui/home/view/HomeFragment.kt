@@ -33,22 +33,16 @@ class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, 
         super.onViewCreated(view, savedInstanceState)
         observeData()
         setUpViews()
-
-        mViewDataBinding?.isLoading = true
-        mViewModel.loadData()
     }
 
     private fun observeData() {
-        mViewModel.modelList.observe(this, Observer {
-            mViewDataBinding?.isLoading = false
-            mAdapter.setItems(it)
-        })
         mViewModel.selectedItem.observe(this, Observer {
             mCallback.onMenuItemClicked(it.type)
         })
     }
 
     private fun setUpViews() {
+        mViewDataBinding?.viewModel = mViewModel
         mAdapter = HomeAdapter(mViewModel as HomeAdapter.AdapterCallback)
         recycler_view.run {
             setHasFixedSize(true)

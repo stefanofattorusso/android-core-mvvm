@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.ui.main
+package com.stefattorusso.coremvvm.ui.grid
 
 import android.os.Bundle
 import android.view.View
@@ -6,17 +6,17 @@ import android.widget.ImageView
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
 import com.stefattorusso.coremvvm.base.BaseActivity
-import com.stefattorusso.coremvvm.ui.main.view.MainFragment
+import com.stefattorusso.coremvvm.ui.grid.view.GridFragment
 import com.stefattorusso.domain.Image
-import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.grid_activity.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), InjectFragmentHelperCallback<MainFragment>, MainFragment.FragmentCallback {
+class GridActivity : BaseActivity(), InjectFragmentHelperCallback<GridFragment>, GridFragment.FragmentCallback {
 
     @Inject
     lateinit var mInjectFragmentHelperImpl: InjectFragmentHelper
 
-    private var mMainFragment: MainFragment? = null
+    private var mGridFragment: GridFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +31,10 @@ class MainActivity : BaseActivity(), InjectFragmentHelperCallback<MainFragment>,
 
     override fun onLoadFragmentContainer(savedInstanceState: Bundle?): View = content
 
-    override fun onCreateFragment(): MainFragment = MainFragment.newInstance(intent.extras)
+    override fun onCreateFragment(): GridFragment = GridFragment.newInstance(intent.extras)
 
-    override fun onFragmentLoaded(fragment: MainFragment) {
-        mMainFragment = fragment
+    override fun onFragmentLoaded(fragment: GridFragment) {
+        mGridFragment = fragment
     }
 
     // Fragment Callbacks

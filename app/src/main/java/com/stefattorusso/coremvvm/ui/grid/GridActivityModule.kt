@@ -1,11 +1,11 @@
-package com.stefattorusso.coremvvm.ui.main
+package com.stefattorusso.coremvvm.ui.grid
 
 import android.app.Activity
 import com.stefattorusso.coremvvm.base.BaseActivityModule
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
 import com.stefattorusso.coremvvm.di.scope.FragmentScope
-import com.stefattorusso.coremvvm.ui.main.view.MainFragment
-import com.stefattorusso.coremvvm.ui.main.view.MainFragmentModule
+import com.stefattorusso.coremvvm.ui.grid.view.GridFragment
+import com.stefattorusso.coremvvm.ui.grid.view.GridFragmentModule
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -15,7 +15,7 @@ import dagger.android.ContributesAndroidInjector
         BaseActivityModule::class
     )
 )
-abstract class MainActivityModule {
+abstract class GridActivityModule {
 
     /**
     * As per the contract specified in [BaseActivityModule]; "This must be included in all
@@ -30,25 +30,25 @@ abstract class MainActivityModule {
     */
     @Binds
     @ActivityScope
-    internal abstract fun activity(activity: MainActivity): Activity
+    internal abstract fun activity(activity: GridActivity): Activity
 
     /**
-     * The main activity listens to the events in the [MainFragment].
+     * The main activity listens to the events in the [GridFragment].
      *
      * @param activity the activity
      * @return the main fragment mCallback
      */
     @Binds
     @ActivityScope
-    internal abstract fun fragmentCallback(activity: MainActivity): MainFragment.FragmentCallback
+    internal abstract fun fragmentCallback(activity: GridActivity): GridFragment.FragmentCallback
 
     // =============================================================================================
 
     /**
-     * Provides the injector for the [MainFragment], which has access to the dependencies
+     * Provides the injector for the [GridFragment], which has access to the dependencies
      * provided by this activity and application instance (singleton scoped objects).
      */
     @FragmentScope
-    @ContributesAndroidInjector(modules = arrayOf(MainFragmentModule::class))
-    abstract fun fragmentInjector(): MainFragment
+    @ContributesAndroidInjector(modules = arrayOf(GridFragmentModule::class))
+    abstract fun fragmentInjector(): GridFragment
 }

@@ -18,7 +18,8 @@ import com.bumptech.glide.request.target.Target
 
 // Images
 
-fun ImageView.loadUrl(url: String) {
+fun ImageView.loadUrl(url: String?) {
+    if (url == null) return
     Glide.with(context)
         .load(url)
         .transition(DrawableTransitionOptions.withCrossFade())
@@ -26,7 +27,8 @@ fun ImageView.loadUrl(url: String) {
         .into(this)
 }
 
-fun ImageView.loadUrl(url: String, w: Int, h: Int) {
+fun ImageView.loadUrl(url: String?, w: Int, h: Int) {
+    if (url == null) return
     Glide.with(context)
         .load(url)
         .transition(DrawableTransitionOptions.withCrossFade())
@@ -34,7 +36,8 @@ fun ImageView.loadUrl(url: String, w: Int, h: Int) {
         .into(this)
 }
 
-fun ImageView.loadUrl(url: String, callback: () -> Unit) {
+fun ImageView.loadUrl(url: String?, callback: () -> Unit) {
+    if (url == null) return
     Glide.with(context)
         .load(url)
         .listener(object : RequestListener<Drawable> {

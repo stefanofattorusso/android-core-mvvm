@@ -1,4 +1,4 @@
-package com.stefattorusso.coremvvm.ui.main.adapter
+package com.stefattorusso.coremvvm.ui.grid.adapter
 
 import android.graphics.Rect
 import android.view.View
