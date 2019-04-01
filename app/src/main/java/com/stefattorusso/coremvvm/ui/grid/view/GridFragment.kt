@@ -17,12 +17,6 @@ import kotlinx.android.synthetic.main.grid_fragment.*
 
 class GridFragment : BaseFragment<GridFragment.FragmentCallback, GridViewModel, GridFragmentBinding>() {
 
-    companion object {
-        fun newInstance(bundle: Bundle?) = GridFragment().apply {
-            arguments = bundle ?: Bundle()
-        }
-    }
-
     interface FragmentCallback : BaseFragment.BaseFragmentCallback {
         fun onShowDetail(view: ImageView, image: Image)
     }

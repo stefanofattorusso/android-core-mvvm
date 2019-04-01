@@ -12,12 +12,6 @@ import kotlinx.android.synthetic.main.detail_fragment.*
 
 class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewModel, DetailFragmentBinding>() {
 
-    companion object {
-        fun newInstance(bundle: Bundle?) = DetailFragment().apply {
-            arguments = bundle ?: Bundle()
-        }
-    }
-
     interface FragmentCallback : BaseFragment.BaseFragmentCallback {
         fun onAnimationEnd()
     }

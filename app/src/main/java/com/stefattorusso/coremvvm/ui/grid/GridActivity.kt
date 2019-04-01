@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
+import com.stefattorusso.commons.newInstance
 import com.stefattorusso.coremvvm.base.BaseActivity
 import com.stefattorusso.coremvvm.ui.grid.view.GridFragment
 import com.stefattorusso.domain.Image
@@ -31,7 +32,7 @@ class GridActivity : BaseActivity(), InjectFragmentHelperCallback<GridFragment>,
 
     override fun onLoadFragmentContainer(savedInstanceState: Bundle?): View = content
 
-    override fun onCreateFragment(): GridFragment = GridFragment.newInstance(intent.extras)
+    override fun onCreateFragment(): GridFragment = GridFragment().newInstance(intent.extras)
 
     override fun onFragmentLoaded(fragment: GridFragment) {
         mGridFragment = fragment

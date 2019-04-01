@@ -63,7 +63,7 @@ class ErrorHandler(
                 mErrorList.remove(mErrorList.first())
                 if (mErrorList.isNotEmpty()) showError(mErrorList.first())
             }
-        }.show()
+        }.create().show()
     }
 
     private inner class BundleError(val code: Int, val title: String, val message: String)

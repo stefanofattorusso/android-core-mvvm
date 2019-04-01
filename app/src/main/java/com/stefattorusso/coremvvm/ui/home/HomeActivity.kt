@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
+import com.stefattorusso.commons.newInstance
 import com.stefattorusso.coremvvm.base.BaseActivity
 import com.stefattorusso.coremvvm.ui.home.view.HomeFragment
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.LIST
@@ -26,7 +27,7 @@ class HomeActivity : BaseActivity(), InjectFragmentHelperCallback<HomeFragment>,
 
     override fun onLoadFragmentContainer(savedInstanceState: Bundle?): View = content
 
-    override fun onCreateFragment(): HomeFragment = HomeFragment.newInstance(intent.extras)
+    override fun onCreateFragment(): HomeFragment = HomeFragment().newInstance(intent.extras)
 
     override fun onFragmentLoaded(fragment: HomeFragment) {
         mHomeFragment = fragment
