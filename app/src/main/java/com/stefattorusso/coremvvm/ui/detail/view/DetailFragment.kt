@@ -42,7 +42,7 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
     }
 
     private fun observeData() {
-        mViewModel.imageLoaded.observe(this, Observer {
+        mViewModel.imageLoaded.observe(viewLifecycleOwner, Observer {
             if (it) startPostponedEnterTransition()
         })
     }

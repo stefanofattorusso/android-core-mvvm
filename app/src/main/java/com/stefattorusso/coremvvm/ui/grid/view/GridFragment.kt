@@ -52,7 +52,7 @@ class GridFragment : BaseFragment<GridFragment.FragmentCallback, GridViewModel, 
     }
 
     private fun observeData() {
-        mViewModel.selectedItem.observe(this, Observer {
+        mViewModel.selectedItem.observe(viewLifecycleOwner, Observer {
             mCallback.onShowDetail(it.first, it.second)
         })
     }

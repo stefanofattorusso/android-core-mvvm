@@ -25,14 +25,8 @@ class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeData()
         setUpViews()
-    }
-
-    private fun observeData() {
-        mViewModel.selectedItem.observe(this, Observer {
-            mCallback.onMenuItemClicked(it.type)
-        })
+        observeData()
     }
 
     private fun setUpViews() {
@@ -44,5 +38,11 @@ class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, 
             layoutManager = LinearLayoutManager(context, VERTICAL, false)
             adapter = mAdapter
         }
+    }
+
+    private fun observeData() {
+        mViewModel.selectedItem.observe(viewLifecycleOwner, Observer {
+            mCallback.onMenuItemClicked(it.type)
+        })
     }
 }
