@@ -7,8 +7,8 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.stefattorusso.commons.BaseRecyclerAdapterCallback
 import com.stefattorusso.commons.loadUrl
+import com.stefattorusso.coremvvm.base.BaseListAdapter
 
 object CustomBindingAdapter {
 
@@ -33,12 +33,12 @@ object CustomBindingAdapter {
     @JvmStatic
     @BindingAdapter("setItems")
     fun <T> setAdapterItems(view: RecyclerView, items: List<T>?){
-        (view.adapter as BaseRecyclerAdapterCallback<T>).setItems(items)
+        (view.adapter as BaseListAdapter<T>).setItems(items)
     }
 
     @JvmStatic
     @BindingAdapter("setDataPair")
     fun <T> setAdapterItems(view: RecyclerView, data: Pair<List<T>, DiffUtil.DiffResult>?){
-        (view.adapter as BaseRecyclerAdapterCallback<T>).setItems(data)
+//        (view.adapter as BaseRecyclerAdapterCallback<T>).setItems(data)
     }
 }

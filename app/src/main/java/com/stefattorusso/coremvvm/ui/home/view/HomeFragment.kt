@@ -6,9 +6,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
+import com.stefattorusso.coremvvm.base.BaseListAdapter
+import com.stefattorusso.coremvvm.data.models.MenuModel
 import com.stefattorusso.coremvvm.databinding.HomeFragmentBinding
-import com.stefattorusso.coremvvm.ui.home.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
@@ -17,8 +19,6 @@ class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, 
     interface FragmentCallback : BaseFragment.BaseFragmentCallback {
         fun onMenuItemClicked(type: String)
     }
-
-    private lateinit var mAdapter: HomeAdapter
 
     override val mViewModelClass: Class<HomeViewModel>
         get() = HomeViewModel::class.java
@@ -31,18 +31,21 @@ class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, 
 
     private fun setUpViews() {
         mViewDataBinding?.viewModel = mViewModel
-        mAdapter = HomeAdapter(mViewModel as HomeAdapter.AdapterCallback)
         recycler_view.run {
             setHasFixedSize(true)
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(context, VERTICAL, false)
-            adapter = mAdapter
+            adapter = HomeAdapter()
         }
     }
 
     private fun observeData() {
-        mViewModel.selectedItem.observe(viewLifecycleOwner, Observer {
+        mViewModel.getSelectedItem().observe(viewLifecycleOwner, Observer {
             mCallback.onMenuItemClicked(it.type)
         })
+    }
+
+    inner class HomeAdapter : BaseListAdapter<MenuModel>() {
+        override fun getViewHolderLayoutId(): Int = R.layout.row_home_view
     }
 }

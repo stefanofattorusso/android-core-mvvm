@@ -18,7 +18,7 @@
         <ProgressBar
             android:id="@+id/loaderView"
             style="?android:attr/progressBarStyle"
-            app:visibleGone="@{!viewModel.loading}"
+            app:visibleGone="@{!viewModel.getLoading()}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:clipToPadding="false"
-            bind:setItems="@{viewModel.modelList}"
+            bind:setItems="@{viewModel.getModelList()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     <data>
 
         <variable
-            name="menuModel"
+            name="model"
             type="com.stefattorusso.coremvvm.data.models.MenuModel"/>
     </data>
 
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:transitionName="image"
-            android:text="@{menuModel.name}"
+            android:text="@{model.name}"
             android:textColor="@android:color/white"/>
 
     </FrameLayout>
