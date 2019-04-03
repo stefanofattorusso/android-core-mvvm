@@ -18,7 +18,7 @@
         <ProgressBar
             android:id="@+id/loaderView"
             style="?android:attr/progressBarStyle"
-            app:visibleGone="@{!viewModel.getLoading()}"
+            app:visibleGone="@{safeUnbox(!viewModel.getLoading())}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"

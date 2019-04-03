@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
-import com.stefattorusso.coremvvm.base.BaseListAdapter
+import com.stefattorusso.coremvvm.base.adapter.BaseListAdapter
 import com.stefattorusso.coremvvm.data.models.MenuModel
 import com.stefattorusso.coremvvm.databinding.HomeFragmentBinding
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -35,7 +35,7 @@ class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, 
             setHasFixedSize(true)
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(context, VERTICAL, false)
-            adapter = HomeAdapter()
+            adapter = HomeAdapter(mViewModel)
         }
     }
 
@@ -45,7 +45,7 @@ class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, 
         })
     }
 
-    inner class HomeAdapter : BaseListAdapter<MenuModel>() {
-        override fun getViewHolderLayoutId(): Int = R.layout.row_home_view
+    inner class HomeAdapter(viewModel: HomeViewModel) : BaseListAdapter<MenuModel, HomeViewModel>(viewModel) {
+        override fun getLayoutIdForPosition(position: Int): Int = R.layout.row_home_view
     }
 }

@@ -4,7 +4,15 @@
     <data>
 
         <variable
-            name="imageModel"
+            name="viewModel"
+            type="com.stefattorusso.coremvvm.ui.grid.view.GridViewModel"/>
+
+        <variable
+            name="position"
+            type="Integer"/>
+
+        <variable
+            name="model"
             type="com.stefattorusso.coremvvm.data.models.ImageModel"/>
     </data>
 
@@ -14,13 +22,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ProgressBar
+            android:id="@+id/loaderView"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             android:transitionName="image"
-            bind:imageUrl="@{imageModel.imageUrl}"
+            bind:imageUrl="@{model.imageUrl}"
+            android:onClick="@{()-> viewModel.onItemClicked(imageView, position)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

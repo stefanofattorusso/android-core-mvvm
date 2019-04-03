@@ -4,6 +4,14 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.stefattorusso.coremvvm.ui.home.view.HomeViewModel"/>
+
+        <variable
+            name="position"
+            type="Integer"/>
+
+        <variable
             name="model"
             type="com.stefattorusso.coremvvm.data.models.MenuModel"/>
     </data>
@@ -23,6 +31,7 @@
             android:layout_height="56dp"
             android:transitionName="image"
             android:text="@{model.name}"
+            android:onClick="@{()-> viewModel.onItemClicked(position)}"
             android:textColor="@android:color/white"/>
 
     </FrameLayout>

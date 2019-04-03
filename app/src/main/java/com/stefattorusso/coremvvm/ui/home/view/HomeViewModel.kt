@@ -8,15 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor() : BaseViewModel()/*, HomeAdapter.AdapterCallback*/ {
+class HomeViewModel @Inject constructor() : BaseViewModel() {
 
     private var modelList: MutableLiveData<List<MenuModel>> = MutableLiveData()
     private var selectedItem: MutableLiveData<MenuModel> = MutableLiveData()
     private var loading: MutableLiveData<Boolean> = MutableLiveData()
-
-/*    override fun onItemClicked(position: Int) {
-        selectedItem.value = (modelList.value as List<MenuModel>)[position]
-    }*/
 
     override fun onCreated() {
         loadData()
@@ -27,6 +23,10 @@ class HomeViewModel @Inject constructor() : BaseViewModel()/*, HomeAdapter.Adapt
     fun getLoading(): LiveData<Boolean> = loading
 
     fun getModelList(): LiveData<List<MenuModel>> = modelList
+
+    fun onItemClicked(position: Int) {
+        selectedItem.value = modelList.value?.get(position)
+    }
 
     private fun loadData() {
         launchAction {

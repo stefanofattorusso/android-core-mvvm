@@ -5,11 +5,13 @@ import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
+import com.stefattorusso.coremvvm.base.adapter.BaseListAdapter
+import com.stefattorusso.coremvvm.data.models.ImageModel
 import com.stefattorusso.coremvvm.databinding.GridFragmentBinding
-import com.stefattorusso.coremvvm.ui.grid.adapter.GridAdapter
 import com.stefattorusso.coremvvm.ui.grid.adapter.SpacesItemDecoration
 import com.stefattorusso.domain.Image
 import kotlinx.android.synthetic.main.grid_fragment.*
@@ -34,7 +36,7 @@ class GridFragment : BaseFragment<GridFragment.FragmentCallback, GridViewModel, 
 
     private fun setUpViews() {
         mViewDataBinding?.viewModel = mViewModel
-        mAdapter = GridAdapter(mViewModel as GridAdapter.AdapterCallback)
+        mAdapter = GridAdapter(mViewModel, GridDiffCallback())
         recycler_view.run {
             setHasFixedSize(true)
             addItemDecoration(
@@ -55,5 +57,22 @@ class GridFragment : BaseFragment<GridFragment.FragmentCallback, GridViewModel, 
         mViewModel.selectedItem.observe(viewLifecycleOwner, Observer {
             mCallback.onShowDetail(it.first, it.second)
         })
+    }
+
+    private class GridDiffCallback : DiffUtil.ItemCallback<ImageModel>() {
+        override fun areItemsTheSame(oldItem: ImageModel, newItem: ImageModel): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: ImageModel, newItem: ImageModel): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    inner class GridAdapter(
+        viewModel: GridViewModel,
+        diffCallback: DiffUtil.ItemCallback<ImageModel>
+    ) : BaseListAdapter<ImageModel, GridViewModel>(viewModel, diffCallback) {
+        override fun getLayoutIdForPosition(position: Int): Int = R.layout.row_image_view
     }
 }
