@@ -24,6 +24,7 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
     var selectedItem: MutableLiveData<Pair<ImageView, Image>> = MutableLiveData()
 
     override fun onCreated() {
+        super.onCreated()
         loadData()
     }
 

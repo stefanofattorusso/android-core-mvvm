@@ -15,20 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <ProgressBar
+        <ProgressBar
             android:id="@+id/loaderView"
             style="?android:attr/progressBarStyle"
-            app:visibleGone="@{safeUnbox(!viewModel.getLoading())}"
+            app:uiState="@{viewModel.uiState}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>-->
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:clipToPadding="false"
+            app:uiState="@{viewModel.uiState}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             bind:setItems="@{viewModel.getImageModelList()}"

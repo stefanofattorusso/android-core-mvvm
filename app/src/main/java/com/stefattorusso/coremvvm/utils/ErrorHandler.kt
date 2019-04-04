@@ -2,6 +2,7 @@ package com.stefattorusso.coremvvm.utils
 
 import android.app.Activity
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.data.network.gateway.retrofit.exception.RetrofitException
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -16,8 +17,10 @@ class ErrorHandler(
 ) : CoroutineExceptionHandler {
 
     private val mErrorList = mutableSetOf<BundleError>()
+    private var mUiState: MutableLiveData<UIState> = MutableLiveData()
 
     override fun handleException(context: CoroutineContext, exception: Throwable) {
+        mUiState.value = Error
         var code = 0
         val title: String = activity.getString(R.string.unespected_error_title)
         var message: String = activity.getString(R.string.unespected_error_message)
@@ -29,7 +32,6 @@ class ErrorHandler(
                     is SocketTimeoutException -> message = activity.getString(R.string.unespected_timeout_message)
                     is UnknownHostException -> message = activity.getString(R.string.unespected_timeout_message)
                     else -> {
-
                     }
                 }
             }
@@ -43,6 +45,10 @@ class ErrorHandler(
 
     fun set(code: Int, title: String, message: String) {
         handleError(BundleError(code, title, message))
+    }
+
+    fun setUiState(uiState: MutableLiveData<UIState>) {
+        mUiState = uiState
     }
 
     @Synchronized

@@ -1,10 +1,11 @@
 package com.stefattorusso.coremvvm.base.mvvm
 
-import androidx.lifecycle.LiveData
+import androidx.annotation.CallSuper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stefattorusso.coremvvm.data.mapper.ModelMappers
 import com.stefattorusso.coremvvm.utils.ErrorHandler
+import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.UIState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,21 +21,22 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
     @Inject
     lateinit var mModelMappers: ModelMappers
 
-    protected var uiState: MutableLiveData<UIState> = MutableLiveData()
+    var uiState = MutableLiveData<UIState>().apply { this.value = Loading }
 
     private val mJob: Job by lazy { Job() }
 
     override val coroutineContext: CoroutineContext
         get() = mJob + Dispatchers.Main
 
-    open fun onCreated() {}
+    @CallSuper
+    open fun onCreated() {
+        mExceptionHandler.setUiState(uiState)
+    }
 
     override fun onCleared() {
         super.onCleared()
         mJob.cancel()
     }
-
-    fun getUiState(): LiveData<UIState> = uiState
 
     protected fun launchAction(block: suspend CoroutineScope.() -> Unit) {
         launch(mExceptionHandler, block = block)

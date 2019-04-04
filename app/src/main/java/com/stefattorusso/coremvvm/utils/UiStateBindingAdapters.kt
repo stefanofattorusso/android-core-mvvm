@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 
 object UiStateBindingAdapters{
 
+    @JvmStatic
     @BindingAdapter("uiState")
     fun setUiStateForLoading(progressView: ProgressBar, uiState: UIState) {
         progressView.visibility = when (uiState) {
@@ -14,6 +15,7 @@ object UiStateBindingAdapters{
         }
     }
 
+    @JvmStatic
     @BindingAdapter("uiState")
     fun setUiStateForLoadedContent(view: View, uiState: UIState) {
         view.visibility = when (uiState) {
@@ -22,6 +24,7 @@ object UiStateBindingAdapters{
         }
     }
 
+    @JvmStatic
     @BindingAdapter("emptyState")
     fun setUiStateForEmptyView(view: View, uiState: UIState) {
         view.visibility = when (uiState) {
@@ -30,6 +33,7 @@ object UiStateBindingAdapters{
         }
     }
 
+    @JvmStatic
     @BindingAdapter("errorState")
     fun setUiStateForErrorView(view: View, uiState: UIState) {
         view.visibility = when (uiState) {

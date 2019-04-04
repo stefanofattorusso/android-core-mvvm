@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
 import com.stefattorusso.coremvvm.data.models.MenuModel
+import com.stefattorusso.coremvvm.utils.HasData
+import com.stefattorusso.coremvvm.utils.Loading
+import com.stefattorusso.coremvvm.utils.NoData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -12,15 +15,13 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
 
     private var modelList: MutableLiveData<List<MenuModel>> = MutableLiveData()
     private var selectedItem: MutableLiveData<MenuModel> = MutableLiveData()
-    private var loading: MutableLiveData<Boolean> = MutableLiveData()
 
     override fun onCreated() {
+        super.onCreated()
         loadData()
     }
 
     fun getSelectedItem(): LiveData<MenuModel> = selectedItem
-
-    fun getLoading(): LiveData<Boolean> = loading
 
     fun getModelList(): LiveData<List<MenuModel>> = modelList
 
@@ -30,9 +31,9 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
 
     private fun loadData() {
         launchAction {
-            loading.value = true
+            uiState.value = Loading
             modelList.value = withContext(Dispatchers.Default) { init() }
-            loading.value = false
+            uiState.value = NoData.takeIf { modelList.value.isNullOrEmpty() } ?: HasData
         }
     }
 
