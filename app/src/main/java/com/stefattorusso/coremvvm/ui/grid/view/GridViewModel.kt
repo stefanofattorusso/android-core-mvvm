@@ -41,7 +41,7 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
                 getImageListUseCase.execute().shuffled()
             }
             imageModelList.value = withContext(Dispatchers.IO) {
-                imageList.map { mModelMappers.transform(it) }
+                imageList.map { mImageModelMapper.transform(it) }
             }
             uiState.value = NoData.takeIf { imageList.isEmpty() } ?: HasData
         }

@@ -2,7 +2,7 @@ package com.stefattorusso.coremvvm.base
 
 import android.app.Application
 import android.content.Context
-import com.stefattorusso.coremvvm.data.mapper.ModelMappers
+import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.di.modules.*
 import dagger.Binds
 import dagger.Module
@@ -42,7 +42,7 @@ abstract class BaseApplicationModule {
         @JvmStatic
         @Provides
         @Singleton
-        internal fun modelMappers(context: Context): ModelMappers = ModelMappers(context)
+        internal fun modelMappers(context: Context): ImageModelMapper = ImageModelMapper(context)
     }
 
 }

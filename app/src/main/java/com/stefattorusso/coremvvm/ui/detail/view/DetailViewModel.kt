@@ -1,5 +1,6 @@
 package com.stefattorusso.coremvvm.ui.detail.view
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
 import com.stefattorusso.coremvvm.data.models.ImageModel
@@ -9,21 +10,22 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor() : BaseViewModel() {
-    var selectedItemModel: MutableLiveData<ImageModel> = MutableLiveData()
-    var loading: MutableLiveData<Boolean> = MutableLiveData()
-    var imageLoaded: MutableLiveData<Boolean> = MutableLiveData()
+    private var selectedItemModel: MutableLiveData<ImageModel> = MutableLiveData()
+    private var imageLoaded: MutableLiveData<Boolean> = MutableLiveData()
 
     fun setImageItem(image: Image) {
         launchAction {
-            loading.value = true
             selectedItemModel.value = withContext(Dispatchers.IO) {
-                mModelMappers.transform(image)
+                mImageModelMapper.transform(image)
             }
-            loading.value = false
         }
     }
 
     fun startPostponedTransition(){
         imageLoaded.value = true
     }
+
+    fun getSelectedItemModel(): LiveData<ImageModel> = selectedItemModel
+
+    fun getImageLoaded(): LiveData<Boolean> = imageLoaded
 }

@@ -3,7 +3,7 @@ package com.stefattorusso.coremvvm.base.mvvm
 import androidx.annotation.CallSuper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.stefattorusso.coremvvm.data.mapper.ModelMappers
+import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.utils.ErrorHandler
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.UIState
@@ -19,7 +19,7 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
     @Inject
     lateinit var mExceptionHandler: ErrorHandler
     @Inject
-    lateinit var mModelMappers: ModelMappers
+    lateinit var mImageModelMapper: ImageModelMapper
 
     var uiState = MutableLiveData<UIState>().apply { this.value = Loading }
 
