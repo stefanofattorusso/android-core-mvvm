@@ -7,6 +7,7 @@ import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentH
 import com.stefattorusso.commons.newInstance
 import com.stefattorusso.coremvvm.base.BaseActivity
 import com.stefattorusso.coremvvm.ui.home.view.HomeFragment
+import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.CAMERA
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.LIST
 import kotlinx.android.synthetic.main.grid_activity.*
 import javax.inject.Inject
@@ -38,6 +39,7 @@ class HomeActivity : BaseActivity(), InjectFragmentHelperCallback<HomeFragment>,
     override fun onMenuItemClicked(type: String) {
         when (type) {
             LIST -> mNavigationHelper.launchMain()
+            CAMERA -> mNavigationHelper.launchCameraView()
         }
     }
 }

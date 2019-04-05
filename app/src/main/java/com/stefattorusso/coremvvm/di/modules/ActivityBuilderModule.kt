@@ -1,6 +1,8 @@
 package com.stefattorusso.coremvvm.di.modules
 
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
+import com.stefattorusso.coremvvm.ui.camera.CameraActivity
+import com.stefattorusso.coremvvm.ui.camera.CameraActivityModule
 import com.stefattorusso.coremvvm.ui.detail.DetailActivity
 import com.stefattorusso.coremvvm.ui.detail.DetailActivityModule
 import com.stefattorusso.coremvvm.ui.grid.GridActivity
@@ -24,4 +26,8 @@ abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf(DetailActivityModule::class))
     abstract fun detailActivity(): DetailActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf(CameraActivityModule::class))
+    abstract fun cameraActivity(): CameraActivity
 }

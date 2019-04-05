@@ -2,6 +2,7 @@ package com.stefattorusso.commons
 
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import timber.log.Timber
 
 // Images
 
@@ -93,4 +95,19 @@ fun Context.isNetworkAvailable(): Boolean {
 
 fun <TFragment : Fragment> TFragment.newInstance(bundle: Bundle?): TFragment {
     return this.apply { arguments = bundle ?: Bundle() }
+}
+
+
+// Context
+
+fun Context.getPackageName(): String {
+    var packageName = ""
+    try {
+        val pInfo = packageManager.getPackageInfo(packageName, 0)
+        packageName = pInfo.packageName
+    } catch (e: PackageManager.NameNotFoundException) {
+        Timber.e(e)
+    }
+
+    return packageName
 }

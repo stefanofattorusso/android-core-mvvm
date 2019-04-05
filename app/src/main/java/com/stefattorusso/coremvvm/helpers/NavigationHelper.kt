@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
+import com.stefattorusso.coremvvm.ui.camera.CameraActivity
 import com.stefattorusso.coremvvm.ui.detail.DetailActivity
 import com.stefattorusso.coremvvm.ui.grid.GridActivity
 import com.stefattorusso.domain.Image
@@ -20,6 +21,10 @@ class NavigationHelper(
         launchWithAnimation(view, Intent(activity, DetailActivity::class.java).apply {
             putExtra(Image::class.java.simpleName, image)
         })
+    }
+
+    fun launchCameraView() {
+        launch(Intent(activity, CameraActivity::class.java))
     }
 
     private fun launch(intent: Intent) {
