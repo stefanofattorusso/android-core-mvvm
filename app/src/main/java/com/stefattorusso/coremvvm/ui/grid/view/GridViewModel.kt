@@ -21,7 +21,7 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
 
     private var imageList = listOf<Image>()
     private var imageModelList: MutableLiveData<List<ImageModel>> = MutableLiveData()
-    var selectedItem: MutableLiveData<Pair<ImageView, Image>> = MutableLiveData()
+    private var selectedItem: MutableLiveData<Pair<ImageView, Image>> = MutableLiveData()
 
     override fun onCreated() {
         super.onCreated()
@@ -34,6 +34,8 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
 
     fun getImageModelList(): LiveData<List<ImageModel>> = imageModelList
 
+    fun getSelectedItem(): LiveData<Pair<ImageView, Image>> = selectedItem
+
     private fun loadData() {
         launchAction {
             uiState.value = Loading
@@ -43,7 +45,7 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
             imageModelList.value = withContext(Dispatchers.IO) {
                 imageList.map { mImageModelMapper.transform(it) }
             }
-            uiState.value = NoData.takeIf { imageList.isEmpty() } ?: HasData
+            uiState.value = NoData.takeIf { imageList.isNullOrEmpty() } ?: HasData
         }
     }
 }

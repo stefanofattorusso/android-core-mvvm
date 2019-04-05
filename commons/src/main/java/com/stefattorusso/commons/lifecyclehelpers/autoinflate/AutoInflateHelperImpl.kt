@@ -66,5 +66,4 @@ class AutoInflateHelperImpl(
             )
         } ?: 0
     }
-
 }
