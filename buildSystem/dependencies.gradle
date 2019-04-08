@@ -16,7 +16,7 @@ ext {
     def retrofitVersion = '2.4.0'
     def timberVersion = '4.7.1'
     def moshiVersion = '1.8.0'
-    def coroutinesVersion = '1.1.1'
+    def coroutinesVersion = '1.2.0-alpha-2'
     def coroutinesAdapterVersion = '0.9.2'
 
 

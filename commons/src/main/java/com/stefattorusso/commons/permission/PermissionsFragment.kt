@@ -82,14 +82,14 @@ class PermissionsFragment : Fragment() {
 }
 
 suspend fun FragmentActivity.getStoragePermission(): Boolean {
-    return launchFragment(PermissionsFragment.PERMISSION_STORAGE_CODE).awaitGrant()
+    return launchFragment(PermissionsFragment.PERMISSION_STORAGE_CODE)
 }
 
 suspend fun FragmentActivity.getCameraPermission(): Boolean {
-    return launchFragment(PermissionsFragment.PERMISSION_CAMERA_CODE).awaitGrant()
+    return launchFragment(PermissionsFragment.PERMISSION_CAMERA_CODE)
 }
 
-private fun FragmentActivity.launchFragment(code: Int): PermissionsFragment {
+private suspend fun FragmentActivity.launchFragment(code: Int): Boolean {
     val fragment = PermissionsFragment().apply {
         arguments = Bundle().apply { putInt("CODE", code) }
     }
@@ -97,5 +97,5 @@ private fun FragmentActivity.launchFragment(code: Int): PermissionsFragment {
         .beginTransaction()
         .add(fragment, null)
         .commitAllowingStateLoss()
-    return fragment
+    return fragment.awaitGrant()
 }

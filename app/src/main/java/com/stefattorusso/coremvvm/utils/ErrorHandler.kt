@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.data.network.gateway.retrofit.exception.RetrofitException
 import kotlinx.coroutines.CoroutineExceptionHandler
+import timber.log.Timber
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -20,6 +21,7 @@ class ErrorHandler(
     private var mUiState: MutableLiveData<UIState> = MutableLiveData()
 
     override fun handleException(context: CoroutineContext, exception: Throwable) {
+        Timber.e(exception)
         mUiState.value = Error
         var code = 0
         val title: String = activity.getString(R.string.unespected_error_title)

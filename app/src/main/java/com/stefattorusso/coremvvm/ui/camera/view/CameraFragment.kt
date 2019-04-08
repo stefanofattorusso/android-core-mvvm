@@ -1,14 +1,13 @@
 package com.stefattorusso.coremvvm.ui.camera.view
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import com.stefattorusso.commons.permission.getCameraPermission
+import com.stefattorusso.commons.loadUri
+import com.stefattorusso.commons.setOnClick
 import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.databinding.CameraFragmentBinding
-import com.stefattorusso.coremvvm.utils.ImagePickerUtil
 import kotlinx.android.synthetic.main.camera_fragment.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class CameraFragment : BaseFragment<CameraFragment.FragmentCallback, CameraViewModel, CameraFragmentBinding>() {
 
@@ -25,30 +24,18 @@ class CameraFragment : BaseFragment<CameraFragment.FragmentCallback, CameraViewM
         observeData()
     }
 
+    fun drawPicture(uri: Uri){
+        take_picture_image.loadUri(uri)
+    }
+
     private fun setupViews() {
         mViewDataBinding?.viewModel = mViewModel
-        take_picture_image.setOnClickListener {
+        take_picture_image.setOnClick {
             mCallback.onTakePictureClicked()
         }
     }
 
     private fun observeData() {
 
-    }
-
-    private fun checkCameraPermission(): Boolean{
-        var hasPermission = false
-        launchAction {
-            withContext(Dispatchers.Default){
-                hasPermission = activity?.getCameraPermission() ?: false
-            }
-        }
-        return hasPermission
-    }
-
-    private fun handlePickTakePicture(){
-        launchAction {
-            val intent = ImagePickerUtil.getPickImageIntent(context!!, "Choose an option")
-        }
     }
 }

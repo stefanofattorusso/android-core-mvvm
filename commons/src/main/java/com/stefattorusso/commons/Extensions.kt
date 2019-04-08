@@ -2,11 +2,12 @@ package com.stefattorusso.commons
 
 import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -17,9 +18,22 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import timber.log.Timber
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.actor
 
 // Images
+
+fun ImageView.loadUri(uri: Uri?) {
+    if (uri == null) return
+    Glide.with(context)
+        .load(uri)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .apply(RequestOptions().override(200, 200))
+        .into(this)
+}
+
 
 fun ImageView.loadUrl(url: String?) {
     if (url == null) return
@@ -98,16 +112,16 @@ fun <TFragment : Fragment> TFragment.newInstance(bundle: Bundle?): TFragment {
 }
 
 
-// Context
+// View
 
-fun Context.getPackageName(): String {
-    var packageName = ""
-    try {
-        val pInfo = packageManager.getPackageInfo(packageName, 0)
-        packageName = pInfo.packageName
-    } catch (e: PackageManager.NameNotFoundException) {
-        Timber.e(e)
+@ObsoleteCoroutinesApi
+fun View.setOnClick(action: suspend () -> Unit) {
+    // launch one actor as a parent of the context job
+    val scope = (context as? CoroutineScope)?: AppCoroutineScope
+    val eventActor = scope.actor<Unit>(capacity = Channel.CONFLATED) {
+        for (event in channel) action()
     }
-
-    return packageName
+    // install a listener to activate this actor
+    setOnClickListener { eventActor.offer(Unit) }
 }
+

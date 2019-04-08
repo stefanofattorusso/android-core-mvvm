@@ -16,15 +16,10 @@ import com.stefattorusso.coremvvm.utils.ErrorHandler
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : BaseViewModel, VDB : ViewDataBinding> :
-    Fragment(), HasSupportFragmentInjector, AutoInflateViewHelperCallback, CoroutineScope {
+    Fragment(), HasSupportFragmentInjector, AutoInflateViewHelperCallback {
 
     @Inject
     lateinit var mExceptionHandler: ErrorHandler
@@ -44,11 +39,6 @@ abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : 
     protected var mViewDataBinding: VDB? = null
     private var mView: View? = null
 
-    private val mJob: Job by lazy { Job() }
-
-    override val coroutineContext: CoroutineContext
-        get() = mJob + Dispatchers.Main
-
     override fun onViewInflated(view: View) {
         mView = view
     }
@@ -64,14 +54,5 @@ abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : 
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(mViewModelClass).also { it.onCreated() }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mJob.cancel()
-    }
-
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = mChildFragmentInjector
-
-    protected fun launchAction(block: suspend CoroutineScope.() -> Unit) {
-        launch(mExceptionHandler, block = block)
-    }
 }
