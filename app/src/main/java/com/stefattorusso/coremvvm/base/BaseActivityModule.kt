@@ -12,6 +12,7 @@ import com.stefattorusso.commons.lifecyclehelpers.fullscreen.FullScreenActivityL
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperImpl
+import com.stefattorusso.commons.lifecyclehelpers.location.LocationHelperLifecycle
 import com.stefattorusso.coremvvm.di.modules.ViewModelModule
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
 import com.stefattorusso.coremvvm.helpers.NavigationHelper
@@ -81,5 +82,11 @@ abstract class BaseActivityModule {
         @ActivityScope
         internal fun fullScreenActivityLifecycle(activity: Activity): FullScreenActivityLifecycle =
             FullScreenActivityLifecycle(activity as AppCompatActivity)
+
+        @JvmStatic
+        @Provides
+        @ActivityScope
+        internal fun locationLifecycle(activity: Activity): LocationHelperLifecycle =
+            LocationHelperLifecycle(activity as AppCompatActivity)
     }
 }

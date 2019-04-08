@@ -1,8 +1,7 @@
 package com.stefattorusso.commons.permission
 
 import android.Manifest
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.*
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -29,7 +28,8 @@ class PermissionsFragment : Fragment() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             PERMISSION_STORAGE_CODE,
-            PERMISSION_CAMERA_CODE -> {
+            PERMISSION_CAMERA_CODE,
+            PERMISSION_LOCATION_CODE -> {
                 if (grantResults[0] == PERMISSION_GRANTED) {
                     deferredGrant.complete(true)
                     exit()
@@ -62,6 +62,14 @@ class PermissionsFragment : Fragment() {
                     exit()
                 }
             }
+            PERMISSION_LOCATION_CODE -> {
+                if (ContextCompat.checkSelfPermission(context!!, ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
+                    requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), code)
+                } else {
+                    deferredGrant.complete(true)
+                    exit()
+                }
+            }
         }
     }
 
@@ -78,6 +86,7 @@ class PermissionsFragment : Fragment() {
     companion object {
         internal const val PERMISSION_STORAGE_CODE = 100
         internal const val PERMISSION_CAMERA_CODE = 101
+        internal const val PERMISSION_LOCATION_CODE = 102
     }
 }
 
@@ -87,6 +96,10 @@ suspend fun FragmentActivity.getStoragePermission(): Boolean {
 
 suspend fun FragmentActivity.getCameraPermission(): Boolean {
     return launchFragment(PermissionsFragment.PERMISSION_CAMERA_CODE)
+}
+
+suspend fun FragmentActivity.getLocationPermission(): Boolean {
+    return launchFragment(PermissionsFragment.PERMISSION_LOCATION_CODE)
 }
 
 private suspend fun FragmentActivity.launchFragment(code: Int): Boolean {

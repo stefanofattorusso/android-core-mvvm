@@ -7,6 +7,7 @@ import androidx.core.app.ActivityOptionsCompat
 import com.stefattorusso.coremvvm.ui.camera.CameraActivity
 import com.stefattorusso.coremvvm.ui.detail.DetailActivity
 import com.stefattorusso.coremvvm.ui.grid.GridActivity
+import com.stefattorusso.coremvvm.ui.location.LocationActivity
 import com.stefattorusso.domain.Image
 
 class NavigationHelper(
@@ -25,6 +26,10 @@ class NavigationHelper(
 
     fun launchCameraView() {
         launch(Intent(activity, CameraActivity::class.java))
+    }
+
+    fun launchLocationView() {
+        launch(Intent(activity, LocationActivity::class.java))
     }
 
     private fun launch(intent: Intent) {

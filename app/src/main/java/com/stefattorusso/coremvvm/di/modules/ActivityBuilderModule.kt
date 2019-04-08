@@ -9,6 +9,8 @@ import com.stefattorusso.coremvvm.ui.grid.GridActivity
 import com.stefattorusso.coremvvm.ui.grid.GridActivityModule
 import com.stefattorusso.coremvvm.ui.home.HomeActivity
 import com.stefattorusso.coremvvm.ui.home.HomeActivityModule
+import com.stefattorusso.coremvvm.ui.location.LocationActivity
+import com.stefattorusso.coremvvm.ui.location.LocationActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -30,4 +32,8 @@ abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf(CameraActivityModule::class))
     abstract fun cameraActivity(): CameraActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf(LocationActivityModule::class))
+    abstract fun locationActivity(): LocationActivity
 }
