@@ -11,6 +11,8 @@ import com.stefattorusso.coremvvm.ui.home.HomeActivity
 import com.stefattorusso.coremvvm.ui.home.HomeActivityModule
 import com.stefattorusso.coremvvm.ui.location.LocationActivity
 import com.stefattorusso.coremvvm.ui.location.LocationActivityModule
+import com.stefattorusso.coremvvm.ui.login.LoginActivity
+import com.stefattorusso.coremvvm.ui.login.LoginActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -36,4 +38,8 @@ abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf(LocationActivityModule::class))
     abstract fun locationActivity(): LocationActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf(LoginActivityModule::class))
+    abstract fun loginActivity(): LoginActivity
 }

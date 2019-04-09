@@ -39,6 +39,8 @@
             android:scaleType="centerCrop"
             android:transitionName="image"
             bind:imageUrl="@{model.imageUrl}"
+            android:background="@drawable/image_border"
+            android:padding="5dp"
             android:onClick="@{()-> viewModel.onItemClicked(imageView, position)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

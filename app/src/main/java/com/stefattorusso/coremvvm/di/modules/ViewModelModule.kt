@@ -10,6 +10,7 @@ import com.stefattorusso.coremvvm.ui.detail.view.DetailViewModel
 import com.stefattorusso.coremvvm.ui.grid.view.GridViewModel
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel
 import com.stefattorusso.coremvvm.ui.location.view.LocationViewModel
+import com.stefattorusso.coremvvm.ui.login.view.LoginViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -50,4 +51,10 @@ abstract class ViewModelModule {
     @ActivityScope
     @ViewModelKey(LocationViewModel::class)
     abstract fun locationViewModel(viewModel: LocationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ActivityScope
+    @ViewModelKey(LoginViewModel::class)
+    abstract fun loginViewModel(viewModel: LoginViewModel): ViewModel
 }

@@ -43,12 +43,14 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         internal const val LIST = "LIST"
         internal const val CAMERA = "CAMERA"
         internal const val LOCATION = "LOCATION"
+        internal const val LOGIN = "LOGIN"
 
         private fun init(): List<MenuModel> {
             val sampleItemList = mutableListOf<MenuModel>()
             sampleItemList.add(MenuModel(0, LIST, "A sample list view"))
             sampleItemList.add(MenuModel(1, CAMERA, "A sample camera view"))
             sampleItemList.add(MenuModel(2, LOCATION, "A sample location view"))
+            sampleItemList.add(MenuModel(3, LOGIN, "A sample login view"))
             return sampleItemList
         }
     }

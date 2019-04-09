@@ -8,6 +8,7 @@ import com.stefattorusso.coremvvm.ui.camera.CameraActivity
 import com.stefattorusso.coremvvm.ui.detail.DetailActivity
 import com.stefattorusso.coremvvm.ui.grid.GridActivity
 import com.stefattorusso.coremvvm.ui.location.LocationActivity
+import com.stefattorusso.coremvvm.ui.login.LoginActivity
 import com.stefattorusso.domain.Image
 
 class NavigationHelper(
@@ -30,6 +31,10 @@ class NavigationHelper(
 
     fun launchLocationView() {
         launch(Intent(activity, LocationActivity::class.java))
+    }
+
+    fun launchLoginView() {
+        launch(Intent(activity, LoginActivity::class.java))
     }
 
     private fun launch(intent: Intent) {
