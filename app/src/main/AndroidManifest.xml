@@ -28,13 +28,19 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
-        <activity android:name=".ui.home.HomeActivity">
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:theme="@style/AppThemeSplash"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.home.HomeActivity"/>
         <activity
             android:name=".ui.detail.DetailActivity"
             android:theme="@style/AppThemeNoActionBar"/>

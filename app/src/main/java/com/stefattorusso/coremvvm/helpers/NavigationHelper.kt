@@ -7,6 +7,7 @@ import androidx.core.app.ActivityOptionsCompat
 import com.stefattorusso.coremvvm.ui.camera.CameraActivity
 import com.stefattorusso.coremvvm.ui.detail.DetailActivity
 import com.stefattorusso.coremvvm.ui.grid.GridActivity
+import com.stefattorusso.coremvvm.ui.home.HomeActivity
 import com.stefattorusso.coremvvm.ui.location.LocationActivity
 import com.stefattorusso.coremvvm.ui.login.LoginActivity
 import com.stefattorusso.domain.Image
@@ -14,6 +15,14 @@ import com.stefattorusso.domain.Image
 class NavigationHelper(
     private val activity: Activity
 ) {
+
+    fun launchHome() {
+        launch(Intent(activity, HomeActivity::class.java))
+    }
+
+    fun launchHomeAndFinishCurrent() {
+        launchAndFinish(Intent(activity, HomeActivity::class.java))
+    }
 
     fun launchMain() {
         launch(Intent(activity, GridActivity::class.java))
@@ -34,7 +43,7 @@ class NavigationHelper(
     }
 
     fun launchLoginView() {
-        launch(Intent(activity, LoginActivity::class.java))
+        launchAndFinish(Intent(activity, LoginActivity::class.java))
     }
 
     private fun launch(intent: Intent) {

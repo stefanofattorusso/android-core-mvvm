@@ -26,56 +26,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/login_facebook"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username_input"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            android:onClick="@{() -> viewModel.loginWithFacebook()}"
-            app:visibleGone="@{safeUnbox(viewModel.isLoggedIn())}"
-            app:layout_constraintBottom_toTopOf="@id/login_google"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Facebook"/>
+            android:layout_marginBottom="24dp"
+            app:layout_constraintStart_toStartOf="@id/password_input"
+            app:layout_constraintEnd_toEndOf="@id/password_input"
+            app:layout_constraintBottom_toTopOf="@id/password_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username_edit"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:hint="Username"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintStart_toStartOf="@id/login_button"
+            app:layout_constraintEnd_toEndOf="@id/login_button"
+            app:layout_constraintBottom_toTopOf="@id/login_button">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_edit"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:hint="password"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/login_google"
-            android:layout_width="match_parent"
+            android:id="@+id/login_button"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
+            android:onClick="@{()->viewModel.loginUserWithEmail(usernameEdit.getText().toString(), passwordEdit.getText().toString())}"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="24dp"
-            android:onClick="@{() -> viewModel.loginWithGoogle()}"
-            app:visibleGone="@{safeUnbox(viewModel.isLoggedIn())}"
-            app:layout_constraintBottom_toTopOf="@id/login_email"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Google"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/login_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="24dp"
-            android:onClick="@{() -> viewModel.loginWithEmail()}"
-            app:visibleGone="@{safeUnbox(viewModel.isLoggedIn())}"
+            android:layout_marginBottom="96dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Email"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            app:visibleGone="@{safeUnbox(!viewModel.isLoggedIn())}"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Logout"/>
+            android:text="Login"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
