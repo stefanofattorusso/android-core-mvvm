@@ -2,6 +2,7 @@ package com.stefattorusso.coremvvm.base
 
 import android.app.Application
 import android.content.Context
+import com.google.firebase.auth.FirebaseAuth
 import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.di.modules.*
 import dagger.Binds
@@ -43,6 +44,11 @@ abstract class BaseApplicationModule {
         @Provides
         @Singleton
         internal fun modelMappers(context: Context): ImageModelMapper = ImageModelMapper(context)
+
+        @JvmStatic
+        @Provides
+        @Singleton
+        internal fun firebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
     }
 
 }

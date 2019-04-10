@@ -27,6 +27,7 @@ class SplashFragment : BaseFragment<SplashFragment.FragmentCallback, SplashViewM
 
     private fun setupViews() {
         mViewDataBinding?.viewModel = mViewModel
+        skip_button.setOnClickListener { mCallback.onShowHome() }
         login_button.setOnClickListener { mCallback.onLoginClicked() }
         signup_button.setOnClickListener { mCallback.onSignupClicked() }
         mViewModel.uiState.observe(viewLifecycleOwner, Observer {

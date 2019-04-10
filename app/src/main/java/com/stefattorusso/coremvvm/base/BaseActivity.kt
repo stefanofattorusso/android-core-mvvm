@@ -12,10 +12,7 @@ import com.stefattorusso.coremvvm.utils.ErrorHandler
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -64,6 +61,8 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector, C
     }
 
     protected fun launchAction(block: suspend CoroutineScope.() -> Unit) {
-        launch(mExceptionHandler, block = block)
+        launch(CoroutineExceptionHandler { _, throwable ->
+            mExceptionHandler.handleException(throwable)
+        }, block = block)
     }
 }

@@ -16,14 +16,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/Button.Transparent"
+            android:id="@+id/skip_button"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="32dp"
+            app:uiState="@{viewModel.uiState}"
+            app:emptyState="@{viewModel.uiState}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Skip"/>
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/splash_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/CodeFont.Medium.Light.Medium"
             android:text="@string/app_name"
-            android:textSize="16sp"
             android:layout_marginBottom="88dp"
-            android:fontFamily="sans-serif-medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,9 +52,9 @@
             android:id="@+id/progressBar"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/Button.Light"
             android:id="@+id/login_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             app:emptyState="@{viewModel.uiState}"
             android:layout_marginStart="24dp"
@@ -54,9 +65,9 @@
             android:text="Login"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/Button.Light"
             android:id="@+id/signup_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             app:emptyState="@{viewModel.uiState}"
             android:layout_marginStart="24dp"

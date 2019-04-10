@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.stefattorusso.commons.lifecyclehelpers.autoinflateview.AutoInflateViewHelper
 import com.stefattorusso.commons.lifecyclehelpers.autoinflateview.AutoInflateViewHelperCallback
@@ -52,6 +53,9 @@ abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : 
         mViewDataBinding = DataBindingUtil.bind(view)
         mViewDataBinding?.lifecycleOwner = this
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(mViewModelClass).also { it.onCreated() }
+        mViewModel.getError().observe(viewLifecycleOwner, Observer {
+            mExceptionHandler.handleException(it)
+        })
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = mChildFragmentInjector

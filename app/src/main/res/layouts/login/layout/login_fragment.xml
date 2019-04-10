@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,67 +10,111 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/location_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="32dp"
-            android:text="Login"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintStart_toStartOf="@id/password_input"
-            app:layout_constraintEnd_toEndOf="@id/password_input"
-            app:layout_constraintBottom_toTopOf="@id/password_input">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/login_text"
+                style="@style/CodeFont.Largest.Light.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username_edit"
-                android:inputType="text"
-                android:layout_width="match_parent"
-                android:hint="Username"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="80dp"
+                app:layout_constraintStart_toStartOf="@id/password_input"
+                app:layout_constraintEnd_toEndOf="@id/password_input"
+                app:layout_constraintTop_toBottomOf="@id/login_text"
+                app:layout_constraintBottom_toTopOf="@id/password_input">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="48dp"
-            app:layout_constraintStart_toStartOf="@id/login_button"
-            app:layout_constraintEnd_toEndOf="@id/login_button"
-            app:layout_constraintBottom_toTopOf="@id/login_button">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username_edit"
+                    style="@style/CodeFont.Large.Light"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_edit"
-                android:inputType="textPassword"
-                android:layout_width="match_parent"
-                android:hint="password"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="48dp"
+                app:layout_constraintStart_toStartOf="@id/login_button"
+                app:layout_constraintEnd_toEndOf="@id/login_button"
+                app:layout_constraintBottom_toTopOf="@id/login_button">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/login_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:onClick="@{()->viewModel.loginUserWithEmail(usernameEdit.getText().toString(), passwordEdit.getText().toString())}"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="96dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Login"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_edit"
+                    style="@style/CodeFont.Large.Light"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:inputType="textPassword"
+                    android:hint="password"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/login_button"
+                android:layout_width="0dp"
+                style="@style/Button.Light"
+                android:layout_marginEnd="24dp"
+                android:onClick="@{()->viewModel.loginUserWithEmail(usernameEdit.getText().toString(), passwordEdit.getText().toString())}"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="40dp"
+                app:layout_constraintBottom_toTopOf="@id/continue_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Login"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/continue_text"
+                style="@style/CodeFont.Small.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="or continue with:"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/facebook_button"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/facebook_button"
+                android:layout_width="0dp"
+                style="@style/Button.Light"
+                android:layout_margin="24dp"
+                android:onClick="@{()->viewModel.loginWithFacebook()}"
+                app:layout_constraintBottom_toTopOf="@id/google_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Facebook"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/google_button"
+                android:layout_width="0dp"
+                style="@style/Button.Light"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="24dp"
+                android:onClick="@{()->viewModel.loginWithGoogle()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Google"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

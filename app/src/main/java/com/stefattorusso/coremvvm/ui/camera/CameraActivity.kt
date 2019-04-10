@@ -50,9 +50,7 @@ class CameraActivity : BaseActivity(), InjectFragmentHelperCallback<CameraFragme
 
     override fun onTakePictureClicked() {
         launchAction {
-            val hasPermission: Boolean = withContext(Dispatchers.Default) {
-                getCameraPermission()
-            }
+            val hasPermission: Boolean = withContext(Dispatchers.Default) { getCameraPermission() }
             if (hasPermission) {
                 handlePickTakePicture()
             }

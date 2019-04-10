@@ -2,27 +2,20 @@ package com.stefattorusso.coremvvm.utils
 
 import android.app.Activity
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuthException
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.data.network.gateway.retrofit.exception.RetrofitException
-import kotlinx.coroutines.CoroutineExceptionHandler
 import timber.log.Timber
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import kotlin.coroutines.CoroutineContext
 
-class ErrorHandler(
-    val activity: Activity,
-    override val key: CoroutineContext.Key<*>
-) : CoroutineExceptionHandler {
+class ErrorHandler(val activity: Activity) {
 
     private val mErrorList = mutableSetOf<BundleError>()
-    private var mUiState: MutableLiveData<UIState> = MutableLiveData()
 
-    override fun handleException(context: CoroutineContext, exception: Throwable) {
+    fun handleException(exception: Throwable) {
         Timber.e(exception)
-        mUiState.value = Error
         var code = 0
         val title: String = activity.getString(R.string.unespected_error_title)
         var message: String = activity.getString(R.string.unespected_error_message)
@@ -37,6 +30,9 @@ class ErrorHandler(
                     }
                 }
             }
+            is FirebaseAuthException -> {
+                message = exception.localizedMessage
+            }
         }
         set(code, title, message)
     }
@@ -47,10 +43,6 @@ class ErrorHandler(
 
     fun set(code: Int, title: String, message: String) {
         handleError(BundleError(code, title, message))
-    }
-
-    fun setUiState(uiState: MutableLiveData<UIState>) {
-        mUiState = uiState
     }
 
     @Synchronized

@@ -35,7 +35,7 @@ ext {
             databinding     : [group: 'com.android.databinding', name: 'compiler', version: databindingVersion],
             location        : [group: 'com.google.android.gms', name: 'play-services-location', version: locationVersion],
             firebase        : [group: 'com.google.firebase', name: 'firebase-core', version: firebaseVersion],
-            firebaseAuth        : [group: 'com.google.firebase', name: 'firebase-auth', version: firebaseAuthVersion]
+            firebaseAuth    : [group: 'com.google.firebase', name: 'firebase-auth', version: firebaseAuthVersion]
     ]
 
     def lifecycleLibs = [
@@ -54,6 +54,7 @@ ext {
             timber                : [group: 'com.jakewharton.timber', name: 'timber', version: timberVersion],
             kotlin                : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: kotlin_version],
             coroutines            : [group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: coroutinesVersion],
+            coroutinesPlayServices: [group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-play-services', version: coroutinesVersion],
             coroutinesAdapter     : [group: 'com.jakewharton.retrofit', name: 'retrofit2-kotlin-coroutines-adapter', version: coroutinesAdapterVersion],
             retrofit              : [group: 'com.squareup.retrofit2', name: 'retrofit', version: retrofitVersion],
             retrofitConverter     : [group: 'com.squareup.retrofit2', name: 'converter-moshi', version: retrofitVersion],
@@ -98,6 +99,7 @@ ext {
             [configuration: "implementation", dependency: otherLibs.timber],
             [configuration: "implementation", dependency: otherLibs.kotlin],
             [configuration: "implementation", dependency: otherLibs.coroutines],
+            [configuration: "implementation", dependency: otherLibs.coroutinesPlayServices],
             [configuration: "implementation", dependency: otherLibs.coroutinesAdapter],
             [configuration: "implementation", dependency: otherLibs.moshi],
             [configuration: "implementation", dependency: otherLibs.glide],
@@ -123,12 +125,14 @@ ext {
             [configuration: "implementation", dependency: otherLibs.timber],
             [configuration: "implementation", dependency: otherLibs.kotlin],
             [configuration: "implementation", dependency: otherLibs.coroutines],
+            [configuration: "implementation", dependency: otherLibs.coroutinesPlayServices],
 
             [configuration: "api", dependency: project(modules.commons)],
             [configuration: "implementation", dependency: project(modules.domain)]
     ]
 
     domainDependencies = [
+            [configuration: "implementation", dependency: androidXLibs.firebaseAuth],
             [configuration: "implementation", dependency: otherLibs.dagger],
             [configuration: "kapt", dependency: otherLibs.daggerCompiler],
             [configuration: "kapt", dependency: otherLibs.daggerAndroidProcessor],

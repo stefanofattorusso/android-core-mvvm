@@ -4,6 +4,7 @@ import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
+import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.data.models.ImageModel
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
@@ -16,6 +17,8 @@ import javax.inject.Inject
 
 class GridViewModel @Inject constructor() : BaseViewModel() {
 
+    @Inject
+    lateinit var mImageModelMapper: ImageModelMapper
     @Inject
     lateinit var getImageListUseCase: GetImageListUseCase
 

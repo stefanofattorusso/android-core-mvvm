@@ -20,7 +20,6 @@ import com.stefattorusso.coremvvm.utils.ErrorHandler
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.CoroutineExceptionHandler
 import javax.inject.Named
 
 @Module(
@@ -58,7 +57,7 @@ abstract class BaseActivityModule {
         @JvmStatic
         @Provides
         @ActivityScope
-        internal fun errorHandler(activity: Activity): ErrorHandler = ErrorHandler(activity, CoroutineExceptionHandler)
+        internal fun errorHandler(activity: Activity): ErrorHandler = ErrorHandler(activity)
 
         @JvmStatic
         @Provides

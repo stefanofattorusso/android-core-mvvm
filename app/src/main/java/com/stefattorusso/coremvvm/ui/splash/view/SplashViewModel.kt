@@ -1,11 +1,11 @@
 package com.stefattorusso.coremvvm.ui.splash.view
 
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseAuth
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.NoData
+import com.stefattorusso.domain.interactor.HasSessionUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -13,10 +13,11 @@ import javax.inject.Inject
 
 class SplashViewModel @Inject constructor() : BaseViewModel() {
 
+    @Inject
+    lateinit var hasSessionUseCase: HasSessionUseCase
+
     private val emailValid = MutableLiveData<Boolean>()
     private val passwordValid = MutableLiveData<Boolean>()
-
-    private lateinit var auth: FirebaseAuth
 
     init {
         emailValid.value = true
@@ -25,7 +26,6 @@ class SplashViewModel @Inject constructor() : BaseViewModel() {
 
     override fun onCreated() {
         super.onCreated()
-        auth = FirebaseAuth.getInstance()
         checkUserStatus()
     }
 
@@ -34,7 +34,7 @@ class SplashViewModel @Inject constructor() : BaseViewModel() {
             uiState.value = Loading
             delay(2000)
             val hasSession = withContext(Dispatchers.IO) {
-                auth.currentUser != null
+                hasSessionUseCase.execute()
             }
             uiState.value = if (hasSession) HasData else NoData
         }
