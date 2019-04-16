@@ -42,7 +42,6 @@ abstract class SplashActivityModule {
     @ActivityScope
     internal abstract fun fragmentCallback(activity: SplashActivity): SplashFragment.FragmentCallback
 
-
     // =============================================================================================
 
     /**

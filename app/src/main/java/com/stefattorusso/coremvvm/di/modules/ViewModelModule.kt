@@ -21,47 +21,48 @@ abstract class ViewModelModule {
 
     @Binds
     @ActivityScope
-    abstract fun viewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
-    @Binds
-    @IntoMap
-    @ActivityScope
-    @ViewModelKey(HomeViewModel::class)
-    abstract fun homeViewModel(viewModel: HomeViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ActivityScope
-    @ViewModelKey(GridViewModel::class)
-    abstract fun mainViewModel(viewModel: GridViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ActivityScope
-    @ViewModelKey(DetailViewModel::class)
-    abstract fun detailViewModel(viewModel: DetailViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ActivityScope
-    @ViewModelKey(CameraViewModel::class)
-    abstract fun cameraViewModel(viewModel: CameraViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ActivityScope
-    @ViewModelKey(LocationViewModel::class)
-    abstract fun locationViewModel(viewModel: LocationViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ActivityScope
-    @ViewModelKey(LoginViewModel::class)
-    abstract fun loginViewModel(viewModel: LoginViewModel): ViewModel
+    internal abstract fun viewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @IntoMap
     @ActivityScope
     @ViewModelKey(SplashViewModel::class)
-    abstract fun splashViewModel(viewModel: SplashViewModel): ViewModel
+    internal abstract fun splashViewModel(viewModel: SplashViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ActivityScope
+    @ViewModelKey(HomeViewModel::class)
+    internal abstract fun homeViewModel(viewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ActivityScope
+    @ViewModelKey(GridViewModel::class)
+    internal abstract fun mainViewModel(viewModel: GridViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ActivityScope
+    @ViewModelKey(DetailViewModel::class)
+    internal abstract fun detailViewModel(viewModel: DetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ActivityScope
+    @ViewModelKey(CameraViewModel::class)
+    internal abstract fun cameraViewModel(viewModel: CameraViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ActivityScope
+    @ViewModelKey(LocationViewModel::class)
+    internal abstract fun locationViewModel(viewModel: LocationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ActivityScope
+    @ViewModelKey(LoginViewModel::class)
+    internal abstract fun loginViewModel(viewModel: LoginViewModel): ViewModel
+
 }

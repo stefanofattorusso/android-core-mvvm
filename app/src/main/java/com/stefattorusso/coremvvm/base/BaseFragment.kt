@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.stefattorusso.commons.lifecyclehelpers.autoinflateview.AutoInflateViewHelper
 import com.stefattorusso.commons.lifecyclehelpers.autoinflateview.AutoInflateViewHelperCallback
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
-import com.stefattorusso.coremvvm.base.mvvm.ViewModelFactory
 import com.stefattorusso.coremvvm.utils.ErrorHandler
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -27,7 +26,7 @@ abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : 
     @Inject
     lateinit var mChildFragmentInjector: DispatchingAndroidInjector<Fragment>
     @Inject
-    lateinit var mViewModelFactory: ViewModelFactory
+    lateinit var mViewModelFactory: ViewModelProvider.Factory
     @Inject
     lateinit var mAutoInflateHelper: AutoInflateViewHelper
     @Inject
@@ -50,9 +49,9 @@ abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mViewModel = ViewModelProvider(this, mViewModelFactory).get(mViewModelClass).also { it.onCreated() }
         mViewDataBinding = DataBindingUtil.bind(view)
         mViewDataBinding?.lifecycleOwner = this
-        mViewModel = ViewModelProvider(this, mViewModelFactory).get(mViewModelClass).also { it.onCreated() }
         mViewModel.getError().observe(viewLifecycleOwner, Observer {
             mExceptionHandler.handleException(it)
         })
