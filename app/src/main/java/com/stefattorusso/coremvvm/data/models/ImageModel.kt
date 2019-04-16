@@ -9,5 +9,6 @@ data class ImageModel(
     val postUrl: String,
     val filename: String,
     val authorUrl: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val like: Boolean
 )

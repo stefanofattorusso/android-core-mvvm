@@ -20,6 +20,7 @@ class ImageModelMapper @Inject constructor(
             source.postUrl,
             source.filename,
             source.authorUrl,
-            context.getString(R.string.api_domain) + "400/600/?image=${source.id}"
+            context.getString(R.string.api_domain) + "400/600/?image=${source.id}",
+            source.like
         )
 }

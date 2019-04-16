@@ -14,15 +14,13 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
     @Inject
     lateinit var mImageModelMapper: ImageModelMapper
 
+    private var selectedItem: Image? = null
     private var selectedItemModel: MutableLiveData<ImageModel> = MutableLiveData()
     private var imageLoaded: MutableLiveData<Boolean> = MutableLiveData()
 
     fun setImageItem(image: Image) {
-        launchAction {
-            selectedItemModel.value = withContext(Dispatchers.IO) {
-                mImageModelMapper.transform(image)
-            }
-        }
+        selectedItem = image
+        transformModel(image)
     }
 
     fun startPostponedTransition(){
@@ -32,4 +30,19 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
     fun getSelectedItemModel(): LiveData<ImageModel> = selectedItemModel
 
     fun getImageLoaded(): LiveData<Boolean> = imageLoaded
+
+    fun likeIt(){
+        selectedItem?.like = !(selectedItem?.like ?: false)
+        transformModel(selectedItem)
+    }
+
+    private fun transformModel(image: Image?){
+        if (image != null) {
+            launchAction {
+                selectedItemModel.value = withContext(Dispatchers.IO) {
+                    mImageModelMapper.transform(image)
+                }
+            }
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.stefattorusso.coremvvm.ui.login.view
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
+import com.stefattorusso.coremvvm.utils.Error
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.domain.interactor.LoginUseCase
@@ -31,10 +32,20 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
         if (validateData(email, password)) {
             launchAction {
                 uiState.value = Loading
+                var throwable: Throwable? = null
                 withContext(Dispatchers.IO) {
-                    loginUseCase.execute(email, password)
+                    try {
+                        loginUseCase.execute(email, password)
+                    } catch (e: Exception) {
+                        throwable = e
+                    }
                 }
-                uiState.value = HasData
+                if (throwable != null) {
+                    error.value = throwable
+                    uiState.value = Error
+                } else {
+                    uiState.value = HasData
+                }
             }
         }
     }
@@ -52,10 +63,14 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
         if (email.isBlank()) {
             emailValid.value = false
             valid = false
+        } else {
+            emailValid.value = true
         }
         if (password.isBlank()) {
             passwordValid.value = false
             valid = false
+        } else {
+            passwordValid.value = true
         }
         return valid
     }

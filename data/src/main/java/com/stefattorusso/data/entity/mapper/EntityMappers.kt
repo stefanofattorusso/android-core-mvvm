@@ -12,5 +12,6 @@ fun ImageEntity.transform() = Image(
     author ?: "",
     postUrl ?: "",
     filename ?: "",
-    authorUrl ?: ""
+    authorUrl ?: "",
+    false
 )

@@ -18,9 +18,7 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
     private val handler = CoroutineExceptionHandler { _, exception ->
         uiState.value = Error
         error.value = exception
-        mJob.cancel()
     }
-
 
     override val coroutineContext: CoroutineContext
         get() = mJob + Dispatchers.Main + handler
@@ -35,6 +33,6 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
     }
 
     protected fun launchAction(block: suspend CoroutineScope.() -> Unit) {
-        launch(/*handler,*/ block = block)
+        launch(block = block)
     }
 }

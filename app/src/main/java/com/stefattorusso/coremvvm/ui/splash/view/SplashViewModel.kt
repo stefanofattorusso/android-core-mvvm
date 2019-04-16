@@ -1,6 +1,5 @@
 package com.stefattorusso.coremvvm.ui.splash.view
 
-import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
@@ -15,14 +14,6 @@ class SplashViewModel @Inject constructor() : BaseViewModel() {
 
     @Inject
     lateinit var hasSessionUseCase: HasSessionUseCase
-
-    private val emailValid = MutableLiveData<Boolean>()
-    private val passwordValid = MutableLiveData<Boolean>()
-
-    init {
-        emailValid.value = true
-        passwordValid.value = true
-    }
 
     override fun onCreated() {
         super.onCreated()

@@ -7,7 +7,6 @@ import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.databinding.SplashFragmentBinding
 import com.stefattorusso.coremvvm.utils.HasData
 import kotlinx.android.synthetic.main.splash_fragment.*
-import timber.log.Timber
 
 class SplashFragment : BaseFragment<SplashFragment.FragmentCallback, SplashViewModel, SplashFragmentBinding>() {
 
@@ -31,7 +30,7 @@ class SplashFragment : BaseFragment<SplashFragment.FragmentCallback, SplashViewM
         login_button.setOnClickListener { mCallback.onLoginClicked() }
         signup_button.setOnClickListener { mCallback.onSignupClicked() }
         mViewModel.uiState.observe(viewLifecycleOwner, Observer {
-            if (it == HasData) Timber.d("cvf")
+            if (it == HasData) mCallback.onShowHome()
         })
     }
 }
