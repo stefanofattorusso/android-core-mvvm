@@ -43,7 +43,8 @@
             android:name=".ui.home.HomeActivity"/>
         <activity
             android:name=".ui.detail.DetailActivity"
-            android:theme="@style/AppThemeNoActionBar"/>
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ui.grid.GridActivity"/>
         <activity

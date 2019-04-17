@@ -6,6 +6,8 @@ import android.view.View
 
 class SwipeImageTouchListener(
     private val parentView: View,
+    private val onStartScroll: () -> Unit,
+    private val onEndScroll: () -> Unit,
     private val callback: () -> Unit
 ) : View.OnTouchListener {
 
@@ -41,11 +43,16 @@ class SwipeImageTouchListener(
                 xCoOrdinate = v.x - event.rawX
                 yCoOrdinate = v.y - event.rawY
             }
-            MotionEvent.ACTION_MOVE -> v.animate()
-                .x(event.rawX + xCoOrdinate)
-                .y(event.rawY + yCoOrdinate)
-                .setDuration(0)
-                .start()
+            MotionEvent.ACTION_MOVE -> {
+                val yValue = event.rawY + yCoOrdinate
+                val xValue = event.rawX + xCoOrdinate
+                if (yValue > 0) onStartScroll()
+                v.animate()
+                    .x(0f)
+                    .y(if (yValue > 0) yValue else 0f)
+                    .setDuration(0)
+                    .start()
+            }
             MotionEvent.ACTION_UP -> {
                 if (alpha > 150) {
                     callback()
@@ -56,6 +63,7 @@ class SwipeImageTouchListener(
                         .setDuration(100)
                         .start()
                     parentView.background.alpha = 255
+                    onEndScroll()
                 }
                 return false
             }

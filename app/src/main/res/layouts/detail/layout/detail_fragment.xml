@@ -10,13 +10,13 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/parent_view"
         android:background="@color/dark_bg">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <FrameLayout
             android:id="@+id/image_container"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -31,9 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-            <include layout="@layout/detail_bottom_sheet"
-                bind:viewModel="@{viewModel}"/>
+        </FrameLayout>
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </FrameLayout>
+        <include
+            layout="@layout/detail_bottom_sheet"
+            bind:viewModel="@{viewModel}"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
