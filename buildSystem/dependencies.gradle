@@ -14,9 +14,9 @@ ext {
     def lottieVersion = "3.0.0"
 
     // Other dependencies
-    def daggerVersion = '2.21'
-    def glideVersion = '4.8.0'
-    def okHttpVersion = '3.11.0'
+    def daggerVersion = '2.22.1'
+    def glideVersion = '4.9.0'
+    def okHttpVersion = '3.12.2'
     def retrofitVersion = '2.4.0'
     def timberVersion = '4.7.1'
     def moshiVersion = '1.8.0'
