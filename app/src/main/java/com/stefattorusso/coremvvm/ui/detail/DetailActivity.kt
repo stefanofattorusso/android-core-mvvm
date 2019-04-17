@@ -25,6 +25,12 @@ class DetailActivity : BaseActivity(), InjectFragmentHelperCallback<DetailFragme
         mInjectFragmentHelperImpl.setSavedInstanceState(savedInstanceState)
     }
 
+    override fun onBackPressed() {
+        if (mMainFragment?.onBackPressed() == true) {
+            super.onBackPressed()
+        }
+    }
+
     // Fragment Helper
 
     override fun onLoadFragmentContainer(savedInstanceState: Bundle?): View = content
