@@ -3,6 +3,7 @@ package com.stefattorusso.coremvvm.ui.login.view
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
+import com.stefattorusso.coremvvm.utils.Constants.VALID_EMAIL_ADDRESS_REGEX
 import com.stefattorusso.coremvvm.utils.Error
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
@@ -60,20 +61,29 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
 
     private fun validateData(email: String, password: String): Boolean {
         var valid = true
-        if (email.isBlank()) {
-            emailValid.value = false
-            valid = false
-        } else {
-            emailValid.value = true
+        when {
+            email.isBlank() -> {
+                emailValid.value = false
+                valid = false
+            }
+            validateEmail(email) -> {
+                emailValid.value = false
+                valid = false
+            }
+            else -> emailValid.value = true
         }
-        if (password.isBlank()) {
-            passwordValid.value = false
-            valid = false
-        } else {
-            passwordValid.value = true
+        when {
+            password.isBlank() -> {
+                passwordValid.value = false
+                valid = false
+            }
+            else -> passwordValid.value = true
         }
         return valid
     }
 
+    private fun validateEmail(email: String): Boolean {
+        return VALID_EMAIL_ADDRESS_REGEX.matcher(email).find()
+    }
 
 }
