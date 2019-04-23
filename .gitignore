@@ -12,3 +12,5 @@
 /captures
 .externalNativeBuild
 /app/google-services.json
+.idea/encodings.xml
+.idea/vcs.xml
