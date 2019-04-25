@@ -3,12 +3,13 @@ package com.stefattorusso.coremvvm.ui.login.view
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
-import com.stefattorusso.coremvvm.utils.Constants.VALID_EMAIL_ADDRESS_REGEX
 import com.stefattorusso.coremvvm.utils.Error
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
+import com.stefattorusso.coremvvm.utils.ValidatorHelper
 import com.stefattorusso.domain.interactor.LoginUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -30,17 +31,21 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
     fun isPasswordValid(): LiveData<Boolean> = passwordValid
 
     fun loginUserWithEmail(email: String, password: String) {
+        uiState.value = Loading
         if (validateData(email, password)) {
-            launchAction {
-                uiState.value = Loading
-                var throwable: Throwable? = null
-                withContext(Dispatchers.IO) {
-                    try {
-                        loginUseCase.execute(email, password)
-                    } catch (e: Exception) {
-                        throwable = e
-                    }
-                }
+            triggerLogin(email, password)
+        }
+    }
+
+    private fun triggerLogin(email: String, password: String) {
+        launch(Dispatchers.IO) {
+            var throwable: Throwable? = null
+            try {
+                val user = loginUseCase.execute(email, password)
+            } catch (e: Exception) {
+                throwable = e
+            }
+            withContext(Dispatchers.Main) {
                 if (throwable != null) {
                     error.value = throwable
                     uiState.value = Error
@@ -66,24 +71,17 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
                 emailValid.value = false
                 valid = false
             }
-            validateEmail(email) -> {
+            !ValidatorHelper.validateEmail(email) -> {
                 emailValid.value = false
                 valid = false
             }
             else -> emailValid.value = true
         }
-        when {
-            password.isBlank() -> {
-                passwordValid.value = false
-                valid = false
-            }
-            else -> passwordValid.value = true
-        }
+        if (password.isBlank()) {
+            passwordValid.value = false
+            valid = false
+        } else passwordValid.value = true
+
         return valid
     }
-
-    private fun validateEmail(email: String): Boolean {
-        return VALID_EMAIL_ADDRESS_REGEX.matcher(email).find()
-    }
-
 }

@@ -26,6 +26,9 @@ ext {
     // testing
     def junitVersion = '4.12'
     def mockitoVersion = '2.25.0'
+    def mockitoKotlinVersion = '2.1.0'
+    def androidXTestVersion = '1.1.1'
+    def espressoVersion = '3.1.1'
 
 
     def androidXLibs = [
@@ -35,12 +38,16 @@ ext {
             multidex        : [group: 'androidx.multidex', name: 'multidex', version: androidxMultidexVersion],
             recyclerview    : [group: 'androidx.recyclerview', name: 'recyclerview', version: androidxVersion],
             test            : [group: 'androidx.test', name: 'core', version: androidxVersion],
+            testRunner      : [group: 'androidx.test', name: 'runner', version: androidXTestVersion],
+            testRules       : [group: 'androidx.test', name: 'rules', version: androidXTestVersion],
             material        : [group: 'com.google.android.material', name: 'material', version: androidxMaterialVersion],
             constraintlayout: [group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintsLayoutVersion],
             databinding     : [group: 'com.android.databinding', name: 'compiler', version: databindingVersion],
             location        : [group: 'com.google.android.gms', name: 'play-services-location', version: locationVersion],
             firebase        : [group: 'com.google.firebase', name: 'firebase-core', version: firebaseVersion],
-            firebaseAuth    : [group: 'com.google.firebase', name: 'firebase-auth', version: firebaseAuthVersion]
+            firebaseAuth    : [group: 'com.google.firebase', name: 'firebase-auth', version: firebaseAuthVersion],
+            archCore        : [group: 'android.arch.core', name: 'core-testing', version: lifecycleVersion],
+            espresso        : [group: 'androidx.test.espresso', name: 'espresso-core', version: espressoVersion]
     ]
 
     def lifecycleLibs = [
@@ -68,7 +75,9 @@ ext {
             loggingInterceptor    : [group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: okHttpVersion],
             lottie                : [group: 'com.airbnb.android', name: 'lottie', version: lottieVersion],
             junit                 : [group: 'junit', name: 'junit', version: junitVersion],
-            mockito               : [group: 'org.mockito', name: 'mockito-core', version: mockitoVersion]
+            mockito               : [group: 'org.mockito', name: 'mockito-core', version: mockitoVersion],
+            mockitoAndroid        : [group: 'org.mockito', name: 'mockito-android', version: mockitoVersion],
+            mockitoKotlin         : [group: 'com.nhaarman.mockitokotlin2', name: 'mockito-kotlin', version: mockitoKotlinVersion]
     ]
 
     //Modules
@@ -113,8 +122,15 @@ ext {
             [configuration: "kapt", dependency: otherLibs.glideCompiler],
 
             [configuration: "testImplementation", dependency: androidXLibs.test],
+            [configuration: "testImplementation", dependency: androidXLibs.archCore],
             [configuration: "testImplementation", dependency: otherLibs.junit],
             [configuration: "testImplementation", dependency: otherLibs.mockito],
+            [configuration: "testImplementation", dependency: otherLibs.mockitoKotlin],
+            [configuration: "androidTestImplementation", dependency: otherLibs.mockitoAndroid],
+            [configuration: "androidTestImplementation", dependency: androidXLibs.archCore],
+            [configuration: "androidTestImplementation", dependency: androidXLibs.testRunner],
+            [configuration: "androidTestImplementation", dependency: androidXLibs.testRules],
+            [configuration: "androidTestImplementation", dependency: androidXLibs.espresso],
 
             [configuration: "implementation", dependency: project(modules.components)],
             [configuration: "implementation", dependency: project(modules.commons)],
