@@ -7,7 +7,6 @@ import com.stefattorusso.coremvvm.data.models.MenuModel
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.NoData
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -29,10 +28,19 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         selectedItem.value = modelList.value?.get(position)
     }
 
+    fun initData(): List<MenuModel> {
+        val sampleItemList = mutableListOf<MenuModel>()
+        sampleItemList.add(MenuModel(0, LIST, "A sample list view"))
+        sampleItemList.add(MenuModel(1, CAMERA, "A sample camera view"))
+        sampleItemList.add(MenuModel(2, LOCATION, "A sample location view"))
+        sampleItemList.add(MenuModel(3, LOGIN, "A sample login view"))
+        return sampleItemList
+    }
+
     private fun loadData() {
         launchAction {
             uiState.value = Loading
-            modelList.value = withContext(Dispatchers.Default) { init() }
+            modelList.value = withContext(coroutineDispatcher.background) { initData() }
             uiState.value = NoData.takeIf { modelList.value.isNullOrEmpty() } ?: HasData
         }
     }
@@ -44,14 +52,5 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         internal const val CAMERA = "CAMERA"
         internal const val LOCATION = "LOCATION"
         internal const val LOGIN = "LOGIN"
-
-        private fun init(): List<MenuModel> {
-            val sampleItemList = mutableListOf<MenuModel>()
-            sampleItemList.add(MenuModel(0, LIST, "A sample list view"))
-            sampleItemList.add(MenuModel(1, CAMERA, "A sample camera view"))
-            sampleItemList.add(MenuModel(2, LOCATION, "A sample location view"))
-            sampleItemList.add(MenuModel(3, LOGIN, "A sample login view"))
-            return sampleItemList
-        }
     }
 }
