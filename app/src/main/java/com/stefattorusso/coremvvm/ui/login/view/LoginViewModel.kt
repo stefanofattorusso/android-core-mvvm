@@ -8,7 +8,6 @@ import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.ValidatorHelper
 import com.stefattorusso.domain.interactor.LoginUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -38,14 +37,14 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
     }
 
     private fun triggerLogin(email: String, password: String) {
-        launch(Dispatchers.IO) {
+        launch(coroutineDispatcher.background) {
             var throwable: Throwable? = null
             try {
-                val user = loginUseCase.execute(email, password)
+                loginUseCase.execute(email, password)
             } catch (e: Exception) {
                 throwable = e
             }
-            withContext(Dispatchers.Main) {
+            withContext(coroutineDispatcher.ui) {
                 if (throwable != null) {
                     error.value = throwable
                     uiState.value = Error

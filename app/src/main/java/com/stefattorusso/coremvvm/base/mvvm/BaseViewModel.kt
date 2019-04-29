@@ -6,10 +6,18 @@ import androidx.lifecycle.ViewModel
 import com.stefattorusso.coremvvm.utils.Error
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.UIState
-import kotlinx.coroutines.*
+import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchers
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel(), CoroutineScope {
+
+    @Inject
+    lateinit var coroutineDispatcher: CoroutineDispatchers
 
     var uiState = MutableLiveData<UIState>().apply { this.value = Loading }
     var error = MutableLiveData<Throwable>()
@@ -21,7 +29,7 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
     }
 
     override val coroutineContext: CoroutineContext
-        get() = mJob + Dispatchers.Main + handler
+        get() = mJob + coroutineDispatcher.ui + handler
 
     open fun onCreated() {}
 

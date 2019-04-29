@@ -5,6 +5,8 @@ import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.di.modules.*
+import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchers
+import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchersImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -49,6 +51,11 @@ abstract class BaseApplicationModule {
         @Provides
         @Singleton
         internal fun firebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
+
+        @JvmStatic
+        @Provides
+        @Singleton
+        internal fun coroutineDispatchers(): CoroutineDispatchers = CoroutineDispatchersImpl()
     }
 
 }
