@@ -11,7 +11,7 @@ import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.NoData
 import com.stefattorusso.domain.Image
 import com.stefattorusso.domain.interactor.GetImageListUseCase
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -40,15 +40,13 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
     fun getSelectedItem(): LiveData<Pair<ImageView, Image>> = selectedItem
 
     private fun loadData() {
-        launchAction {
-            uiState.value = Loading
-            imageList = withContext(Dispatchers.IO) {
-                getImageListUseCase.execute().shuffled()
+        uiState.value = Loading
+        launch(coroutineDispatcher.background) {
+            imageList = getImageListUseCase.execute().shuffled()
+//            imageModelList.value = imageList.map { mImageModelMapper.transform(it) }
+            withContext(coroutineDispatcher.ui) {
+                uiState.value = NoData.takeIf { imageList.isNullOrEmpty() } ?: HasData
             }
-            imageModelList.value = withContext(Dispatchers.IO) {
-                imageList.map { mImageModelMapper.transform(it) }
-            }
-            uiState.value = NoData.takeIf { imageList.isNullOrEmpty() } ?: HasData
         }
     }
 }

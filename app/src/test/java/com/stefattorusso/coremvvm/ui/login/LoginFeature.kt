@@ -47,8 +47,8 @@ class LoginFeature : BaseTestShould() {
         loginViewModel = LoginViewModel().also {
             it.loginUseCase = loginUseCase
             it.coroutineDispatcher = coroutineDispatchers
+            it.uiState.value = null
         }
-        loginViewModel.uiState.value = null
     }
 
     @Test

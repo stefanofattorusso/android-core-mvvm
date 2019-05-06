@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         return sampleItemList
     }
 
-    private fun loadData() {
+     private fun loadData() {
         launchAction {
             uiState.value = Loading
             modelList.value = withContext(coroutineDispatcher.background) { initData() }

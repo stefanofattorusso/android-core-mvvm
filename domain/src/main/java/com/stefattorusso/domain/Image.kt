@@ -14,4 +14,17 @@ data class Image(
     var filename: String,
     var authorUrl: String,
     var like: Boolean
-) : Parcelable
+) : Parcelable {
+
+    constructor(): this(
+        0,
+        0,
+        0,
+        "",
+        "",
+        "",
+        "",
+        "",
+        false
+    )
+}
