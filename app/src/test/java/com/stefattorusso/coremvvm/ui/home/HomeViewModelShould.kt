@@ -5,7 +5,7 @@ import com.stefattorusso.coremvvm.data.models.MenuModel
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel
 import com.stefattorusso.coremvvm.utils.TestCoroutineDispatchersImpl
 import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchers
-import junit.framework.Assert.assertTrue
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,7 +25,7 @@ class HomeViewModelShould : BaseTestShould() {
     fun initialize() {
         coroutineDispatchers = TestCoroutineDispatchersImpl()
         homeViewModel = HomeViewModel().also {
-            it.coroutineDispatcher = coroutineDispatchers
+            it.dispatcher = coroutineDispatchers
         }
     }
 

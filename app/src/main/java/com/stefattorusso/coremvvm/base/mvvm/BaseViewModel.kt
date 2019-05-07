@@ -17,7 +17,7 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseViewModel : ViewModel(), CoroutineScope {
 
     @Inject
-    lateinit var coroutineDispatcher: CoroutineDispatchers
+    lateinit var dispatcher: CoroutineDispatchers
 
     var uiState = MutableLiveData<UIState>().apply { this.value = Loading }
     var error = MutableLiveData<Throwable>()
@@ -29,7 +29,7 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
     }
 
     override val coroutineContext: CoroutineContext
-        get() = mJob + coroutineDispatcher.ui + handler
+        get() = mJob + dispatcher.ui + handler
 
     open fun onCreated() {}
 

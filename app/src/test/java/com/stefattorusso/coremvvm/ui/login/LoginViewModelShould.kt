@@ -28,7 +28,7 @@ class LoginViewModelShould : BaseTestShould() {
         coroutineDispatchers = TestCoroutineDispatchersImpl()
         loginViewModel = LoginViewModel().also {
             it.loginUseCase = loginUseCase
-            it.coroutineDispatcher = coroutineDispatchers
+            it.dispatcher = coroutineDispatchers
         }
     }
 

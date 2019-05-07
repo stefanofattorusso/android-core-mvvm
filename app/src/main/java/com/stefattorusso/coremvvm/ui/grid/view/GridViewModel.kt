@@ -41,12 +41,20 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
 
     private fun loadData() {
         uiState.value = Loading
-        launch(coroutineDispatcher.background) {
-            imageList = getImageListUseCase.execute().shuffled()
-//            imageModelList.value = imageList.map { mImageModelMapper.transform(it) }
-            withContext(coroutineDispatcher.ui) {
+        launch(dispatcher.background) {
+            imageList = retrieveList()
+            imageModelList.value = mapObjects(imageList)
+            withContext(dispatcher.ui) {
                 uiState.value = NoData.takeIf { imageList.isNullOrEmpty() } ?: HasData
             }
         }
+    }
+
+    private suspend fun retrieveList(): List<Image> {
+        return getImageListUseCase.execute().shuffled()
+    }
+
+    private fun mapObjects(list: List<Image>): List<ImageModel> {
+        return list.map { mImageModelMapper.transform(it) }
     }
 }

@@ -28,7 +28,7 @@ class HomeFeature : BaseTestShould(){
     fun initialize(){
         coroutineDispatchers = TestCoroutineDispatchersImpl()
         homeViewModel = HomeViewModel().also {
-            it.coroutineDispatcher = coroutineDispatchers
+            it.dispatcher = coroutineDispatchers
             it.uiState.value = null
         }
     }

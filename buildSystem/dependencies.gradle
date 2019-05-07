@@ -167,6 +167,17 @@ ext {
             [configuration: "implementation", dependency: otherLibs.coroutines],
             [configuration: "implementation", dependency: otherLibs.timber],
 
+            [configuration: "testImplementation", dependency: androidXLibs.test],
+            [configuration: "testImplementation", dependency: androidXLibs.archCore],
+            [configuration: "testImplementation", dependency: otherLibs.junit],
+            [configuration: "testImplementation", dependency: otherLibs.mockito],
+            [configuration: "testImplementation", dependency: otherLibs.mockitoKotlin],
+            [configuration: "androidTestImplementation", dependency: otherLibs.mockitoAndroid],
+            [configuration: "androidTestImplementation", dependency: androidXLibs.archCore],
+            [configuration: "androidTestImplementation", dependency: androidXLibs.testRunner],
+            [configuration: "androidTestImplementation", dependency: androidXLibs.testRules],
+            [configuration: "androidTestImplementation", dependency: androidXLibs.espresso],
+
             [configuration: "api", dependency: project(modules.commons)]
     ]
 

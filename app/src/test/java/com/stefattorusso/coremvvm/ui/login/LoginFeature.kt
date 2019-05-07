@@ -46,7 +46,7 @@ class LoginFeature : BaseTestShould() {
         loginUseCase = LoginUseCaseImpl(authRepository)
         loginViewModel = LoginViewModel().also {
             it.loginUseCase = loginUseCase
-            it.coroutineDispatcher = coroutineDispatchers
+            it.dispatcher = coroutineDispatchers
             it.uiState.value = null
         }
     }

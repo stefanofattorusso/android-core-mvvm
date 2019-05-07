@@ -6,7 +6,7 @@ import com.stefattorusso.coremvvm.data.models.ImageModel
 import com.stefattorusso.domain.Image
 import javax.inject.Inject
 
-class ImageModelMapper @Inject constructor(
+open class ImageModelMapper @Inject constructor(
     private val context: Context
 ) : Mapper<ImageModel, Image> {
 

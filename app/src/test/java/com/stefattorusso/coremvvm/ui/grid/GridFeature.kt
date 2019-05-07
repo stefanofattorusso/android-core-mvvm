@@ -1,9 +1,11 @@
 package com.stefattorusso.coremvvm.ui.grid
 
+import android.content.Context
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.inOrder
 import com.stefattorusso.coremvvm.BaseTestShould
+import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.ui.grid.view.GridViewModel
 import com.stefattorusso.coremvvm.utils.*
 import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchers
@@ -25,23 +27,29 @@ class GridFeature : BaseTestShould() {
     private lateinit var stateLiveDataObserver: Observer<UIState>
     @Mock
     private lateinit var imageRepository: ImageRepository
+    @Mock
+    private lateinit var context: Context
 
     private lateinit var gridViewModel: GridViewModel
     private lateinit var coroutineDispatchers: CoroutineDispatchers
     private lateinit var getImageListUseCase: GetImageListUseCase
+    private lateinit var imageModelMapper: ImageModelMapper
     private val enableLoading = Loading
     private val homeResults = HasData
     private val emptyResults = NoData
     private val errorResults = Error
     private val list = listOf(Image())
+    private val emptyList = emptyList<Image>()
 
     @Before
     fun initialize() {
+        imageModelMapper = ImageModelMapper(context)
         getImageListUseCase = GetImageListUseCaseImpl(imageRepository)
         coroutineDispatchers = TestCoroutineDispatchersImpl()
         gridViewModel = GridViewModel().also {
-            it.coroutineDispatcher = coroutineDispatchers
+            it.dispatcher = coroutineDispatchers
             it.getImageListUseCase = getImageListUseCase
+            it.mImageModelMapper = imageModelMapper
             it.uiState.value = null
         }
     }
@@ -55,6 +63,18 @@ class GridFeature : BaseTestShould() {
         inOrder(stateLiveDataObserver) {
             verify(stateLiveDataObserver).onChanged(enableLoading)
             verify(stateLiveDataObserver).onChanged(homeResults)
+        }
+    }
+
+    @Test
+    fun perform_load_empty_data() = runBlocking {
+        given(imageRepository.retrieveList()).willReturn(emptyList)
+        gridViewModel.uiState.observeForever(stateLiveDataObserver)
+        gridViewModel.onCreated()
+
+        inOrder(stateLiveDataObserver) {
+            verify(stateLiveDataObserver).onChanged(enableLoading)
+            verify(stateLiveDataObserver).onChanged(emptyResults)
         }
     }
 }

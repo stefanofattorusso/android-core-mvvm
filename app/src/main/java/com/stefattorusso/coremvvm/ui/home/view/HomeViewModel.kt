@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
      private fun loadData() {
         launchAction {
             uiState.value = Loading
-            modelList.value = withContext(coroutineDispatcher.background) { initData() }
+            modelList.value = withContext(dispatcher.background) { initData() }
             uiState.value = NoData.takeIf { modelList.value.isNullOrEmpty() } ?: HasData
         }
     }

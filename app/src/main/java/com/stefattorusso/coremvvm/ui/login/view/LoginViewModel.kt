@@ -37,14 +37,14 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
     }
 
     private fun triggerLogin(email: String, password: String) {
-        launch(coroutineDispatcher.background) {
+        launch(dispatcher.background) {
             var throwable: Throwable? = null
             try {
                 loginUseCase.execute(email, password)
             } catch (e: Exception) {
                 throwable = e
             }
-            withContext(coroutineDispatcher.ui) {
+            withContext(dispatcher.ui) {
                 if (throwable != null) {
                     error.value = throwable
                     uiState.value = Error

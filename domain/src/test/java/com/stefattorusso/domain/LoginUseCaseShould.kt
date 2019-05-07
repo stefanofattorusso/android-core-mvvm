@@ -1,8 +1,7 @@
-package com.stefattorusso.coremvvm.ui.login
+package com.stefattorusso.domain
 
 import com.google.firebase.auth.FirebaseUser
 import com.nhaarman.mockitokotlin2.given
-import com.stefattorusso.coremvvm.BaseTestShould
 import com.stefattorusso.domain.interactor.LoginUseCase
 import com.stefattorusso.domain.interactor.impl.LoginUseCaseImpl
 import com.stefattorusso.domain.repository.AuthRepository
