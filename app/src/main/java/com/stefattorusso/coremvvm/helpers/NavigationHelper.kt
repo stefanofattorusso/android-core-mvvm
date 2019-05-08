@@ -10,6 +10,7 @@ import com.stefattorusso.coremvvm.ui.grid.GridActivity
 import com.stefattorusso.coremvvm.ui.home.HomeActivity
 import com.stefattorusso.coremvvm.ui.location.LocationActivity
 import com.stefattorusso.coremvvm.ui.login.LoginActivity
+import com.stefattorusso.coremvvm.ui.profile.ProfileActivity
 import com.stefattorusso.domain.Image
 
 class NavigationHelper(
@@ -44,6 +45,10 @@ class NavigationHelper(
 
     fun launchLoginView() {
         launchAndFinish(Intent(activity, LoginActivity::class.java))
+    }
+
+    fun launchProfileView() {
+        launch(Intent(activity, ProfileActivity::class.java))
     }
 
     private fun launch(intent: Intent) {

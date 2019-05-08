@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.camera_fragment.*
 
 class CameraFragment : BaseFragment<CameraFragment.FragmentCallback, CameraViewModel, CameraFragmentBinding>() {
 
-    interface FragmentCallback : BaseFragment.BaseFragmentCallback {
+    interface FragmentCallback : BaseFragmentCallback {
         fun onTakePictureClicked()
     }
 
@@ -24,7 +24,7 @@ class CameraFragment : BaseFragment<CameraFragment.FragmentCallback, CameraViewM
         observeData()
     }
 
-    fun drawPicture(uri: Uri){
+    fun drawPicture(uri: Uri) {
         take_picture_image.loadUri(uri)
     }
 

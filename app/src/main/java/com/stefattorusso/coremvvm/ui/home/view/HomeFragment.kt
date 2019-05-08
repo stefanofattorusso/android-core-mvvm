@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, HomeFragmentBinding>() {
 
-    interface FragmentCallback : BaseFragment.BaseFragmentCallback {
+    interface FragmentCallback : BaseFragmentCallback {
         fun onMenuItemClicked(type: String)
     }
 

@@ -7,19 +7,20 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.stefattorusso.coremvvm.R
 import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.base.adapter.BaseListAdapter
 import com.stefattorusso.coremvvm.data.models.ImageModel
 import com.stefattorusso.coremvvm.databinding.GridFragmentBinding
-import com.stefattorusso.coremvvm.ui.grid.adapter.SpacesItemDecoration
+import com.stefattorusso.coremvvm.utils.GridSpacesItemDecoration
 import com.stefattorusso.domain.Image
 import kotlinx.android.synthetic.main.grid_fragment.*
 
 
 class GridFragment : BaseFragment<GridFragment.FragmentCallback, GridViewModel, GridFragmentBinding>() {
 
-    interface FragmentCallback : BaseFragment.BaseFragmentCallback {
+    interface FragmentCallback : BaseFragmentCallback {
         fun onShowDetail(view: ImageView, image: Image)
     }
 
@@ -40,7 +41,7 @@ class GridFragment : BaseFragment<GridFragment.FragmentCallback, GridViewModel, 
         recycler_view.run {
             setHasFixedSize(true)
             addItemDecoration(
-                SpacesItemDecoration(
+                GridSpacesItemDecoration(
                     context.resources.getDimensionPixelSize(R.dimen.grid_spacing),
                     2,
                     true,
@@ -48,7 +49,7 @@ class GridFragment : BaseFragment<GridFragment.FragmentCallback, GridViewModel, 
                 )
             )
             itemAnimator = DefaultItemAnimator()
-            layoutManager = GridLayoutManager(context, 2)
+            layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager?
             adapter = mAdapter
         }
     }

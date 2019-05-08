@@ -11,6 +11,7 @@ import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.CAMERA
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.LIST
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.LOCATION
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.LOGIN
+import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.PROFILE
 import kotlinx.android.synthetic.main.grid_activity.*
 import javax.inject.Inject
 
@@ -44,6 +45,7 @@ class HomeActivity : BaseActivity(), InjectFragmentHelperCallback<HomeFragment>,
             CAMERA -> mNavigationHelper.launchCameraView()
             LOCATION -> mNavigationHelper.launchLocationView()
             LOGIN -> mNavigationHelper.launchLoginView()
+            PROFILE -> mNavigationHelper.launchProfileView()
         }
     }
 }

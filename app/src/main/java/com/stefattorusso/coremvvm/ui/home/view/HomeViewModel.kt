@@ -34,6 +34,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         sampleItemList.add(MenuModel(1, CAMERA, "A sample camera view"))
         sampleItemList.add(MenuModel(2, LOCATION, "A sample location view"))
         sampleItemList.add(MenuModel(3, LOGIN, "A sample login view"))
+        sampleItemList.add(MenuModel(4, PROFILE, "A sample profile view"))
         return sampleItemList
     }
 
@@ -52,5 +53,6 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         internal const val CAMERA = "CAMERA"
         internal const val LOCATION = "LOCATION"
         internal const val LOGIN = "LOGIN"
+        internal const val PROFILE = "PROFILE"
     }
 }
