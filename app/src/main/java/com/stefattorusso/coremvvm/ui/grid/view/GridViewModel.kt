@@ -40,13 +40,13 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
     fun getSelectedItem(): LiveData<Pair<ImageView, Image>> = selectedItem
 
     private fun loadData() {
-        uiState.value = Loading
-        launch(dispatcher.background) {
-            imageList = retrieveList()
-            imageModelList.value = mapObjects(imageList)
-            withContext(dispatcher.ui) {
-                uiState.value = NoData.takeIf { imageList.isNullOrEmpty() } ?: HasData
+        launch {
+            uiState.value = Loading
+            imageModelList.value = withContext(dispatcher.background) {
+                imageList = retrieveList()
+                mapObjects(imageList)
             }
+            uiState.value = NoData.takeIf { imageList.isNullOrEmpty() } ?: HasData
         }
     }
 
