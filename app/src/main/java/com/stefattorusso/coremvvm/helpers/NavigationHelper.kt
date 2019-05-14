@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
+import com.stefattorusso.components.TutorialOverlayComponentView
 import com.stefattorusso.coremvvm.ui.camera.CameraActivity
 import com.stefattorusso.coremvvm.ui.detail.DetailActivity
 import com.stefattorusso.coremvvm.ui.grid.GridActivity
@@ -11,6 +12,7 @@ import com.stefattorusso.coremvvm.ui.home.HomeActivity
 import com.stefattorusso.coremvvm.ui.location.LocationActivity
 import com.stefattorusso.coremvvm.ui.login.LoginActivity
 import com.stefattorusso.coremvvm.ui.profile.ProfileActivity
+import com.stefattorusso.coremvvm.ui.tutorial.TutorialActivity
 import com.stefattorusso.domain.Image
 
 class NavigationHelper(
@@ -49,6 +51,12 @@ class NavigationHelper(
 
     fun launchProfileView() {
         launch(Intent(activity, ProfileActivity::class.java))
+    }
+
+    fun launchTutorial(steps: List<TutorialOverlayComponentView.TutorialStep>) {
+        launch(Intent(activity, TutorialActivity::class.java).apply {
+            putParcelableArrayListExtra(TutorialOverlayComponentView.TutorialStep::class.java.simpleName, ArrayList(steps))
+        })
     }
 
     private fun launch(intent: Intent) {

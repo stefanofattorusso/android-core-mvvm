@@ -56,6 +56,9 @@
             android:theme="@style/Login"/>
         <activity
             android:name=".ui.profile.ProfileActivity"/>
+        <activity
+            android:name=".ui.tutorial.TutorialActivity"
+            android:theme="@style/Tutorial"/>
     </application>
 
 </manifest>

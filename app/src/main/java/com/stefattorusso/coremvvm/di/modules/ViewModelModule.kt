@@ -13,6 +13,7 @@ import com.stefattorusso.coremvvm.ui.location.view.LocationViewModel
 import com.stefattorusso.coremvvm.ui.login.view.LoginViewModel
 import com.stefattorusso.coremvvm.ui.profile.view.ProfileViewModel
 import com.stefattorusso.coremvvm.ui.splash.view.SplashViewModel
+import com.stefattorusso.coremvvm.ui.tutorial.view.TutorialViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -71,5 +72,11 @@ abstract class ViewModelModule {
     @ActivityScope
     @ViewModelKey(ProfileViewModel::class)
     internal abstract fun profileiewModel(viewModel: ProfileViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ActivityScope
+    @ViewModelKey(TutorialViewModel::class)
+    internal abstract fun tutorialViewModel(viewModel: TutorialViewModel): ViewModel
 
 }

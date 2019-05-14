@@ -17,6 +17,8 @@ import com.stefattorusso.coremvvm.ui.profile.ProfileActivity
 import com.stefattorusso.coremvvm.ui.profile.ProfileActivityModule
 import com.stefattorusso.coremvvm.ui.splash.SplashActivity
 import com.stefattorusso.coremvvm.ui.splash.SplashActivityModule
+import com.stefattorusso.coremvvm.ui.tutorial.TutorialActivity
+import com.stefattorusso.coremvvm.ui.tutorial.TutorialActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -54,4 +56,8 @@ abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf(ProfileActivityModule::class))
     abstract fun profileActivity(): ProfileActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf(TutorialActivityModule::class))
+    abstract fun tutorialActivity(): TutorialActivity
 }
