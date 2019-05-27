@@ -2,6 +2,7 @@ package com.stefattorusso.coremvvm.ui.home.view
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewTreeObserver
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,10 +35,14 @@ class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        container_view.viewTreeObserver.addOnGlobalLayoutListener {
-            setUpTutorialSteps()
-            container_view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-        }
+        container_view.viewTreeObserver.addOnGlobalLayoutListener(
+            object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    setUpTutorialSteps()
+                    container_view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            }
+        )
     }
 
     private fun setUpViews() {

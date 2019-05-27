@@ -1,6 +1,5 @@
 package com.stefattorusso.commons.permission
 
-import android.Manifest
 import android.Manifest.permission.*
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
@@ -56,7 +55,7 @@ class PermissionsFragment : Fragment() {
             }
             PERMISSION_CAMERA_CODE -> {
                 if (ContextCompat.checkSelfPermission(context!!, CAMERA) != PERMISSION_GRANTED) {
-                    requestPermissions(arrayOf(Manifest.permission.CAMERA), code)
+                    requestPermissions(arrayOf(CAMERA), code)
                 } else {
                     deferredGrant.complete(true)
                     exit()
@@ -64,7 +63,7 @@ class PermissionsFragment : Fragment() {
             }
             PERMISSION_LOCATION_CODE -> {
                 if (ContextCompat.checkSelfPermission(context!!, ACCESS_COARSE_LOCATION) != PERMISSION_GRANTED) {
-                    requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), code)
+                    requestPermissions(arrayOf(ACCESS_COARSE_LOCATION), code)
                 } else {
                     deferredGrant.complete(true)
                     exit()

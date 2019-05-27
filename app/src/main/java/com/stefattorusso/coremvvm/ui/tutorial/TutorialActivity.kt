@@ -26,6 +26,11 @@ class TutorialActivity : BaseActivity(), InjectFragmentHelperCallback<TutorialFr
         mInjectFragmentHelperImpl.setSavedInstanceState(savedInstanceState)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("TEST", "OK")
+    }
+
     // Fragment Helper
 
     override fun onLoadFragmentContainer(savedInstanceState: Bundle?): View = content
