@@ -86,8 +86,7 @@ ext {
             domain    : ':domain',
             data      : ':data',
             commons   : ':commons',
-            components: ':components',
-            resources : ':resources'
+            components: ':components'
     ]
 
     appDependencies = [
@@ -135,8 +134,7 @@ ext {
             [configuration: "implementation", dependency: project(modules.components)],
             [configuration: "implementation", dependency: project(modules.commons)],
             [configuration: "implementation", dependency: project(modules.domain)],
-            [configuration: "implementation", dependency: project(modules.data)],
-            [configuration: "implementation", dependency: project(modules.resources)]
+            [configuration: "implementation", dependency: project(modules.data)]
     ]
 
     dataDependencies = [
@@ -191,8 +189,7 @@ ext {
             [configuration: "implementation", dependency: otherLibs.kotlin],
             [configuration: "kapt", dependency: androidXLibs.databinding],
 
-            [configuration: "api", dependency: project(modules.commons)],
-            [configuration: "implementation", dependency: project(modules.resources)]
+            [configuration: "api", dependency: project(modules.commons)]
     ]
 
     commonsDependencies = [
@@ -205,14 +202,5 @@ ext {
             [configuration: "kapt", dependency: otherLibs.daggerAndroidProcessor],
             [configuration: "implementation", dependency: otherLibs.kotlin],
             [configuration: "implementation", dependency: androidXLibs.location]
-    ]
-
-    resourcesDependencies = [
-            [configuration: "implementation", dependency: androidXLibs.core],
-            [configuration: "implementation", dependency: androidXLibs.cardview],
-            [configuration: "implementation", dependency: androidXLibs.appcompat],
-            [configuration: "implementation", dependency: androidXLibs.recyclerview],
-            [configuration: "implementation", dependency: androidXLibs.material],
-            [configuration: "implementation", dependency: androidXLibs.constraintlayout]
     ]
 }
