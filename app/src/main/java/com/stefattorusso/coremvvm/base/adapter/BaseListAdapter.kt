@@ -2,12 +2,8 @@ package com.stefattorusso.coremvvm.base.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import android.widget.ListAdapter
 import androidx.databinding.library.baseAdapters.BR
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 
 
 abstract class BaseListAdapter<T, VM> : ListAdapter<T, BaseListAdapter.BaseViewHolder<T, VM>> {
