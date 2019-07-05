@@ -1,8 +1,8 @@
 package com.stefattorusso.data.network.gateway
 
 import com.stefattorusso.data.entity.ImageEntity
-import kotlinx.coroutines.Deferred
+import com.stefattorusso.domain.Outcome
 
 interface AppGateway {
-    suspend fun retrieveListAsync(): Deferred<List<ImageEntity>>
+    suspend fun retrieveListAsync(): Outcome<List<ImageEntity>>
 }

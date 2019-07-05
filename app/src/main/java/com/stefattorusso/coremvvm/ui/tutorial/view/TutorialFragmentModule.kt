@@ -2,13 +2,14 @@ package com.stefattorusso.coremvvm.ui.tutorial.view
 
 import androidx.fragment.app.Fragment
 import com.stefattorusso.coremvvm.base.BaseFragmentModule
+import com.stefattorusso.coremvvm.base.mvvm.BaseVMFragmentModule
 import com.stefattorusso.coremvvm.di.scope.FragmentScope
 import dagger.Binds
 import dagger.Module
 
 @Module(
     includes = arrayOf(
-        BaseFragmentModule::class
+        BaseVMFragmentModule::class
     )
 )
 abstract class TutorialFragmentModule {

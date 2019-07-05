@@ -5,8 +5,8 @@ import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.di.modules.*
-import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchers
-import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchersImpl
+import com.stefattorusso.data.coroutines.CoroutineDispatchers
+import com.stefattorusso.data.coroutines.CoroutineDispatchersImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -15,6 +15,7 @@ import javax.inject.Singleton
 @Module(
     includes = arrayOf(
         CacheModule::class,
+        ActivityBuilderModule::class,
         NetworkModule::class,
         RepositoryModule::class,
         UseCaseModule::class,

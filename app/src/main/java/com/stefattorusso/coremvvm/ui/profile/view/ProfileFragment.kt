@@ -1,27 +1,18 @@
 package com.stefattorusso.coremvvm.ui.profile.view
 
-import android.os.Bundle
-import android.view.View
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.stefattorusso.coremvvm.base.BaseFragment
+import com.stefattorusso.coremvvm.base.mvvm.BaseVMFragment
 import com.stefattorusso.coremvvm.databinding.ProfileFragmentBinding
 
-class ProfileFragment : BaseFragment<ProfileFragment.FragmentCallback, ProfileViewModel, ProfileFragmentBinding>() {
+class ProfileFragment : BaseVMFragment<ProfileFragment.FragmentCallback, ProfileViewModel, ProfileFragmentBinding>() {
 
-    interface FragmentCallback : BaseFragmentCallback
+    interface FragmentCallback : BaseVMFragmentCallback
 
-    override val mViewModelClass: Class<ProfileViewModel>
+    override val viewModelClass: Class<ProfileViewModel>
         get() = ProfileViewModel::class.java
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupViews()
-    }
-
-    private fun setupViews() {
-        mViewDataBinding?.viewModel = mViewModel
-        mViewModel.uiState.observe(viewLifecycleOwner, Observer {
-
-        })
+    override fun onViewModelAttached(owner: LifecycleOwner, viewModel: ProfileViewModel) {
+        viewModel.uiState.observe(viewLifecycleOwner, Observer {})
     }
 }

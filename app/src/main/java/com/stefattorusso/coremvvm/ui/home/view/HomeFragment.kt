@@ -3,33 +3,37 @@ package com.stefattorusso.coremvvm.ui.home.view
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import com.stefattorusso.components.TutorialOverlayComponentView
 import com.stefattorusso.coremvvm.R
-import com.stefattorusso.coremvvm.base.BaseFragment
 import com.stefattorusso.coremvvm.base.adapter.BaseListAdapter
+import com.stefattorusso.coremvvm.base.mvvm.BaseVMFragment
 import com.stefattorusso.coremvvm.data.models.MenuModel
 import com.stefattorusso.coremvvm.databinding.HomeFragmentBinding
+import com.stefattorusso.coremvvm.ui.components.TutorialOverlayComponentView
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
-class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, HomeFragmentBinding>() {
+class HomeFragment : BaseVMFragment<HomeFragment.FragmentCallback, HomeViewModel, HomeFragmentBinding>() {
 
-    interface FragmentCallback : BaseFragmentCallback {
+    interface FragmentCallback : BaseVMFragmentCallback {
         fun onMenuItemClicked(type: String)
         fun showTutorial(steps: List<TutorialOverlayComponentView.TutorialStep>)
     }
 
-    override val mViewModelClass: Class<HomeViewModel>
+    override val viewModelClass: Class<HomeViewModel>
         get() = HomeViewModel::class.java
+
+    override fun onViewModelAttached(owner: LifecycleOwner, viewModel: HomeViewModel) {
+        viewModel.getSelectedItem().observe(viewLifecycleOwner, Observer { mCallback.onMenuItemClicked(it.type) })
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpViews()
-        observeData()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -46,24 +50,15 @@ class HomeFragment : BaseFragment<HomeFragment.FragmentCallback, HomeViewModel, 
     }
 
     private fun setUpViews() {
-        mViewDataBinding?.viewModel = mViewModel
         recycler_view.run {
             setHasFixedSize(true)
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(context, VERTICAL, false)
-            adapter = HomeAdapter(mViewModel)
+            adapter = HomeAdapter(viewModel)
         }
     }
 
-    private fun observeData() {
-        mViewModel.getSelectedItem().observe(viewLifecycleOwner, Observer {
-            mCallback.onMenuItemClicked(it.type)
-        })
-    }
-
     private fun setUpTutorialSteps() {
-
-
         val steps = mutableListOf<TutorialOverlayComponentView.TutorialStep>()
         val locationArray = IntArray(2)
 

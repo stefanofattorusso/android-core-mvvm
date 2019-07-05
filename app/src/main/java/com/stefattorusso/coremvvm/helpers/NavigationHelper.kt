@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
-import com.stefattorusso.components.TutorialOverlayComponentView
 import com.stefattorusso.coremvvm.ui.camera.CameraActivity
+import com.stefattorusso.coremvvm.ui.components.TutorialOverlayComponentView
 import com.stefattorusso.coremvvm.ui.detail.DetailActivity
 import com.stefattorusso.coremvvm.ui.grid.GridActivity
 import com.stefattorusso.coremvvm.ui.home.HomeActivity

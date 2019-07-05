@@ -2,11 +2,14 @@ package com.stefattorusso.coremvvm.ui.home.view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
 import com.stefattorusso.coremvvm.data.models.MenuModel
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.NoData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -15,8 +18,8 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
     private var modelList: MutableLiveData<List<MenuModel>> = MutableLiveData()
     private var selectedItem: MutableLiveData<MenuModel> = MutableLiveData()
 
-    override fun onCreated() {
-        super.onCreated()
+    override fun onAttached() {
+        super.onAttached()
         loadData()
     }
 
@@ -38,10 +41,10 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         return sampleItemList
     }
 
-     private fun loadData() {
-        launchAction {
+    private fun loadData() {
+        viewModelScope.launch {
             uiState.value = Loading
-            modelList.value = withContext(dispatcher.background) { initData() }
+            modelList.value = withContext(Dispatchers.Default) { initData() }
             uiState.value = NoData.takeIf { modelList.value.isNullOrEmpty() } ?: HasData
         }
     }

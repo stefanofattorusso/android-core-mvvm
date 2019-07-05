@@ -5,27 +5,35 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.transition.TransitionInflater
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.stefattorusso.commons.SwipeImageTouchListener
-import com.stefattorusso.coremvvm.base.BaseFragment
+import com.stefattorusso.coremvvm.base.mvvm.BaseVMFragment
 import com.stefattorusso.coremvvm.databinding.DetailFragmentBinding
 import com.stefattorusso.domain.Image
 import kotlinx.android.synthetic.main.detail_bottom_sheet.*
 import kotlinx.android.synthetic.main.detail_fragment.*
 
 
-class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewModel, DetailFragmentBinding>() {
+class DetailFragment : BaseVMFragment<DetailFragment.FragmentCallback, DetailViewModel, DetailFragmentBinding>() {
+
 
     private lateinit var mBottomSheetBehavior: BottomSheetBehavior<View>
 
-    interface FragmentCallback : BaseFragmentCallback {
+    interface FragmentCallback : BaseVMFragmentCallback {
         fun onAnimationEnd()
     }
 
-    override val mViewModelClass: Class<DetailViewModel>
+    override val viewModelClass: Class<DetailViewModel>
         get() = DetailViewModel::class.java
+
+    override fun onViewModelAttached(owner: LifecycleOwner, viewModel: DetailViewModel) {
+        viewModel.getImageLoaded().observe(viewLifecycleOwner, Observer {
+            if (it) startPostponedEnterTransition()
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +45,9 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
-        observeData()
     }
 
-    fun onBackPressed(): Boolean{
+    fun onBackPressed(): Boolean {
         if (mBottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             mBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             return false
@@ -49,9 +56,8 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
     }
 
     private fun setupViews() {
-        mViewDataBinding?.viewModel = mViewModel
         val image = arguments?.get(Image::class.java.simpleName) as? Image
-        image?.let { mViewModel.setImageItem(it) }
+        image?.let { viewModel.setImageItem(it) }
         image_container.setOnTouchListener(SwipeImageTouchListener(
             parent_view,
             {
@@ -74,7 +80,7 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
                     true
                 }
                 MotionEvent.ACTION_UP -> {
-                   true
+                    true
                 }
                 else -> true
             }
@@ -87,11 +93,5 @@ class DetailFragment : BaseFragment<DetailFragment.FragmentCallback, DetailViewM
         } else {
             mBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
-    }
-
-    private fun observeData() {
-        mViewModel.getImageLoaded().observe(viewLifecycleOwner, Observer {
-            if (it) startPostponedEnterTransition()
-        })
     }
 }

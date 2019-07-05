@@ -3,8 +3,8 @@ package com.stefattorusso.coremvvm.di.modules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.stefattorusso.coremvvm.base.mvvm.ViewModelFactory
+import com.stefattorusso.coremvvm.base.mvvm.ViewModelKey
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
-import com.stefattorusso.coremvvm.di.scope.ViewModelKey
 import com.stefattorusso.coremvvm.ui.camera.view.CameraViewModel
 import com.stefattorusso.coremvvm.ui.detail.view.DetailViewModel
 import com.stefattorusso.coremvvm.ui.grid.view.GridViewModel
@@ -23,7 +23,7 @@ abstract class ViewModelModule {
 
     @Binds
     @ActivityScope
-    internal abstract fun viewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    abstract fun viewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @IntoMap

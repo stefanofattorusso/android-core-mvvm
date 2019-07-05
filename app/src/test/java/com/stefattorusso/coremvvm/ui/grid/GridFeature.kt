@@ -58,7 +58,7 @@ class GridFeature : BaseTestShould() {
     fun perform_load_data() = runBlocking {
         given(imageRepository.retrieveList()).willReturn(list)
         gridViewModel.uiState.observeForever(stateLiveDataObserver)
-        gridViewModel.onCreated()
+        gridViewModel.onAttached()
 
         inOrder(stateLiveDataObserver) {
             verify(stateLiveDataObserver).onChanged(enableLoading)
@@ -70,7 +70,7 @@ class GridFeature : BaseTestShould() {
     fun perform_load_empty_data() = runBlocking {
         given(imageRepository.retrieveList()).willReturn(emptyList)
         gridViewModel.uiState.observeForever(stateLiveDataObserver)
-        gridViewModel.onCreated()
+        gridViewModel.onAttached()
 
         inOrder(stateLiveDataObserver) {
             verify(stateLiveDataObserver).onChanged(enableLoading)

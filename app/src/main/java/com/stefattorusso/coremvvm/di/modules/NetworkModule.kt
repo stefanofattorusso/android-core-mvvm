@@ -1,9 +1,9 @@
 package com.stefattorusso.coremvvm.di.modules
 
 import android.content.Context
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.stefattorusso.coremvvm.BuildConfig
 import com.stefattorusso.coremvvm.R
+import com.stefattorusso.data.coroutines.CoroutineDispatchers
 import com.stefattorusso.data.network.gateway.AppGateway
 import com.stefattorusso.data.network.gateway.retrofit.AppRetrofitGateway
 import com.stefattorusso.data.network.gateway.retrofit.service.AppRetrofitService
@@ -88,7 +88,6 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(context.getString(R.string.api_domain))
             .client(okHttpClient)
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
@@ -107,7 +106,7 @@ object NetworkModule {
     @JvmStatic
     @Provides
     @Reusable
-    internal fun appGateway(service: AppRetrofitService): AppGateway {
-        return AppRetrofitGateway(service)
+    internal fun appGateway(service: AppRetrofitService, dispatchers: CoroutineDispatchers): AppGateway {
+        return AppRetrofitGateway(service, dispatchers)
     }
 }

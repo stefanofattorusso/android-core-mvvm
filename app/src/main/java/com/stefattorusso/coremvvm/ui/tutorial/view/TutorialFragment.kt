@@ -2,22 +2,26 @@ package com.stefattorusso.coremvvm.ui.tutorial.view
 
 import android.os.Bundle
 import android.view.View
-import com.stefattorusso.components.TutorialOverlayComponentView
-import com.stefattorusso.components.TutorialOverlayComponentView.TutorialStep
-import com.stefattorusso.coremvvm.base.BaseFragment
+import androidx.lifecycle.LifecycleOwner
+import com.stefattorusso.coremvvm.base.mvvm.BaseVMFragment
 import com.stefattorusso.coremvvm.databinding.TutorialFragmentBinding
+import com.stefattorusso.coremvvm.ui.components.TutorialOverlayComponentView
 import kotlinx.android.synthetic.main.tutorial_fragment.*
 
 class TutorialFragment :
-    BaseFragment<TutorialFragment.FragmentCallback, TutorialViewModel, TutorialFragmentBinding>() {
+    BaseVMFragment<TutorialFragment.FragmentCallback, TutorialViewModel, TutorialFragmentBinding>() {
 
-    private var steps: List<TutorialStep>? = null
+    private var steps: List<TutorialOverlayComponentView.TutorialStep>? = null
     private var stepIndex = 0
 
-    interface FragmentCallback : BaseFragmentCallback
+    interface FragmentCallback : BaseVMFragmentCallback
 
-    override val mViewModelClass: Class<TutorialViewModel>
+    override val viewModelClass: Class<TutorialViewModel>
         get() = TutorialViewModel::class.java
+
+    override fun onViewModelAttached(owner: LifecycleOwner, viewModel: TutorialViewModel) {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,20 +34,18 @@ class TutorialFragment :
     }
 
     private fun setupViews() {
-        mViewDataBinding?.viewModel = mViewModel
-
-        if (steps != null) {
-            tutorial_overlay.setStep(steps!![stepIndex])
-            tutorial_text.text = steps!![stepIndex].text
+        steps?.let { s ->
+            tutorial_overlay.setStep(s[stepIndex])
+            tutorial_text.text = s[stepIndex].text
 
             stepIndex += 1
 
             next_button.setOnClickListener {
-                val step = steps!![stepIndex]
+                val step = s[stepIndex]
                 tutorial_text.text = step.text
                 tutorial_overlay.setStep(step)
 
-                if (stepIndex == steps?.size?.minus(1)) {
+                if (stepIndex == s.size.minus(1)) {
                     stepIndex = 0
                 } else {
                     stepIndex += 1

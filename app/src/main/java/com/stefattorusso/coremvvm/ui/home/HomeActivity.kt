@@ -5,8 +5,8 @@ import android.view.View
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
 import com.stefattorusso.commons.newInstance
-import com.stefattorusso.components.TutorialOverlayComponentView
 import com.stefattorusso.coremvvm.base.BaseActivity
+import com.stefattorusso.coremvvm.ui.components.TutorialOverlayComponentView
 import com.stefattorusso.coremvvm.ui.home.view.HomeFragment
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.CAMERA
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.LIST

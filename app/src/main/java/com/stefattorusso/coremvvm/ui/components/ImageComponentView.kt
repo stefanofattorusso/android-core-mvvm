@@ -1,8 +1,9 @@
-package com.stefattorusso.components
+package com.stefattorusso.coremvvm.ui.components
 
 import android.content.Context
 import android.util.AttributeSet
 import com.stefattorusso.commons.loadUrl
+import com.stefattorusso.coremvvm.R
 import kotlinx.android.synthetic.main.image_component_view.view.*
 
 class ImageComponentView : BaseComponentView {

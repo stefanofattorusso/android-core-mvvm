@@ -4,29 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.stefattorusso.commons.lifecyclehelpers.autoinflateview.AutoInflateViewHelper
 import com.stefattorusso.commons.lifecyclehelpers.autoinflateview.AutoInflateViewHelperCallback
-import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
-import com.stefattorusso.coremvvm.utils.ErrorHandler
+import com.stefattorusso.coremvvm.R
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : BaseViewModel, VDB : ViewDataBinding> :
+abstract class BaseFragment<VDB : ViewDataBinding, TCallback : BaseFragment.BaseFragmentCallback> :
     Fragment(), HasSupportFragmentInjector, AutoInflateViewHelperCallback {
 
     @Inject
-    lateinit var mExceptionHandler: ErrorHandler
-    @Inject
     lateinit var mChildFragmentInjector: DispatchingAndroidInjector<Fragment>
-    @Inject
-    lateinit var mViewModelFactory: ViewModelProvider.Factory
     @Inject
     lateinit var mAutoInflateHelper: AutoInflateViewHelper
     @Inject
@@ -34,10 +28,11 @@ abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : 
 
     interface BaseFragmentCallback
 
-    lateinit var mViewModel: VM
-    protected abstract val mViewModelClass: Class<VM>
-    protected var mViewDataBinding: VDB? = null
+    private lateinit var mViewDataBinding: VDB
+
     private var mView: View? = null
+
+    private var mProgressView: View? = null
 
     override fun onViewInflated(view: View) {
         mView = view
@@ -49,13 +44,36 @@ abstract class BaseFragment<TCallback : BaseFragment.BaseFragmentCallback, VM : 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewModel = ViewModelProvider(this, mViewModelFactory).get(mViewModelClass).also { it.onCreated() }
-        mViewDataBinding = DataBindingUtil.bind(view)
-        mViewDataBinding?.lifecycleOwner = this
-        mViewModel.getError().observe(viewLifecycleOwner, Observer {
-            mExceptionHandler.handleException(it)
-        })
+        mProgressView = view.findViewById(R.id.progress_view)
+        DataBindingUtil.bind<VDB>(view)?.let { binding ->
+            mViewDataBinding = binding
+            mViewDataBinding.lifecycleOwner = viewLifecycleOwner
+            onBindingCreated(binding)
+        }
     }
 
+    abstract fun onBindingCreated(binding: VDB)
+
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = mChildFragmentInjector
+
+    protected open fun showProgress() {
+        mProgressView?.visibility = View.VISIBLE
+    }
+
+    protected open fun hideProgress() {
+        mProgressView?.visibility = View.GONE
+    }
+
+    protected fun showError(exception: Throwable?) {
+        showError(exception?.localizedMessage)
+    }
+
+    protected fun showError(errorMessage: String?) {
+        val dialog = AlertDialog.Builder(context!!)
+            .setTitle("Doh!")
+            .setMessage(errorMessage)
+            .setPositiveButton("close", null)
+            .create()
+        dialog.show()
+    }
 }

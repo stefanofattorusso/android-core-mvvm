@@ -2,15 +2,12 @@ package com.stefattorusso.coremvvm.ui.splash.view
 
 import androidx.fragment.app.Fragment
 import com.stefattorusso.coremvvm.base.BaseFragmentModule
+import com.stefattorusso.coremvvm.base.mvvm.BaseVMFragmentModule
 import com.stefattorusso.coremvvm.di.scope.FragmentScope
 import dagger.Binds
 import dagger.Module
 
-@Module(
-    includes = arrayOf(
-        BaseFragmentModule::class
-    )
-)
+@Module(includes = arrayOf(BaseVMFragmentModule::class))
 abstract class SplashFragmentModule {
     /**
      * As per the contract specified in [BaseFragmentModule]; "This must be included in all

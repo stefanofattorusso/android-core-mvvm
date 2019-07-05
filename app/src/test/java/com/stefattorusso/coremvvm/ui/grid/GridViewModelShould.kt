@@ -45,7 +45,7 @@ class GridViewModelShould : BaseTestShould() {
     fun return_successful_data_result() = runBlocking {
         given(getImageListUseCase.execute()).willReturn(list)
 
-        gridViewModel.onCreated()
+        gridViewModel.onAttached()
 
         verifyBlocking(imageModelMapper) { transform(list[0]) }
     }
@@ -54,7 +54,7 @@ class GridViewModelShould : BaseTestShould() {
     fun return_successful_data_empty_result() = runBlocking {
         given(getImageListUseCase.execute()).willReturn(emptyList)
 
-        gridViewModel.onCreated()
+        gridViewModel.onAttached()
 
         verifyBlocking(imageModelMapper, never()) { transform(list[0]) }
     }
@@ -63,7 +63,7 @@ class GridViewModelShould : BaseTestShould() {
     fun return_failure_data_no_result() = runBlocking {
         given(getImageListUseCase.execute()).willReturn(null)
 
-        gridViewModel.onCreated()
+        gridViewModel.onAttached()
 
         verifyBlocking(imageModelMapper, never()) { transform(list[0]) }
     }

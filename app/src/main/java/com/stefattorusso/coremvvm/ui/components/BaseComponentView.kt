@@ -1,4 +1,4 @@
-package com.stefattorusso.components
+package com.stefattorusso.coremvvm.ui.components
 
 import android.content.Context
 import android.util.AttributeSet

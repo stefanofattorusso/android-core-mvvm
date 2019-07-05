@@ -36,7 +36,7 @@ class HomeFeature : BaseTestShould(){
     @Test
     fun perform_load_data(){
         homeViewModel.uiState.observeForever(stateLiveDataObserver)
-        homeViewModel.onCreated()
+        homeViewModel.onAttached()
 
         inOrder(stateLiveDataObserver) {
             verify(stateLiveDataObserver).onChanged(enableLoading)

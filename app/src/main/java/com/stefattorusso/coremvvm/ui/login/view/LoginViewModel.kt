@@ -2,12 +2,14 @@ package com.stefattorusso.coremvvm.ui.login.view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
 import com.stefattorusso.coremvvm.utils.Error
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.ValidatorHelper
 import com.stefattorusso.domain.interactor.LoginUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -37,20 +39,20 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
     }
 
     private fun triggerLogin(email: String, password: String) {
-        launch(dispatcher.background) {
+        viewModelScope.launch {
             var throwable: Throwable? = null
             try {
-                loginUseCase.execute(email, password)
+                withContext(Dispatchers.IO) {
+                    loginUseCase.execute(email, password)
+                }
             } catch (e: Exception) {
                 throwable = e
             }
-            withContext(dispatcher.ui) {
-                if (throwable != null) {
-                    error.value = throwable
-                    uiState.value = Error
-                } else {
-                    uiState.value = HasData
-                }
+            if (throwable != null) {
+                error.value = throwable
+                uiState.value = Error
+            } else {
+                uiState.value = HasData
             }
         }
     }

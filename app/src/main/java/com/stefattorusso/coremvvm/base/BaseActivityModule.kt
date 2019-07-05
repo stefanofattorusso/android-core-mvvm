@@ -22,11 +22,8 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Named
 
-@Module(
-    includes = arrayOf(
-        ViewModelModule::class
-    )
-)
+
+@Module(includes = [ViewModelModule::class])
 abstract class BaseActivityModule {
 
     @Binds

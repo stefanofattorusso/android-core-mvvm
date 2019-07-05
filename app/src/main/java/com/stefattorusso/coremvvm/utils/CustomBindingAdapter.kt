@@ -32,6 +32,6 @@ object CustomBindingAdapter {
     @JvmStatic
     @BindingAdapter("setItems")
     fun <T, VM> setAdapterItems(view: RecyclerView, items: List<T>?){
-        (view.adapter as BaseListAdapter<T, VM>).setItems(items)
+        (view.adapter as? BaseListAdapter<T, VM>)?.setItems(items)
     }
 }
