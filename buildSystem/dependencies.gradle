@@ -7,7 +7,8 @@ ext {
     def androidxMaterialVersion = '1.0.0-rc01'
     def constraintsLayoutVersion = '1.1.3'
     def databindingVersion = '3.0.1'
-    def lifecycleVersion = "2.1.0-rc01"
+    def lifecycleVMVersion = "2.1.0-rc01"
+    def lifecycleVersion = "2.2.0-alpha01"
     def locationVersion = "16.0.0"
     def firebaseVersion = "16.0.8"
     def firebaseAuthVersion = "16.2.1"
@@ -52,7 +53,8 @@ ext {
     def lifecycleLibs = [
             extensions     : [group: 'androidx.lifecycle', name: 'lifecycle-extensions', version: lifecycleVersion],
             reactiveStreams: [group: 'androidx.lifecycle', name: 'lifecycle-reactivestreams-ktx', version: lifecycleVersion],
-            viewModelKtx   : [group: 'androidx.lifecycle', name: 'lifecycle-viewmodel-ktx', version: lifecycleVersion],
+            viewModelKtx   : [group: 'androidx.lifecycle', name: 'lifecycle-viewmodel-ktx', version: lifecycleVMVersion],
+            lifecycleKtx   : [group: 'androidx.lifecycle', name: 'lifecycle-runtime-ktx', version: lifecycleVersion],
             compiler       : [group: 'androidx.lifecycle', name: 'lifecycle-compiler', version: lifecycleVersion]
     ]
 
@@ -100,6 +102,7 @@ ext {
             [configuration: "implementation", dependency: lifecycleLibs.extensions],
             [configuration: "implementation", dependency: lifecycleLibs.reactiveStreams],
             [configuration: "implementation", dependency: lifecycleLibs.viewModelKtx],
+            [configuration: "implementation", dependency: lifecycleLibs.lifecycleKtx],
             [configuration: "kapt", dependency: lifecycleLibs.compiler],
             [configuration: "implementation", dependency: otherLibs.dagger],
             [configuration: "kapt", dependency: otherLibs.daggerCompiler],

@@ -3,6 +3,7 @@ package com.stefattorusso.coremvvm.ui.camera
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
 import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
 import com.stefattorusso.commons.newInstance
@@ -12,6 +13,7 @@ import com.stefattorusso.coremvvm.ui.camera.view.CameraFragment
 import com.stefattorusso.coremvvm.utils.ImagePickerUtil
 import kotlinx.android.synthetic.main.grid_activity.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -49,7 +51,7 @@ class CameraActivity : BaseActivity(), InjectFragmentHelperCallback<CameraFragme
     }
 
     override fun onTakePictureClicked() {
-        launchAction {
+        lifecycleScope.launch {
             val hasPermission: Boolean = withContext(Dispatchers.Default) { getCameraPermission() }
             if (hasPermission) {
                 handlePickTakePicture()
@@ -58,7 +60,7 @@ class CameraActivity : BaseActivity(), InjectFragmentHelperCallback<CameraFragme
     }
 
     private fun handlePickTakePicture() {
-        launchAction {
+        lifecycleScope.launch {
             val intent = withContext(Dispatchers.IO) {
                 ImagePickerUtil.getPickImageIntent(this@CameraActivity, "Choose an option")
             }
@@ -69,7 +71,7 @@ class CameraActivity : BaseActivity(), InjectFragmentHelperCallback<CameraFragme
     }
 
     private fun retrieveImageFromResult(resultCode: Int, resultData: Intent?) {
-        launchAction {
+        lifecycleScope.launch {
             val uri = withContext(Dispatchers.IO) {
                 ImagePickerUtil.getUriFromResult(this@CameraActivity, resultCode, resultData)
             }

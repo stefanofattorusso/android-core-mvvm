@@ -12,12 +12,9 @@ import com.stefattorusso.coremvvm.utils.ErrorHandler
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import kotlinx.coroutines.*
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
-abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector, CoroutineScope,
-    AutoInflateHelperCallback {
+abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector, AutoInflateHelperCallback {
 
     @Inject
     lateinit var mExceptionHandler: ErrorHandler
@@ -29,19 +26,10 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector, C
     lateinit var mNavigationHelper: NavigationHelper
 
     private var mContentView: View? = null
-    private val mJob: Job by lazy { Job() }
-
-    override val coroutineContext: CoroutineContext
-        get() = mJob + Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAutoInflateHelper.setSavedInstanceState(savedInstanceState)
-    }
-
-    override fun onDestroy() {
-        mJob.cancel()
-        super.onDestroy()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -58,11 +46,5 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector, C
 
     override fun onContentViewCreated(view: View, savedInstanceState: Bundle?) {
         mContentView = view
-    }
-
-    protected fun launchAction(block: suspend CoroutineScope.() -> Unit) {
-        launch(CoroutineExceptionHandler { _, throwable ->
-            mExceptionHandler.handleException(throwable)
-        }, block = block)
     }
 }
