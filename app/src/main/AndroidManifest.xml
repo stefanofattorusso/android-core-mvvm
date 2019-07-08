@@ -32,11 +32,7 @@
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/Splash"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <activity
@@ -46,7 +42,12 @@
             android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".ui.grid.GridActivity"/>
+            android:name=".ui.grid.GridActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.camera.CameraActivity"/>
         <activity

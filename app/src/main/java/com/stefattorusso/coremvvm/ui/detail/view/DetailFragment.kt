@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.detail_fragment.*
 
 class DetailFragment : BaseVMFragment<DetailFragment.FragmentCallback, DetailViewModel, DetailFragmentBinding>() {
 
-
     private lateinit var mBottomSheetBehavior: BottomSheetBehavior<View>
 
     interface FragmentCallback : BaseVMFragmentCallback {
@@ -30,14 +29,15 @@ class DetailFragment : BaseVMFragment<DetailFragment.FragmentCallback, DetailVie
         get() = DetailViewModel::class.java
 
     override fun onViewModelAttached(owner: LifecycleOwner, viewModel: DetailViewModel) {
+        val image = arguments?.get(Image::class.java.simpleName) as? Image
+        image?.let { viewModel.setImageItem(it) }
         viewModel.getImageLoaded().observe(viewLifecycleOwner, Observer {
-            if (it) startPostponedEnterTransition()
+            if (it) activity?.startPostponedEnterTransition()
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        postponeEnterTransition()
         sharedElementEnterTransition = TransitionInflater.from(context)
             .inflateTransition(android.R.transition.move)
     }
@@ -56,8 +56,6 @@ class DetailFragment : BaseVMFragment<DetailFragment.FragmentCallback, DetailVie
     }
 
     private fun setupViews() {
-        val image = arguments?.get(Image::class.java.simpleName) as? Image
-        image?.let { viewModel.setImageItem(it) }
         image_container.setOnTouchListener(SwipeImageTouchListener(
             parent_view,
             {
@@ -73,15 +71,9 @@ class DetailFragment : BaseVMFragment<DetailFragment.FragmentCallback, DetailVie
         comment_list_button.setOnClickListener { toggleBottomSheet() }
         bottom_sheet_container.setOnTouchListener { _, event ->
             when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    true
-                }
-                MotionEvent.ACTION_MOVE -> {
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    true
-                }
+                MotionEvent.ACTION_DOWN -> true
+                MotionEvent.ACTION_MOVE -> true
+                MotionEvent.ACTION_UP -> true
                 else -> true
             }
         }

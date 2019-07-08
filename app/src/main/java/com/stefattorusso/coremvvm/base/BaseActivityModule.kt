@@ -9,9 +9,6 @@ import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelper
 import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelperCallback
 import com.stefattorusso.commons.lifecyclehelpers.autoinflate.AutoInflateHelperImpl
 import com.stefattorusso.commons.lifecyclehelpers.fullscreen.FullScreenActivityLifecycle
-import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
-import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
-import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperImpl
 import com.stefattorusso.commons.lifecyclehelpers.location.LocationHelperLifecycle
 import com.stefattorusso.coremvvm.di.modules.ViewModelModule
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
@@ -55,12 +52,6 @@ abstract class BaseActivityModule {
         @Provides
         @ActivityScope
         internal fun errorHandler(activity: Activity): ErrorHandler = ErrorHandler(activity)
-
-        @JvmStatic
-        @Provides
-        @ActivityScope
-        internal fun injectFragmentHelper(activity: Activity): InjectFragmentHelper =
-            InjectFragmentHelperImpl(activity as AppCompatActivity, activity as InjectFragmentHelperCallback<*>)
 
         @JvmStatic
         @Provides

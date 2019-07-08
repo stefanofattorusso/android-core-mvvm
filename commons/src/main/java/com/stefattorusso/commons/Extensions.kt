@@ -1,6 +1,5 @@
 package com.stefattorusso.commons
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
@@ -9,8 +8,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -57,6 +56,8 @@ fun ImageView.loadUrl(url: String?, callback: () -> Unit) {
     if (url == null) return
     Glide.with(context)
         .load(url)
+        .dontAnimate()
+        .dontTransform()
         .listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
@@ -85,19 +86,17 @@ fun ImageView.loadUrl(url: String?, callback: () -> Unit) {
 
 // Activity
 
-fun <TFragment : Fragment> Activity.loadFragment(
-    fragmentManager: FragmentManager,
+fun <TFragment : Fragment> AppCompatActivity.loadFragment(
     containerId: Int,
     fragment: TFragment
 ) {
-    fragmentManager
+    supportFragmentManager
         .beginTransaction()
         .replace(containerId, fragment, fragment.javaClass.simpleName)
         .commit()
 }
 
-fun <TFragment : Fragment> Activity.getFragment(fragmentManager: FragmentManager, containerId: Int): TFragment? =
-    fragmentManager.findFragmentById(containerId) as TFragment
+fun AppCompatActivity.getFragment(containerId: Int) = supportFragmentManager.findFragmentById(containerId)
 
 fun Context.isNetworkAvailable(): Boolean {
     val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -117,7 +116,7 @@ fun <TFragment : Fragment> TFragment.newInstance(bundle: Bundle?): TFragment {
 @ObsoleteCoroutinesApi
 fun View.setOnClick(action: suspend () -> Unit) {
     // launch one actor as a parent of the context job
-    val scope = (context as? CoroutineScope)?: AppCoroutineScope
+    val scope = (context as? CoroutineScope) ?: AppCoroutineScope
     val eventActor = scope.actor<Unit>(capacity = Channel.CONFLATED) {
         for (event in channel) action()
     }

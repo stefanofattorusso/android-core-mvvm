@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelper
-import com.stefattorusso.commons.lifecyclehelpers.injectfragment.InjectFragmentHelperCallback
 import com.stefattorusso.commons.newInstance
 import com.stefattorusso.commons.permission.getCameraPermission
 import com.stefattorusso.coremvvm.base.BaseActivity
@@ -15,18 +13,11 @@ import kotlinx.android.synthetic.main.grid_activity.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class CameraActivity : BaseActivity(), InjectFragmentHelperCallback<CameraFragment>, CameraFragment.FragmentCallback {
-
-    @Inject
-    lateinit var mInjectFragmentHelperImpl: InjectFragmentHelper
-
-    private var mMainFragment: CameraFragment? = null
+class CameraActivity : BaseActivity<CameraFragment>(), CameraFragment.FragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mInjectFragmentHelperImpl.setSavedInstanceState(savedInstanceState)
         supportActionBar?.run {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
@@ -42,13 +33,9 @@ class CameraActivity : BaseActivity(), InjectFragmentHelperCallback<CameraFragme
 
     // Fragment Helper
 
-    override fun onLoadFragmentContainer(savedInstanceState: Bundle?): View = content
+    override fun onLoadFragmentContainer(): View = content
 
     override fun onCreateFragment(): CameraFragment = CameraFragment().newInstance(intent.extras)
-
-    override fun onFragmentLoaded(fragment: CameraFragment) {
-        mMainFragment = fragment
-    }
 
     override fun onTakePictureClicked() {
         lifecycleScope.launch {
@@ -76,7 +63,7 @@ class CameraActivity : BaseActivity(), InjectFragmentHelperCallback<CameraFragme
                 ImagePickerUtil.getUriFromResult(this@CameraActivity, resultCode, resultData)
             }
             if (uri != null) {
-                mMainFragment?.drawPicture(uri)
+                getFragment()?.drawPicture(uri)
             }
         }
 
