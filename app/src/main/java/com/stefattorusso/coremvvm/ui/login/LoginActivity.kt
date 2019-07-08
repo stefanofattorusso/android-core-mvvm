@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.View
 import com.stefattorusso.commons.newInstance
 import com.stefattorusso.coremvvm.R
-import com.stefattorusso.coremvvm.base.BaseActivity
+import com.stefattorusso.coremvvm.base.BaseFragmentActivity
 import com.stefattorusso.coremvvm.ui.login.view.LoginFragment
 import kotlinx.android.synthetic.main.grid_activity.*
 
-class LoginActivity : BaseActivity<LoginFragment>(), LoginFragment.FragmentCallback {
+class LoginActivity : BaseFragmentActivity<LoginFragment>(), LoginFragment.FragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

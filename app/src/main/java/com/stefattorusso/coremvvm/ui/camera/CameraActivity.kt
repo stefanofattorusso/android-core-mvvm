@@ -6,7 +6,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.stefattorusso.commons.newInstance
 import com.stefattorusso.commons.permission.getCameraPermission
-import com.stefattorusso.coremvvm.base.BaseActivity
+import com.stefattorusso.coremvvm.base.BaseFragmentActivity
 import com.stefattorusso.coremvvm.ui.camera.view.CameraFragment
 import com.stefattorusso.coremvvm.utils.ImagePickerUtil
 import kotlinx.android.synthetic.main.grid_activity.*
@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CameraActivity : BaseActivity<CameraFragment>(), CameraFragment.FragmentCallback {
+class CameraActivity : BaseFragmentActivity<CameraFragment>(), CameraFragment.FragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -3,12 +3,12 @@ package com.stefattorusso.coremvvm.ui.splash
 import android.view.View
 import com.stefattorusso.commons.lifecyclehelpers.fullscreen.FullScreenActivityLifecycle
 import com.stefattorusso.commons.newInstance
-import com.stefattorusso.coremvvm.base.BaseActivity
+import com.stefattorusso.coremvvm.base.BaseFragmentActivity
 import com.stefattorusso.coremvvm.ui.splash.view.SplashFragment
 import kotlinx.android.synthetic.main.grid_activity.*
 import javax.inject.Inject
 
-class SplashActivity : BaseActivity<SplashFragment>(), SplashFragment.FragmentCallback {
+class SplashActivity : BaseFragmentActivity<SplashFragment>(), SplashFragment.FragmentCallback {
 
     @Inject
     lateinit var mFullScreenActivityLifecycle: FullScreenActivityLifecycle

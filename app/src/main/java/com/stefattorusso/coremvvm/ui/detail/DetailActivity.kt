@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import com.stefattorusso.commons.lifecyclehelpers.fullscreen.FullScreenActivityLifecycle
 import com.stefattorusso.commons.newInstance
-import com.stefattorusso.coremvvm.base.BaseActivity
+import com.stefattorusso.coremvvm.base.BaseFragmentActivity
 import com.stefattorusso.coremvvm.ui.detail.view.DetailFragment
 import kotlinx.android.synthetic.main.grid_activity.*
 import javax.inject.Inject
 
-class DetailActivity : BaseActivity<DetailFragment>(), DetailFragment.FragmentCallback {
+class DetailActivity : BaseFragmentActivity<DetailFragment>(), DetailFragment.FragmentCallback {
 
     @Inject
     lateinit var mFullScreenActivityLifecycle: FullScreenActivityLifecycle

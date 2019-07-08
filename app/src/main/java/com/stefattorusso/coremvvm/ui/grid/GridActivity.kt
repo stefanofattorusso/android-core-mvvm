@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import com.stefattorusso.commons.newInstance
-import com.stefattorusso.coremvvm.base.BaseActivity
+import com.stefattorusso.coremvvm.base.BaseFragmentActivity
 import com.stefattorusso.coremvvm.ui.grid.view.GridFragment
 import com.stefattorusso.domain.Image
 import kotlinx.android.synthetic.main.grid_activity.*
 
-class GridActivity : BaseActivity<GridFragment>(), GridFragment.FragmentCallback {
+class GridActivity : BaseFragmentActivity<GridFragment>(), GridFragment.FragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

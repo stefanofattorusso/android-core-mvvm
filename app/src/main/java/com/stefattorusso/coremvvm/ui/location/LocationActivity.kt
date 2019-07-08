@@ -6,12 +6,12 @@ import android.view.View
 import com.stefattorusso.commons.lifecyclehelpers.location.LocationHelperCallback
 import com.stefattorusso.commons.lifecyclehelpers.location.LocationHelperLifecycle
 import com.stefattorusso.commons.newInstance
-import com.stefattorusso.coremvvm.base.BaseActivity
+import com.stefattorusso.coremvvm.base.BaseFragmentActivity
 import com.stefattorusso.coremvvm.ui.location.view.LocationFragment
 import kotlinx.android.synthetic.main.grid_activity.*
 import javax.inject.Inject
 
-class LocationActivity : BaseActivity<LocationFragment>(), LocationFragment.FragmentCallback,
+class LocationActivity : BaseFragmentActivity<LocationFragment>(), LocationFragment.FragmentCallback,
     LocationHelperCallback {
 
     @Inject

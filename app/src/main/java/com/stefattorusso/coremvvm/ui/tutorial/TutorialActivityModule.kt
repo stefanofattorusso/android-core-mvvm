@@ -2,6 +2,7 @@ package com.stefattorusso.coremvvm.ui.tutorial
 
 import android.app.Activity
 import com.stefattorusso.coremvvm.base.BaseActivityModule
+import com.stefattorusso.coremvvm.base.BaseFragmentActivityModule
 import com.stefattorusso.coremvvm.di.scope.ActivityScope
 import com.stefattorusso.coremvvm.di.scope.FragmentScope
 import com.stefattorusso.coremvvm.ui.tutorial.view.TutorialFragment
@@ -10,11 +11,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-@Module(
-    includes = arrayOf(
-        BaseActivityModule::class
-    )
-)
+@Module(includes = arrayOf(BaseFragmentActivityModule::class))
 abstract class TutorialActivityModule {
 
     /**

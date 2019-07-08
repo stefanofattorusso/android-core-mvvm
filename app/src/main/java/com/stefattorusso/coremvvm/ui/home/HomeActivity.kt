@@ -2,7 +2,7 @@ package com.stefattorusso.coremvvm.ui.home
 
 import android.view.View
 import com.stefattorusso.commons.newInstance
-import com.stefattorusso.coremvvm.base.BaseActivity
+import com.stefattorusso.coremvvm.base.BaseFragmentActivity
 import com.stefattorusso.coremvvm.ui.components.TutorialOverlayComponentView
 import com.stefattorusso.coremvvm.ui.home.view.HomeFragment
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.CAMERA
@@ -12,7 +12,7 @@ import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.LOGIN
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel.Companion.PROFILE
 import kotlinx.android.synthetic.main.grid_activity.*
 
-class HomeActivity : BaseActivity<HomeFragment>(), HomeFragment.FragmentCallback {
+class HomeActivity : BaseFragmentActivity<HomeFragment>(), HomeFragment.FragmentCallback {
 
     // Fragment Helper
 
