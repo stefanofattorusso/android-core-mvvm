@@ -8,10 +8,9 @@ import com.stefattorusso.coremvvm.utils.Error
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.ValidatorHelper
+import com.stefattorusso.domain.Outcome
 import com.stefattorusso.domain.interactor.LoginUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor() : BaseViewModel() {
@@ -32,7 +31,6 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
     fun isPasswordValid(): LiveData<Boolean> = passwordValid
 
     fun loginUserWithEmail(email: String, password: String) {
-        uiState.value = Loading
         if (validateData(email, password)) {
             triggerLogin(email, password)
         }
@@ -40,19 +38,13 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
 
     private fun triggerLogin(email: String, password: String) {
         viewModelScope.launch {
-            var throwable: Throwable? = null
-            try {
-                withContext(Dispatchers.IO) {
-                    loginUseCase.execute(email, password)
+            uiState.value = Loading
+            when (val result = loginUseCase.execute(email, password)) {
+                is Outcome.Success -> uiState.value = HasData
+                is Outcome.Error -> {
+                    error.value = result.cause
+                    uiState.value = Error
                 }
-            } catch (e: Exception) {
-                throwable = e
-            }
-            if (throwable != null) {
-                error.value = throwable
-                uiState.value = Error
-            } else {
-                uiState.value = HasData
             }
         }
     }

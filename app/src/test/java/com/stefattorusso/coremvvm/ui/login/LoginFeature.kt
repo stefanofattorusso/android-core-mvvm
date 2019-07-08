@@ -9,7 +9,7 @@ import com.nhaarman.mockitokotlin2.inOrder
 import com.stefattorusso.coremvvm.BaseTestShould
 import com.stefattorusso.coremvvm.ui.login.view.LoginViewModel
 import com.stefattorusso.coremvvm.utils.*
-import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchers
+import com.stefattorusso.data.coroutines.CoroutineDispatchers
 import com.stefattorusso.data.repository.AuthRepositoryImpl
 import com.stefattorusso.domain.interactor.LoginUseCase
 import com.stefattorusso.domain.interactor.impl.LoginUseCaseImpl
@@ -46,7 +46,7 @@ class LoginFeature : BaseTestShould() {
         loginUseCase = LoginUseCaseImpl(authRepository)
         loginViewModel = LoginViewModel().also {
             it.loginUseCase = loginUseCase
-            it.dispatcher = coroutineDispatchers
+//            it.dispatcher = coroutineDispatchers
             it.uiState.value = null
         }
     }

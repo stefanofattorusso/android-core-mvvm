@@ -7,10 +7,10 @@ import com.stefattorusso.domain.repository.ImageRepository
 import javax.inject.Inject
 
 class GetImageListUseCaseImpl @Inject constructor(
-    imageRepository: ImageRepository
-) : BaseUseCaseImpl<ImageRepository>(imageRepository), GetImageListUseCase {
+    private val imageRepository: ImageRepository
+) : GetImageListUseCase {
 
     override suspend fun execute(): Outcome<List<Image>> {
-        return repository.retrieveList()
+        return imageRepository.retrieveList()
     }
 }

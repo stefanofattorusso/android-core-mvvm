@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.stefattorusso.coremvvm.base.mvvm.BaseViewModel
 import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.data.models.ImageModel
+import com.stefattorusso.coremvvm.utils.Error
 import com.stefattorusso.coremvvm.utils.HasData
 import com.stefattorusso.coremvvm.utils.Loading
 import com.stefattorusso.coremvvm.utils.NoData
@@ -48,6 +49,10 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
                     imageList = result.value.shuffled()
                     imageModelList.value = mapObjects(imageList)
                     uiState.value = NoData.takeIf { imageList.isNullOrEmpty() } ?: HasData
+                }
+                is Outcome.Error -> {
+                    uiState.value = Error
+                    error.value = result.cause
                 }
             }
         }

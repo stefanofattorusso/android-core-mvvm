@@ -18,8 +18,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
     private var modelList: MutableLiveData<List<MenuModel>> = MutableLiveData()
     private var selectedItem: MutableLiveData<MenuModel> = MutableLiveData()
 
-    override fun onAttached() {
-        super.onAttached()
+    init {
         loadData()
     }
 
