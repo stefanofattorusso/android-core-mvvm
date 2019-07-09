@@ -42,11 +42,10 @@ class LoginFeature : BaseTestShould() {
     @Before
     fun initialize() {
         coroutineDispatchers = TestCoroutineDispatchersImpl()
-        authRepository = AuthRepositoryImpl(firebaseAuth)
+        authRepository = AuthRepositoryImpl(firebaseAuth, coroutineDispatchers)
         loginUseCase = LoginUseCaseImpl(authRepository)
         loginViewModel = LoginViewModel().also {
             it.loginUseCase = loginUseCase
-//            it.dispatcher = coroutineDispatchers
             it.uiState.value = null
         }
     }

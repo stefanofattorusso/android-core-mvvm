@@ -7,8 +7,9 @@ import com.stefattorusso.coremvvm.BaseTestShould
 import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.ui.grid.view.GridViewModel
 import com.stefattorusso.coremvvm.utils.TestCoroutineDispatchersImpl
-import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchers
+import com.stefattorusso.data.coroutines.CoroutineDispatchers
 import com.stefattorusso.domain.Image
+import com.stefattorusso.domain.Outcome
 import com.stefattorusso.domain.interactor.GetImageListUseCase
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -28,15 +29,14 @@ class GridViewModelShould : BaseTestShould() {
     private lateinit var coroutineDispatchers: CoroutineDispatchers
     private lateinit var gridViewModel: GridViewModel
 
-    private val list = listOf(Image())
-    private val emptyList = emptyList<Image>()
+    private val list = Outcome.Success(listOf(Image()))
+    private val emptyList = Outcome.Success(emptyList<Image>())
 
     @Before
     fun initialize() {
         coroutineDispatchers = TestCoroutineDispatchersImpl()
         gridViewModel = GridViewModel().also {
             it.getImageListUseCase = getImageListUseCase
-            it.dispatcher = coroutineDispatchers
             it.mImageModelMapper = imageModelMapper
         }
     }
@@ -47,7 +47,7 @@ class GridViewModelShould : BaseTestShould() {
 
         gridViewModel.onAttached()
 
-        verifyBlocking(imageModelMapper) { transform(list[0]) }
+        verifyBlocking(imageModelMapper) { transform(list.value[0]) }
     }
 
     @Test
@@ -56,7 +56,7 @@ class GridViewModelShould : BaseTestShould() {
 
         gridViewModel.onAttached()
 
-        verifyBlocking(imageModelMapper, never()) { transform(list[0]) }
+        verifyBlocking(imageModelMapper, never()) { transform(list.value[0]) }
     }
 
     @Test
@@ -65,6 +65,6 @@ class GridViewModelShould : BaseTestShould() {
 
         gridViewModel.onAttached()
 
-        verifyBlocking(imageModelMapper, never()) { transform(list[0]) }
+        verifyBlocking(imageModelMapper, never()) { transform(list.value[0]) }
     }
 }

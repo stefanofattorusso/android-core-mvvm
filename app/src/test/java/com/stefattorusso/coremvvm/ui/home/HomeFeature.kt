@@ -5,7 +5,7 @@ import com.nhaarman.mockitokotlin2.inOrder
 import com.stefattorusso.coremvvm.BaseTestShould
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel
 import com.stefattorusso.coremvvm.utils.*
-import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchers
+import com.stefattorusso.data.coroutines.CoroutineDispatchers
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,7 +28,6 @@ class HomeFeature : BaseTestShould(){
     fun initialize(){
         coroutineDispatchers = TestCoroutineDispatchersImpl()
         homeViewModel = HomeViewModel().also {
-            it.dispatcher = coroutineDispatchers
             it.uiState.value = null
         }
     }

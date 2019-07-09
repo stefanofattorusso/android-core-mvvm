@@ -21,8 +21,10 @@ class GetImageListUseCaseShould : BaseTestShould() {
 
     private lateinit var getImageListUseCase: GetImageListUseCase
 
-    private val results = listOf(Image())
-    private val emptyResults = emptyList<Image>()
+    private val results = Outcome.Success(listOf(Image()))
+    private val emptyResults = Outcome.Success(emptyList<Image>())
+    private val networkError = Outcome.Error(Outcome.FailureReason.NETWORK_ERROR, Exception())
+    private val unknownError = Outcome.Error(Outcome.FailureReason.UNKNOWN_ERROR, Exception())
 
     @Before
     fun init() {
@@ -48,5 +50,19 @@ class GetImageListUseCaseShould : BaseTestShould() {
         given(imageRepository.retrieveList()).willReturn(null)
         val result = getImageListUseCase.execute()
         assertNull(result)
+    }
+
+    @Test
+    fun return_failure_result_caused_by_network_error() = runBlocking {
+        given(imageRepository.retrieveList()).willReturn(networkError)
+        val result = getImageListUseCase.execute()
+        assertEquals(result, networkError)
+    }
+
+    @Test
+    fun return_failure_result_caused_by_unknown_error() = runBlocking {
+        given(imageRepository.retrieveList()).willReturn(unknownError)
+        val result = getImageListUseCase.execute()
+        assertEquals(result, unknownError)
     }
 }

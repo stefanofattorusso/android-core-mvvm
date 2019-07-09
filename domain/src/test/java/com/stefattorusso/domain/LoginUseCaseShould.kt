@@ -31,7 +31,7 @@ class LoginUseCaseShould : BaseTestShould() {
 
     @Test
     fun return_successful_result_when_login_succeed() = runBlocking {
-        given(authRepository.loginWithEmailAndPassword("test@test.com", "test")).willReturn(loggedUser)
+        given(authRepository.loginWithEmailAndPassword("test@test.com", "test")).willReturn(Outcome.Success(loggedUser))
         val result = loginUseCase.execute("test@test.com", "test")
         assertEquals(result, loggedUser)
     }

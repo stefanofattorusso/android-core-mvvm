@@ -8,8 +8,9 @@ import com.stefattorusso.coremvvm.BaseTestShould
 import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.ui.grid.view.GridViewModel
 import com.stefattorusso.coremvvm.utils.*
-import com.stefattorusso.coremvvm.utils.coroutines.CoroutineDispatchers
+import com.stefattorusso.data.coroutines.CoroutineDispatchers
 import com.stefattorusso.domain.Image
+import com.stefattorusso.domain.Outcome
 import com.stefattorusso.domain.interactor.GetImageListUseCase
 import com.stefattorusso.domain.interactor.impl.GetImageListUseCaseImpl
 import com.stefattorusso.domain.repository.ImageRepository
@@ -38,8 +39,8 @@ class GridFeature : BaseTestShould() {
     private val homeResults = HasData
     private val emptyResults = NoData
     private val errorResults = Error
-    private val list = listOf(Image())
-    private val emptyList = emptyList<Image>()
+    private val list = Outcome.Success(listOf(Image()))
+    private val emptyList = Outcome.Success(emptyList<Image>())
 
     @Before
     fun initialize() {
@@ -47,7 +48,6 @@ class GridFeature : BaseTestShould() {
         getImageListUseCase = GetImageListUseCaseImpl(imageRepository)
         coroutineDispatchers = TestCoroutineDispatchersImpl()
         gridViewModel = GridViewModel().also {
-            it.dispatcher = coroutineDispatchers
             it.getImageListUseCase = getImageListUseCase
             it.mImageModelMapper = imageModelMapper
             it.uiState.value = null
