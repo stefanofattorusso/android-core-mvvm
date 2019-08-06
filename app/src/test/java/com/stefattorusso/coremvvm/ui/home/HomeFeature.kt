@@ -6,14 +6,21 @@ import com.stefattorusso.coremvvm.BaseTestShould
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel
 import com.stefattorusso.coremvvm.utils.*
 import com.stefattorusso.data.coroutines.CoroutineDispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class HomeFeature : BaseTestShould(){
+class HomeFeature : BaseTestShould() {
+
+    @get:Rule
+    var coroutinesTestRule = CoroutinesTestRule()
 
     @Mock
     private lateinit var stateLiveDataObserver: Observer<UIState>
@@ -25,17 +32,14 @@ class HomeFeature : BaseTestShould(){
     private val errorResults = Error
 
     @Before
-    fun initialize(){
+    fun initialize() {
         coroutineDispatchers = TestCoroutineDispatchersImpl()
-        homeViewModel = HomeViewModel().also {
-            it.uiState.value = null
-        }
+        homeViewModel = HomeViewModel()
     }
 
     @Test
-    fun perform_load_data(){
+    fun perform_load_data() = coroutinesTestRule.testDispatcher.runBlockingTest {
         homeViewModel.uiState.observeForever(stateLiveDataObserver)
-        homeViewModel.onAttached()
 
         inOrder(stateLiveDataObserver) {
             verify(stateLiveDataObserver).onChanged(enableLoading)
