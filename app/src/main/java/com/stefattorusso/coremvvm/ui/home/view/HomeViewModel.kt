@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         return sampleItemList
     }
 
-    private fun loadData() {
+    fun loadData() {
         viewModelScope.launch {
             uiState.value = Loading
             modelList.value = withContext(Dispatchers.Default) { initData() }

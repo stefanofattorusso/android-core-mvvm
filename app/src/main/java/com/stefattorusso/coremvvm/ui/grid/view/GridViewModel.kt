@@ -17,17 +17,14 @@ import com.stefattorusso.domain.interactor.GetImageListUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class GridViewModel @Inject constructor() : BaseViewModel() {
-
-    @Inject
-    lateinit var mImageModelMapper: ImageModelMapper
-    @Inject
-    lateinit var getImageListUseCase: GetImageListUseCase
-
-    private var imageList = listOf<Image>()
+class GridViewModel @Inject constructor(
+    private val getImageListUseCase: GetImageListUseCase,
+    private val mImageModelMapper: ImageModelMapper
+) : BaseViewModel() {
 
     private var imageModelList: MutableLiveData<List<ImageModel>> = MutableLiveData()
     private var selectedItem: MutableLiveData<Pair<ImageView, Image>> = MutableLiveData()
+    private var imageList = listOf<Image>()
 
     init {
         loadData()
@@ -41,7 +38,7 @@ class GridViewModel @Inject constructor() : BaseViewModel() {
 
     fun getSelectedItem(): LiveData<Pair<ImageView, Image>> = selectedItem
 
-    private fun loadData() {
+    fun loadData() {
         viewModelScope.launch {
             uiState.value = Loading
             when (val result = getImageListUseCase.execute()) {

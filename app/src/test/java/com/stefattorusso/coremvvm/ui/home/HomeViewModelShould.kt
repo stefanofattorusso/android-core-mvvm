@@ -5,12 +5,15 @@ import com.stefattorusso.coremvvm.data.models.MenuModel
 import com.stefattorusso.coremvvm.ui.home.view.HomeViewModel
 import com.stefattorusso.coremvvm.utils.TestCoroutineDispatchersImpl
 import com.stefattorusso.data.coroutines.CoroutineDispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class HomeViewModelShould : BaseTestShould() {
 
@@ -28,7 +31,7 @@ class HomeViewModelShould : BaseTestShould() {
     }
 
     @Test
-    fun return_successful_data_result() {
+    fun return_successful_data_result() = coroutinesTestRule.testDispatcher.runBlockingTest {
         val result = homeViewModel.initData()
         assertTrue(result.isNotEmpty())
     }

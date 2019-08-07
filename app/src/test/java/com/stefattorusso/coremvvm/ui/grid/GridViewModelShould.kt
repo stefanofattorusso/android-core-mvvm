@@ -35,10 +35,7 @@ class GridViewModelShould : BaseTestShould() {
     @Before
     fun initialize() {
         coroutineDispatchers = TestCoroutineDispatchersImpl()
-        gridViewModel = GridViewModel().also {
-            it.getImageListUseCase = getImageListUseCase
-            it.mImageModelMapper = imageModelMapper
-        }
+        gridViewModel = GridViewModel(getImageListUseCase, imageModelMapper)
     }
 
     @Test

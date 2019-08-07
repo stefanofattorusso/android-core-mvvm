@@ -1,6 +1,5 @@
 package com.stefattorusso.coremvvm.ui.grid
 
-import android.content.Context
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.inOrder
@@ -8,33 +7,29 @@ import com.stefattorusso.coremvvm.BaseTestShould
 import com.stefattorusso.coremvvm.data.mapper.ImageModelMapper
 import com.stefattorusso.coremvvm.ui.grid.view.GridViewModel
 import com.stefattorusso.coremvvm.utils.*
-import com.stefattorusso.data.coroutines.CoroutineDispatchers
 import com.stefattorusso.domain.Image
 import com.stefattorusso.domain.Outcome
 import com.stefattorusso.domain.interactor.GetImageListUseCase
-import com.stefattorusso.domain.interactor.impl.GetImageListUseCaseImpl
-import com.stefattorusso.domain.repository.ImageRepository
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class GridFeature : BaseTestShould() {
 
     @Mock
     private lateinit var stateLiveDataObserver: Observer<UIState>
     @Mock
-    private lateinit var imageRepository: ImageRepository
+    private lateinit var getImageListUseCase: GetImageListUseCase
     @Mock
-    private lateinit var context: Context
+    private lateinit var imageModelMapper: ImageModelMapper
 
     private lateinit var gridViewModel: GridViewModel
-    private lateinit var coroutineDispatchers: CoroutineDispatchers
-    private lateinit var getImageListUseCase: GetImageListUseCase
-    private lateinit var imageModelMapper: ImageModelMapper
     private val enableLoading = Loading
     private val homeResults = HasData
     private val emptyResults = NoData
@@ -44,21 +39,14 @@ class GridFeature : BaseTestShould() {
 
     @Before
     fun initialize() {
-        imageModelMapper = ImageModelMapper(context)
-        getImageListUseCase = GetImageListUseCaseImpl(imageRepository)
-        coroutineDispatchers = TestCoroutineDispatchersImpl()
-        gridViewModel = GridViewModel().also {
-            it.getImageListUseCase = getImageListUseCase
-            it.mImageModelMapper = imageModelMapper
-            it.uiState.value = null
-        }
+        gridViewModel = GridViewModel(getImageListUseCase, imageModelMapper)
     }
 
     @Test
-    fun perform_load_data() = runBlocking {
-        given(imageRepository.retrieveList()).willReturn(list)
+    fun perform_load_data() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        given(getImageListUseCase.execute()).willReturn(list)
         gridViewModel.uiState.observeForever(stateLiveDataObserver)
-        gridViewModel.onAttached()
+        gridViewModel.loadData()
 
         inOrder(stateLiveDataObserver) {
             verify(stateLiveDataObserver).onChanged(enableLoading)
@@ -67,10 +55,10 @@ class GridFeature : BaseTestShould() {
     }
 
     @Test
-    fun perform_load_empty_data() = runBlocking {
-        given(imageRepository.retrieveList()).willReturn(emptyList)
+    fun perform_load_empty_data() = coroutinesTestRule.testDispatcher.runBlockingTest {
+        given(getImageListUseCase.execute()).willReturn(emptyList)
         gridViewModel.uiState.observeForever(stateLiveDataObserver)
-        gridViewModel.onAttached()
+        gridViewModel.loadData()
 
         inOrder(stateLiveDataObserver) {
             verify(stateLiveDataObserver).onChanged(enableLoading)
