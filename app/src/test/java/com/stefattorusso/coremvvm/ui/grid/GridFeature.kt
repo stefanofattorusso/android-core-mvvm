@@ -9,7 +9,7 @@ import com.stefattorusso.coremvvm.ui.grid.view.GridViewModel
 import com.stefattorusso.coremvvm.utils.*
 import com.stefattorusso.domain.Image
 import com.stefattorusso.domain.Outcome
-import com.stefattorusso.domain.interactor.GetImageListUseCase
+import com.stefattorusso.domain.interactor.GetRandomImageListUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -25,7 +25,7 @@ class GridFeature : BaseTestShould() {
     @Mock
     private lateinit var stateLiveDataObserver: Observer<UIState>
     @Mock
-    private lateinit var getImageListUseCase: GetImageListUseCase
+    private lateinit var getRandomImageListUseCase: GetRandomImageListUseCase
     @Mock
     private lateinit var imageModelMapper: ImageModelMapper
 
@@ -39,12 +39,12 @@ class GridFeature : BaseTestShould() {
 
     @Before
     fun initialize() {
-        gridViewModel = GridViewModel(getImageListUseCase, imageModelMapper)
+        gridViewModel = GridViewModel(getRandomImageListUseCase, imageModelMapper)
     }
 
     @Test
     fun perform_load_data() = coroutinesTestRule.testDispatcher.runBlockingTest {
-        given(getImageListUseCase.execute()).willReturn(list)
+        given(getRandomImageListUseCase.execute()).willReturn(list)
         gridViewModel.uiState.observeForever(stateLiveDataObserver)
         gridViewModel.loadData()
 
@@ -56,7 +56,7 @@ class GridFeature : BaseTestShould() {
 
     @Test
     fun perform_load_empty_data() = coroutinesTestRule.testDispatcher.runBlockingTest {
-        given(getImageListUseCase.execute()).willReturn(emptyList)
+        given(getRandomImageListUseCase.execute()).willReturn(emptyList)
         gridViewModel.uiState.observeForever(stateLiveDataObserver)
         gridViewModel.loadData()
 

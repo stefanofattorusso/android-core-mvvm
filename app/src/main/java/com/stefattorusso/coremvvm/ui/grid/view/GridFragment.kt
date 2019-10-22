@@ -55,11 +55,11 @@ class GridFragment : BaseVMFragment<GridFragment.FragmentCallback, GridViewModel
 
     private class GridDiffCallback : DiffUtil.ItemCallback<ImageModel>() {
         override fun areItemsTheSame(oldItem: ImageModel, newItem: ImageModel): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: ImageModel, newItem: ImageModel): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
     }
 

@@ -15,7 +15,7 @@ class AppRetrofitGateway(
     override suspend fun retrieveListAsync(): Outcome<List<ImageEntity>> {
         return withContext(dispatchers.io) {
             try {
-                Outcome.Success(appRetrofitService.retrieveImageList())
+                Outcome.Success(appRetrofitService.retrieveImageList(1, 100))
             } catch (e: Exception) {
                 Outcome.Error(Outcome.FailureReason.NETWORK_ERROR)
             }

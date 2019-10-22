@@ -10,7 +10,7 @@ import com.stefattorusso.coremvvm.utils.TestCoroutineDispatchersImpl
 import com.stefattorusso.data.coroutines.CoroutineDispatchers
 import com.stefattorusso.domain.Image
 import com.stefattorusso.domain.Outcome
-import com.stefattorusso.domain.interactor.GetImageListUseCase
+import com.stefattorusso.domain.interactor.GetRandomImageListUseCase
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -22,7 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class GridViewModelShould : BaseTestShould() {
 
     @Mock
-    private lateinit var getImageListUseCase: GetImageListUseCase
+    private lateinit var getRandomImageListUseCase: GetRandomImageListUseCase
     @Mock
     private lateinit var imageModelMapper: ImageModelMapper
 
@@ -35,12 +35,12 @@ class GridViewModelShould : BaseTestShould() {
     @Before
     fun initialize() {
         coroutineDispatchers = TestCoroutineDispatchersImpl()
-        gridViewModel = GridViewModel(getImageListUseCase, imageModelMapper)
+        gridViewModel = GridViewModel(getRandomImageListUseCase, imageModelMapper)
     }
 
     @Test
     fun return_successful_data_result() = runBlocking {
-        given(getImageListUseCase.execute()).willReturn(list)
+        given(getRandomImageListUseCase.execute()).willReturn(list)
 
         gridViewModel.onAttached()
 
@@ -49,7 +49,7 @@ class GridViewModelShould : BaseTestShould() {
 
     @Test
     fun return_successful_data_empty_result() = runBlocking {
-        given(getImageListUseCase.execute()).willReturn(emptyList)
+        given(getRandomImageListUseCase.execute()).willReturn(emptyList)
 
         gridViewModel.onAttached()
 
@@ -58,7 +58,7 @@ class GridViewModelShould : BaseTestShould() {
 
     @Test
     fun return_failure_data_no_result() = runBlocking {
-        given(getImageListUseCase.execute()).willReturn(null)
+        given(getRandomImageListUseCase.execute()).willReturn(null)
 
         gridViewModel.onAttached()
 
