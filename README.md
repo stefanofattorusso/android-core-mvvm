@@ -23,6 +23,9 @@ A sample project with basic implementation of MVVM and Android Architecture Comp
 * [Dagger](https://google.github.io/dagger/) - Dependency injection framework
 * [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java
 
+## Testing 
+WIP
+
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
